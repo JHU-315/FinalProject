@@ -1,0 +1,19 @@
+Selected Underlying Medical Conditions of COVID-19-associated Hospitalizations from the COVID-NET Network (data downloaded on 11/14/2022)Centers for Disease Control and Prevention
+YEAR,MEDICAL CONDITION,CHILDREN-COUNT,CHILDREN-PERCENT(%),ADULTS-COUNT,ADULTS-PERCENT(%),FEMALES (15-44 YR)-COUNT,FEMALES (15-44 YR)-PERCENT(%)
+2020-22,Asthma,1415,13.9,N/A,12.1,N/A,N/A
+2020-22,Cardiovascular disease,665,6.5,N/A,36.9,N/A,N/A
+2020-22,Chronic lung disease,1222,12.0,N/A,44.8,N/A,N/A
+2020-22,Immune suppression,609,6.0,N/A,12.1,N/A,N/A
+2020-22,Metabolic disease,574,5.6,N/A,41.4,N/A,N/A
+2020-22,Neurologic disease,1599,15.7,N/A,20.7,N/A,N/A
+2020-22,Other disease,2717,26.7,N/A,31.8,N/A,N/A
+2020-22,No known condition,4623,45.4,N/A,8.0,N/A,N/A
+2020-22,Autoimmune disease ,337,3.3,N/A,6.9,N/A,N/A
+2020-22,Obesity,1548,29.8,N/A,47.1,N/A,N/A
+2020-22,Pregnancy,N/A,N/A,N/A,N/A,N/A,34.2
+2020-22,Renal disease,184,1.8,N/A,18.0,N/A,N/A
+2020-22,Gastrointestinal/liver disease,644,6.3,N/A,10.7,N/A,N/A
+2020-22,Hypertension,149,1.5,N/A,57.0,N/A,N/A
+
+"1.COVID-NET hospitalization data are preliminary and subject to change as more data become available. In particular, case counts and rates for recent hospital admissions are subject to delay. Lag for COVID-NET case identification and reporting might increase around holidays or during periods of increased hospital utilization. As data are received each week, prior case counts and rates are updated accordingly."
+"2. Data are restricted to cases reported during March 1, 2020 – August 31, 2022, due to delays in reporting. During this time frame, sampling was conducted among hospitalized adults aged >=18 years; therefore, counts are not shown, and weighted percentages are reported. The denominator for percentages among adults includes sampled cases with data on these conditions. No sampling was conducted among hospitalized children; therefore, the denominator for percentages of underlying medical conditions among children includes all pediatric cases with data on these conditions. Underlying medical conditions among pregnant women are included when 'Adults' and/or 'Pediatrics' is selected."
