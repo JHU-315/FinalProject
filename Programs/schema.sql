@@ -1,6 +1,7 @@
 /*Unemployment Rate*/
 /*Data are as a percentage for rate*/
-CREATE TABLE UnemploymentRate
+DROP TABLE Unemployment_Rate;
+CREATE TABLE Unemployment_Rate
 (
     Date VARCHAR(10),
     Total FLOAT(4),
@@ -16,6 +17,7 @@ CREATE TABLE UnemploymentRate
 
 /*Civillian Labor Force - No Disability 16 yrs and over*/
 /*Numbers in thousands*/
+DROP TABLE 16Yrs_Over_Labor;
 CREATE TABLE 16Yrs_Over_Labor
 (
     YEAR INT,
@@ -30,13 +32,14 @@ CREATE TABLE 16Yrs_Over_Labor
     Sep INT,
     Oct INT,
     Nov INT,
-    Dec INT,
+    Dece INT,
     PRIMARY KEY(YEAR)
 );
 
 
 /*Civillian Labor Force - No Disability 16 yrs and over*/
 /*Numbers in thousands*/
+DROP TABLE 16yrs_64_yrs_men_labor;
 CREATE TABLE 16yrs_64_yrs_men_labor
 (
     YEAR INT,
@@ -51,12 +54,13 @@ CREATE TABLE 16yrs_64_yrs_men_labor
     Sep INT,
     Oct INT,
     Nov INT,
-    Dec INT,
+    Dece INT,
     PRIMARY KEY(YEAR)
 );
 
 /*Civillian Labor Force - No Disability 16 yrs and over*/
 /*Numbers in thousands*/
+DROP TABLE 16yrs_64_yrs_women_labor;
 CREATE TABLE 16yrs_64_yrs_women_labor
 (
     YEAR INT,
@@ -71,12 +75,13 @@ CREATE TABLE 16yrs_64_yrs_women_labor
     Sep INT,
     Oct INT,
     Nov INT,
-    Dec INT,
+    Dece INT,
     PRIMARY KEY(YEAR)
 );
 
 /*Civillian Labor Force - No Disability 65 yrs and over*/
 /*Numbers in thousands*/
+DROP TABLE 65yrs_older_labor;
 CREATE TABLE 65yrs_older_labor
 (
     YEAR INT,
@@ -91,12 +96,13 @@ CREATE TABLE 65yrs_older_labor
     Sep INT,
     Oct INT,
     Nov INT,
-    Dec INT,
+    Dece INT,
     PRIMARY KEY(YEAR)
 );
 
 /*Gross Output By Industry*/
 /*Percent Change in Real Gross Domestic Product*/
+DROP TABLE GDP_Percent_Change;
 CREATE TABLE GDP_Percent_Change
 (
     Industry VARCHAR(30),
@@ -117,20 +123,23 @@ CREATE TABLE GDP_Percent_Change
 
 /*COVID Cases By State*/
 /*average cases for seven-day trailing average*/
-CASE TABLE COVID_Cases
+DROP TABLE COVID_Cases;
+CREATE TABLE COVID_Cases
 (
-    Date VARCHAR(10),
+    Date_Text VARCHAR(10),
     GeoID VARCHAR(6),
-    State VARCHAR(30),
+    State_Name VARCHAR(30),
     Cases INT,
     Cases_Avg FLOAT(4),
     Cases_Avg_100k FLOAT(4),
+    PRIMARY KEY(Date_Text,GeoID)
 );
 
 /*Consumer Prices*/
 /*12 month percent change*/
-CASE TABLE Consumer_Prices(
-    Date VARCHAR(10),
+DROP TABLE Consumer_Prices;
+CREATE TABLE Consumer_Prices(
+    Date_Text VARCHAR(10),
     All_Items FLOAT(4),
     Food FLOAT(4),
     Food_At_Home FLOAT(4),
@@ -148,11 +157,12 @@ CASE TABLE Consumer_Prices(
     Shelter FLOAT(4),
     Medical_Care_Services FLOAT(4),
     Education_and_Communications FLOAT(4),
-    PRIMARY KEY(Date)
+    PRIMARY KEY(Date_Text)
 );
 
 /*COVID Cases By Race*/
 /*Data Information Indicated by Percentage*/
+DROP TABLE COVID_Cases_By_Race;
 CREATE TABLE COVID_Cases_By_Race(
     Data_As_Of VARCHAR(10),
     Start_Date VARCHAR(10),
@@ -160,8 +170,8 @@ CREATE TABLE COVID_Cases_By_Race(
     Year VARCHAR(10),
     /*May want to change year to int*/
     Month INT,
-    Group VARCHAR(15),
-    State VARCHAR(20),
+    Group_Name VARCHAR(15),
+    State_Name VARCHAR(20),
     Indicator VARCHAR(100),
     Non_Hispanic_White INT,
     Non_Hispanic_Black INT,
@@ -169,21 +179,22 @@ CREATE TABLE COVID_Cases_By_Race(
     Non_Hispanic_Native_Hawaiian_Pacific_Islander INT,
     Non_Hispanic_More_Than_One_Race INT,
     Hispanic_Or_Latino INT,
-    PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Year, Month, Group, Indicator)
+    PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Year, Month, Group_Name, Indicator)
 
 );
 
 /*COVID Cases By Age*/
 /*Number of Patients*/
+DROP TABLE COVID_Cases_By_Age;
 CREATE TABLE COVID_Cases_By_Age(
     Date_As_Of VARCHAR(10),
     Start_Date VARCHAR(10),
     End_Date VARCHAR(10),
-    Group VARCHAR(15),
+    Group_Name VARCHAR(15),
     Year INT,
     /*May want to change year to var char depending*/
     Month INT,
-    State VARCHAR(20),
+    State_Name VARCHAR(20),
     Age_Group VARCHAR(20),
     COVID_19_Death INT,
     TOTAL_DEATHS INT,
@@ -196,9 +207,10 @@ CREATE TABLE COVID_Cases_By_Age(
 
 /**COVID Cases By Age*/
 /*Number of Patients*/
+DROP TABLE COVID_By_Age;
 CREATE TABLE COVID_By_Age(
     Year INT,
-    Week_Number Number,
+    Week_Number INT,
     0_4_yrs INT,
     5_17_yrs INT,
     18_49_yrs INT,
@@ -211,9 +223,9 @@ CREATE TABLE COVID_By_Age(
 /*State Household Income*/
 /*Millions of Dollars, seasonally adjusted*/
 /*Realistically we only need values from 2021*/
-
+DROP TABLE Household_Income;
 CREATE TABLE Household_Income(
-    State VARCHAR(20),
+    State_Name VARCHAR(20),
     2021_Q1 INT,
     2021_Q2 INT,
     2021_Q3 INT,
@@ -225,15 +237,16 @@ CREATE TABLE Household_Income(
     2021_Q4_Percent_Change FLOAT(4),
     2022_Q1_Percent_Change FLOAT(4),
     2022_Q2_Percent_Change FLOAT(4),
-    PRIMARY KEY(State)
+    PRIMARY KEY(State_Name)
 );
 
 /*Vaccination Status*/
 /*Populations and Ratios*/
+DROP TABLE Vaccination_Status;
 CREATE TABLE Vaccination_Status(
     Outcome VARCHAR(20),
     Month VARCHAR(10),
-    MMWR Week INT,
+    MMWR_Week INT,
     Age_Group VARCHAR(10),
     Vaccine_Product VARCHAR(20),
     Vaccination_With_Outcome INT,
@@ -247,24 +260,25 @@ CREATE TABLE Vaccination_Status(
     Age_Adjusted_Vax_IR FLOAT(7),
     Age_Adjusted_Unvax_IR FLOAT(7),
     Age_Adjusted_IRR FLOAT(7),
-    PRIMARY KEY(MMWR Week, Age_Group)
+    PRIMARY KEY(MMWR_Week, Age_Group)
 );
 
 
 /*Health Conditions Contribuition To COVID*/
+DROP TABLE Health_Conditions_Causing_COVID;
 CREATE TABLE Health_Conditions_Causing_COVID(
     Data_As_Of  VARCHAR(10),
     Start_Date  VARCHAR(10),
     End_Date    VARCHAR(10),
-    Group       VARCHAR(15),
+    Group_Name  VARCHAR(15),
     Year        INT,
     Month       INT,
-    State       VARCHAR(20),
+    State_Name  VARCHAR(20),
     Condition_Group VARCHAR(20),
-    Condition VARCHAR(20),
+    Condition_Specific VARCHAR(20),
     ICD10_Code VARCHAR(20),
     Age_Group VARCHAR(20),
     COVID_19_Death INT,
-    Number_Of_Mentions INT
+    Number_Of_Mentions INT,
     PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Condition_Group,Age_Group)
 );
