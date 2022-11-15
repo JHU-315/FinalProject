@@ -3,7 +3,7 @@
 DROP TABLE Unemployment_Rate;
 CREATE TABLE Unemployment_Rate
 (
-    Date VARCHAR(10) NOT NULL,
+    Date VARCHAR(10) NOT NULL UNIQUE,
     Total FLOAT(4) NOT NULL,
     Men_20Yrs_Over FLOAT(4) CHECK (Men_20Yrs_Over >= 0),
     Women_20Yrs_Over FLOAT(4) CHECK (Women_20Yrs_Over >= 0),
@@ -20,7 +20,7 @@ CREATE TABLE Unemployment_Rate
 DROP TABLE 16Yrs_Over_Labor;
 CREATE TABLE 16Yrs_Over_Labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019),
+    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
@@ -42,7 +42,7 @@ CREATE TABLE 16Yrs_Over_Labor
 DROP TABLE 16yrs_64_yrs_men_labor;
 CREATE TABLE 16yrs_64_yrs_men_labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019),
+    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
@@ -63,7 +63,7 @@ CREATE TABLE 16yrs_64_yrs_men_labor
 DROP TABLE 16yrs_64_yrs_women_labor;
 CREATE TABLE 16yrs_64_yrs_women_labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019),
+    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
@@ -84,7 +84,7 @@ CREATE TABLE 16yrs_64_yrs_women_labor
 DROP TABLE 65yrs_older_labor;
 CREATE TABLE 65yrs_older_labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019),
+    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
@@ -105,7 +105,7 @@ CREATE TABLE 65yrs_older_labor
 DROP TABLE GDP_Percent_Change;
 CREATE TABLE GDP_Percent_Change
 (
-    Industry VARCHAR(30) NOT NULL,
+    Industry VARCHAR(30) NOT NULL UNIQUE,
     2019_Q1 INT CHECK (2019_Q1 >= 0),
     2019_Q2 INT CHECK (2019_Q2 >= 0),
     2019_Q3 INT CHECK (2019_Q3 >= 0),
@@ -139,7 +139,7 @@ CREATE TABLE COVID_Cases
 /*12 month percent change*/
 DROP TABLE Consumer_Prices;
 CREATE TABLE Consumer_Prices(
-    Date_Text VARCHAR(10) NOT NULL,
+    Date_Text VARCHAR(10) NOT NULL UNIQUE,
     All_Items FLOAT(4),
     Food FLOAT(4),
     Food_At_Home FLOAT(4),
@@ -225,7 +225,7 @@ CREATE TABLE COVID_By_Age(
 /*Realistically we only need values from 2021*/
 DROP TABLE Household_Income;
 CREATE TABLE Household_Income(
-    State_Name VARCHAR(20) NOT NULL,
+    State_Name VARCHAR(20) NOT NULL UNIQUE,
     2021_Q1 INT CHECK (2021_Q1 >= 0),
     2021_Q2 INT CHECK (2021_Q2 >= 0),
     2021_Q3 INT CHECK (2021_Q3 >= 0),
