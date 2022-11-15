@@ -42,19 +42,19 @@ CREATE TABLE 16Yrs_Over_Labor
 DROP TABLE 16yrs_64_yrs_men_labor;
 CREATE TABLE 16yrs_64_yrs_men_labor
 (
-    Year INT NOT NULL,
-    Jan INT NOT NULL,
-    Feb INT NOT NULL,
-    Mar INT NOT NULL,
-    Apr INT NOT NULL,
-    May INT NOT NULL,
-    Jun INT NOT NULL,
-    Jul INT NOT NULL,
-    Aug INT NOT NULL,
-    Sep INT NOT NULL,
-    Oct INT NOT NULL,
-    Nov INT NOT NULL,
-    Dece INT NOT NULL,
+    Year INT NOT NULL CHECK (Year >= 2019),
+    Jan INT NOT NULL CHECK (Jan >= 0),
+    Feb INT NOT NULL CHECK (Feb >= 0),
+    Mar INT NOT NULL CHECK (Mar >= 0),
+    Apr INT NOT NULL CHECK (Apr >= 0),
+    May INT NOT NULL CHECK (May >= 0),
+    Jun INT NOT NULL CHECK (Jun >= 0),
+    Jul INT NOT NULL CHECK (Jul >= 0),
+    Aug INT NOT NULL CHECK (Aug >= 0),
+    Sep INT NOT NULL CHECK (Sep >= 0),
+    Oct INT NOT NULL CHECK (Oct >= 0),
+    Nov INT NOT NULL CHECK (Nov >= 0),
+    Dece INT NOT NULL CHECK (Dece >= 0),
     PRIMARY KEY(Year)
 );
 
@@ -63,19 +63,19 @@ CREATE TABLE 16yrs_64_yrs_men_labor
 DROP TABLE 16yrs_64_yrs_women_labor;
 CREATE TABLE 16yrs_64_yrs_women_labor
 (
-    Year INT NOT NULL,
-    Jan INT NOT NULL,
-    Feb INT NOT NULL,
-    Mar INT NOT NULL,
-    Apr INT NOT NULL,
-    May INT NOT NULL,
-    Jun INT NOT NULL,
-    Jul INT NOT NULL,
-    Aug INT NOT NULL,
-    Sep INT NOT NULL,
-    Oct INT NOT NULL,
-    Nov INT NOT NULL,
-    Dece INT NOT NULL,
+    Year INT NOT NULL CHECK (Year >= 2019),
+    Jan INT NOT NULL CHECK (Jan >= 0),
+    Feb INT NOT NULL CHECK (Feb >= 0),
+    Mar INT NOT NULL CHECK (Mar >= 0),
+    Apr INT NOT NULL CHECK (Apr >= 0),
+    May INT NOT NULL CHECK (May >= 0),
+    Jun INT NOT NULL CHECK (Jun >= 0),
+    Jul INT NOT NULL CHECK (Jul >= 0),
+    Aug INT NOT NULL CHECK (Aug >= 0),
+    Sep INT NOT NULL CHECK (Sep >= 0),
+    Oct INT NOT NULL CHECK (Oct >= 0),
+    Nov INT NOT NULL CHECK (Nov >= 0),
+    Dece INT NOT NULL CHECK (Dece >= 0),
     PRIMARY KEY(Year)
 );
 
@@ -84,19 +84,19 @@ CREATE TABLE 16yrs_64_yrs_women_labor
 DROP TABLE 65yrs_older_labor;
 CREATE TABLE 65yrs_older_labor
 (
-    Year INT NOT NULL,
-    Jan INT NOT NULL,
-    Feb INT NOT NULL,
-    Mar INT NOT NULL,
-    Apr INT NOT NULL,
-    May INT NOT NULL,
-    Jun INT NOT NULL,
-    Jul INT NOT NULL,
-    Aug INT NOT NULL,
-    Sep INT NOT NULL,
-    Oct INT NOT NULL,
-    Nov INT NOT NULL,
-    Dece INT NOT NULL,
+    Year INT NOT NULL CHECK (Year >= 2019),
+    Jan INT NOT NULL CHECK (Jan >= 0),
+    Feb INT NOT NULL CHECK (Feb >= 0),
+    Mar INT NOT NULL CHECK (Mar >= 0),
+    Apr INT NOT NULL CHECK (Apr >= 0),
+    May INT NOT NULL CHECK (May >= 0),
+    Jun INT NOT NULL CHECK (Jun >= 0),
+    Jul INT NOT NULL CHECK (Jul >= 0),
+    Aug INT NOT NULL CHECK (Aug >= 0),
+    Sep INT NOT NULL CHECK (Sep >= 0),
+    Oct INT NOT NULL CHECK (Oct >= 0),
+    Nov INT NOT NULL CHECK (Nov >= 0),
+    Dece INT NOT NULL CHECK (Dece >= 0),
     PRIMARY KEY(Year)
 );
 
@@ -106,18 +106,18 @@ DROP TABLE GDP_Percent_Change;
 CREATE TABLE GDP_Percent_Change
 (
     Industry VARCHAR(30) NOT NULL,
-    2019_Q1 INT,
-    2019_Q2 INT,
-    2019_Q3 INT,
-    2019_Q4 INT,
-    2020_Q1 INT,
-    2020_Q2 INT,
-    2020_Q3 INT,
-    2020_Q4 INT,
-    2021_Q1 INT,
-    2021_Q2 INT,
-    2021_Q3 INT,
-    2021_Q4 INT,
+    2019_Q1 INT CHECK (2019_Q1 >= 0),
+    2019_Q2 INT CHECK (2019_Q2 >= 0),
+    2019_Q3 INT CHECK (2019_Q3 >= 0),
+    2019_Q4 INT CHECK (2019_Q4 >= 0),
+    2020_Q1 INT CHECK (2020_Q1 >= 0),
+    2020_Q2 INT CHECK (2020_Q2 >= 0),
+    2020_Q3 INT CHECK (2020_Q3 >= 0), 
+    2020_Q4 INT CHECK (2020_Q4 >= 0),
+    2021_Q1 INT CHECK (2021_Q1 >= 0),
+    2021_Q2 INT CHECK (2021_Q2 >= 0),
+    2021_Q3 INT CHECK (2021_Q3 >= 0),
+    2021_Q4 INT CHECK (2021_Q4 >= 0),
     PRIMARY KEY(Industry)
 );
 
@@ -129,9 +129,9 @@ CREATE TABLE COVID_Cases
     Date_Text VARCHAR(10),
     GeoID VARCHAR(6) NOT NULL,
     State_Name VARCHAR(30),
-    Cases INT,
-    Cases_Avg FLOAT(4),
-    Cases_Avg_100k FLOAT(4),
+    Cases INT CHECK (Cases >= 0),
+    Cases_Avg FLOAT(4) CHECK (Cases_Avg >= 0),
+    Cases_Avg_100k FLOAT(4) CHECK (Cases_Avg_100k >= 0),
     PRIMARY KEY(Date_Text,GeoID)
 );
 
@@ -173,12 +173,12 @@ CREATE TABLE COVID_Cases_By_Race(
     Group_Name VARCHAR(15),
     State_Name VARCHAR(20),
     Indicator VARCHAR(100),
-    Non_Hispanic_White INT,
-    Non_Hispanic_Black INT,
-    Non_Hispanic_Asian INT,
-    Non_Hispanic_Native_Hawaiian_Pacific_Islander INT,
-    Non_Hispanic_More_Than_One_Race INT,
-    Hispanic_Or_Latino INT,
+    Non_Hispanic_White INT CHECK (Non_Hispanic_White >= 0),
+    Non_Hispanic_Black INT CHECK (Non_Hispanic_Black >= 0),
+    Non_Hispanic_Asian INT CHECK (Non_Hispanic_Asian >= 0),
+    Non_Hispanic_Native_Hawaiian_Pacific_Islander INT CHECK (Non_Hispanic_Native_Hawaiian_Pacific_Islander >= 0),
+    Non_Hispanic_More_Than_One_Race INT CHECK (Non_Hispanic_More_Than_One_Race >= 0),
+    Hispanic_Or_Latino INT CHECK (Hispanic_Or_Latino >= 0),
     PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Year, Month, Group_Name, Indicator)
 
 );
@@ -196,12 +196,12 @@ CREATE TABLE COVID_Cases_By_Age(
     Month INT,
     State_Name VARCHAR(20),
     Age_Group VARCHAR(20),
-    COVID_19_Death INT,
-    TOTAL_DEATHS INT,
-    Pneumonia_Deaths INT,
-    Pneumonia_and_COVID_19_Deaths INT,
-    Influenza_Deaths INT,
-    Pneumonia_Influenza_or_COVID_19_Deaths INT,
+    COVID_19_Death INT CHECK (COVID_19_Death >= 0),
+    Total_Deaths INT CHECK (Total_Deaths >= 0),
+    Pneumonia_Deaths INT CHECK (Pneumonia_Deaths >= 0),
+    Pneumonia_and_COVID_19_Deaths INT CHECK (Pneumonia_and_COVID_19_Deaths >= 0),
+    Influenza_Deaths INT CHECK (Influenza_Deaths >= 0),
+    Pneumonia_Influenza_or_COVID_19_Deaths INT CHECK (Pneumonia_Influenza_or_COVID_19_Deaths >= 0),
     PRIMARY KEY(Date_As_Of, Start_Date, End_Date, Age_Group)
 );
 
@@ -211,11 +211,11 @@ DROP TABLE COVID_By_Age;
 CREATE TABLE COVID_By_Age(
     Year INT,
     Week_Number INT NOT NULL,
-    0_4_yrs INT,
-    5_17_yrs INT,
-    18_49_yrs INT,
-    50_64_yrs INT,
-    65_plus_yrs INT,
+    0_4_yrs INT CHECK (0_4_yrs >= 0),
+    5_17_yrs INT CHECK (5_17_yrs >= 0),
+    18_49_yrs INT CHECK (18_49_yrs >= 0),
+    50_64_yrs INT CHECK (50_64_yrs >= 0),
+    65_plus_yrs INT CHECK (65_plus_yrs >= 0),
     PRIMARY KEY(Week_Number)
 );
 
@@ -226,17 +226,17 @@ CREATE TABLE COVID_By_Age(
 DROP TABLE Household_Income;
 CREATE TABLE Household_Income(
     State_Name VARCHAR(20) NOT NULL,
-    2021_Q1 INT,
-    2021_Q2 INT,
-    2021_Q3 INT,
-    2021_Q4 INT,
-    2022_Q1 INT,
-    2022_Q2 INT,
-    2021_Q2_Percent_Change FLOAT(4),
-    2021_Q3_Percent_Change FLOAT(4),
-    2021_Q4_Percent_Change FLOAT(4),
-    2022_Q1_Percent_Change FLOAT(4),
-    2022_Q2_Percent_Change FLOAT(4),
+    2021_Q1 INT CHECK (2021_Q1 >= 0),
+    2021_Q2 INT CHECK (2021_Q2 >= 0),
+    2021_Q3 INT CHECK (2021_Q3 >= 0),
+    2021_Q4 INT CHECK (2021_Q4 >= 0),
+    2022_Q1 INT CHECK (2022_Q1 >= 0),
+    2022_Q2 INT CHECK (2022_Q2 >= 0),
+    2021_Q2_Percent_Change FLOAT(4) CHECK (2021_Q2_Percent_Change >= 0),
+    2021_Q3_Percent_Change FLOAT(4) CHECK (2021_Q3_Percent_Change >= 0),
+    2021_Q4_Percent_Change FLOAT(4) CHECK (2021_Q4_Percent_Change >= 0),
+    2022_Q1_Percent_Change FLOAT(4) CHECK (2022_Q1_Percent_Change >= 0),
+    2022_Q2_Percent_Change FLOAT(4) CHECK (2022_Q2_Percent_Change >= 0),
     PRIMARY KEY(State_Name)
 );
 
@@ -249,17 +249,17 @@ CREATE TABLE Vaccination_Status(
     MMWR_Week INT NOT NULL,
     Age_Group VARCHAR(10),
     Vaccine_Product VARCHAR(20),
-    Vaccination_With_Outcome INT,
-    Fully_Vaccinated INT,
-    Unvaccinated_With_Outcome INT,
-    Unvaccinated_Population INT,
-    Crude_Vax_IR FLOAT(7),
-    Crude_Unvax_IR FLOAT(7),
-    Crude_IR FLOAT(7),
-    Crude_IRR FLOAT(7),
-    Age_Adjusted_Vax_IR FLOAT(7),
-    Age_Adjusted_Unvax_IR FLOAT(7),
-    Age_Adjusted_IRR FLOAT(7),
+    Vaccination_With_Outcome INT CHECK (Vaccination_With_Outcome >= 0),
+    Fully_Vaccinated INT CHECK (Fully_Vaccinated >= 0),
+    Unvaccinated_With_Outcome INT CHECK (Unvaccinated_With_Outcome >= 0),
+    Unvaccinated_Population INT CHECK (Unvaccinated_Population >= 0),
+    Crude_Vax_IR FLOAT(7) CHECK (Crude_Vax_IR >= 0),
+    Crude_Unvax_IR FLOAT(7) CHECK (Crude_Unvax_IR >= 0),
+    Crude_IR FLOAT(7) CHECK (Crude_IR >= 0),
+    Crude_IRR FLOAT(7) CHECK (Crude_IRR >= 0),
+    Age_Adjusted_Vax_IR FLOAT(7) CHECK (Age_Adjusted_Vax_IR >= 0),
+    Age_Adjusted_Unvax_IR FLOAT(7)  CHECK (Age_Adjusted_Unvax_IR >= 0),
+    Age_Adjusted_IRR FLOAT(7) CHECK (Age_Adjusted_IRR >= 0),
     PRIMARY KEY(MMWR_Week, Age_Group)
 );
 
