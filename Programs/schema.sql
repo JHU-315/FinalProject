@@ -3,8 +3,8 @@
 DROP TABLE Unemployment_Rate;
 CREATE TABLE Unemployment_Rate
 (
-    Date VARCHAR(10),
-    Total FLOAT(4),
+    Date VARCHAR(10) NOT NULL,
+    Total FLOAT(4) NOT NULL,
     Men_20Yrs_Over FLOAT(4),
     Women_20Yrs_Over FLOAT(4),
     16_to_19 FLOAT(4),
@@ -20,7 +20,7 @@ CREATE TABLE Unemployment_Rate
 DROP TABLE 16Yrs_Over_Labor;
 CREATE TABLE 16Yrs_Over_Labor
 (
-    YEAR INT,
+    YEAR INT NOT NULL,
     Jan INT,
     Feb INT,
     Mar INT,
