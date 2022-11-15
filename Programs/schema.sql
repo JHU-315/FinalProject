@@ -20,20 +20,20 @@ CREATE TABLE Unemployment_Rate
 DROP TABLE 16Yrs_Over_Labor;
 CREATE TABLE 16Yrs_Over_Labor
 (
-    YEAR INT NOT NULL,
-    Jan INT,
-    Feb INT,
-    Mar INT,
-    Apr INT,
-    May INT,
-    Jun INT,
-    Jul INT,
-    Aug INT,
-    Sep INT,
-    Oct INT,
-    Nov INT,
-    Dece INT,
-    PRIMARY KEY(YEAR)
+    Year INT NOT NULL,
+    Jan INT NOT NULL,
+    Feb INT NOT NULL,
+    Mar INT NOT NULL,
+    Apr INT NOT NULL,
+    May INT NOT NULL,
+    Jun INT NOT NULL,
+    Jul INT NOT NULL,
+    Aug INT NOT NULL,
+    Sep INT NOT NULL,
+    Oct INT NOT NULL,
+    Nov INT NOT NULL,
+    Dece INT NOT NULL,
+    PRIMARY KEY(Year)
 );
 
 
@@ -42,20 +42,20 @@ CREATE TABLE 16Yrs_Over_Labor
 DROP TABLE 16yrs_64_yrs_men_labor;
 CREATE TABLE 16yrs_64_yrs_men_labor
 (
-    YEAR INT,
-    Jan INT,
-    Feb INT,
-    Mar INT,
-    Apr INT,
-    May INT,
-    Jun INT,
-    Jul INT,
-    Aug INT,
-    Sep INT,
-    Oct INT,
-    Nov INT,
-    Dece INT,
-    PRIMARY KEY(YEAR)
+    Year INT NOT NULL,
+    Jan INT NOT NULL,
+    Feb INT NOT NULL,
+    Mar INT NOT NULL,
+    Apr INT NOT NULL,
+    May INT NOT NULL,
+    Jun INT NOT NULL,
+    Jul INT NOT NULL,
+    Aug INT NOT NULL,
+    Sep INT NOT NULL,
+    Oct INT NOT NULL,
+    Nov INT NOT NULL,
+    Dece INT NOT NULL,
+    PRIMARY KEY(Year)
 );
 
 /*Civillian Labor Force - No Disability 16 yrs and over*/
@@ -63,20 +63,20 @@ CREATE TABLE 16yrs_64_yrs_men_labor
 DROP TABLE 16yrs_64_yrs_women_labor;
 CREATE TABLE 16yrs_64_yrs_women_labor
 (
-    YEAR INT,
-    Jan INT,
-    Feb INT,
-    Mar INT,
-    Apr INT,
-    May INT,
-    Jun INT,
-    Jul INT,
-    Aug INT,
-    Sep INT,
-    Oct INT,
-    Nov INT,
-    Dece INT,
-    PRIMARY KEY(YEAR)
+    Year INT NOT NULL,
+    Jan INT NOT NULL,
+    Feb INT NOT NULL,
+    Mar INT NOT NULL,
+    Apr INT NOT NULL,
+    May INT NOT NULL,
+    Jun INT NOT NULL,
+    Jul INT NOT NULL,
+    Aug INT NOT NULL,
+    Sep INT NOT NULL,
+    Oct INT NOT NULL,
+    Nov INT NOT NULL,
+    Dece INT NOT NULL,
+    PRIMARY KEY(Year)
 );
 
 /*Civillian Labor Force - No Disability 65 yrs and over*/
@@ -84,20 +84,20 @@ CREATE TABLE 16yrs_64_yrs_women_labor
 DROP TABLE 65yrs_older_labor;
 CREATE TABLE 65yrs_older_labor
 (
-    YEAR INT,
-    Jan INT,
-    Feb INT,
-    Mar INT,
-    Apr INT,
-    May INT,
-    Jun INT,
-    Jul INT,
-    Aug INT,
-    Sep INT,
-    Oct INT,
-    Nov INT,
-    Dece INT,
-    PRIMARY KEY(YEAR)
+    Year INT NOT NULL,
+    Jan INT NOT NULL,
+    Feb INT NOT NULL,
+    Mar INT NOT NULL,
+    Apr INT NOT NULL,
+    May INT NOT NULL,
+    Jun INT NOT NULL,
+    Jul INT NOT NULL,
+    Aug INT NOT NULL,
+    Sep INT NOT NULL,
+    Oct INT NOT NULL,
+    Nov INT NOT NULL,
+    Dece INT NOT NULL,
+    PRIMARY KEY(Year)
 );
 
 /*Gross Output By Industry*/
@@ -105,7 +105,7 @@ CREATE TABLE 65yrs_older_labor
 DROP TABLE GDP_Percent_Change;
 CREATE TABLE GDP_Percent_Change
 (
-    Industry VARCHAR(30),
+    Industry VARCHAR(30) NOT NULL,
     2019_Q1 INT,
     2019_Q2 INT,
     2019_Q3 INT,
@@ -127,7 +127,7 @@ DROP TABLE COVID_Cases;
 CREATE TABLE COVID_Cases
 (
     Date_Text VARCHAR(10),
-    GeoID VARCHAR(6),
+    GeoID VARCHAR(6) NOT NULL,
     State_Name VARCHAR(30),
     Cases INT,
     Cases_Avg FLOAT(4),
@@ -139,7 +139,7 @@ CREATE TABLE COVID_Cases
 /*12 month percent change*/
 DROP TABLE Consumer_Prices;
 CREATE TABLE Consumer_Prices(
-    Date_Text VARCHAR(10),
+    Date_Text VARCHAR(10) NOT NULL,
     All_Items FLOAT(4),
     Food FLOAT(4),
     Food_At_Home FLOAT(4),
@@ -167,7 +167,7 @@ CREATE TABLE COVID_Cases_By_Race(
     Data_As_Of VARCHAR(10),
     Start_Date VARCHAR(10),
     End_Date VARCHAR(10),
-    Year VARCHAR(10),
+    Year VARCHAR(10) NOT NULL,
     /*May want to change year to int*/
     Month INT,
     Group_Name VARCHAR(15),
@@ -188,7 +188,7 @@ CREATE TABLE COVID_Cases_By_Race(
 DROP TABLE COVID_Cases_By_Age;
 CREATE TABLE COVID_Cases_By_Age(
     Date_As_Of VARCHAR(10),
-    Start_Date VARCHAR(10),
+    Start_Date VARCHAR(10) NOT NULL,
     End_Date VARCHAR(10),
     Group_Name VARCHAR(15),
     Year INT,
@@ -210,7 +210,7 @@ CREATE TABLE COVID_Cases_By_Age(
 DROP TABLE COVID_By_Age;
 CREATE TABLE COVID_By_Age(
     Year INT,
-    Week_Number INT,
+    Week_Number INT NOT NULL,
     0_4_yrs INT,
     5_17_yrs INT,
     18_49_yrs INT,
@@ -225,7 +225,7 @@ CREATE TABLE COVID_By_Age(
 /*Realistically we only need values from 2021*/
 DROP TABLE Household_Income;
 CREATE TABLE Household_Income(
-    State_Name VARCHAR(20),
+    State_Name VARCHAR(20) NOT NULL,
     2021_Q1 INT,
     2021_Q2 INT,
     2021_Q3 INT,
@@ -246,7 +246,7 @@ DROP TABLE Vaccination_Status;
 CREATE TABLE Vaccination_Status(
     Outcome VARCHAR(20),
     Month VARCHAR(10),
-    MMWR_Week INT,
+    MMWR_Week INT NOT NULL,
     Age_Group VARCHAR(10),
     Vaccine_Product VARCHAR(20),
     Vaccination_With_Outcome INT,
