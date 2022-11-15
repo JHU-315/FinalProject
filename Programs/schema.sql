@@ -20,7 +20,7 @@ CREATE TABLE Unemployment_Rate
 DROP TABLE 16Yrs_Over_Labor;
 CREATE TABLE 16Yrs_Over_Labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
+    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
@@ -42,7 +42,7 @@ CREATE TABLE 16Yrs_Over_Labor
 DROP TABLE 16yrs_64_yrs_men_labor;
 CREATE TABLE 16yrs_64_yrs_men_labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
+    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
@@ -63,7 +63,7 @@ CREATE TABLE 16yrs_64_yrs_men_labor
 DROP TABLE 16yrs_64_yrs_women_labor;
 CREATE TABLE 16yrs_64_yrs_women_labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
+    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
@@ -84,7 +84,7 @@ CREATE TABLE 16yrs_64_yrs_women_labor
 DROP TABLE 65yrs_older_labor;
 CREATE TABLE 65yrs_older_labor
 (
-    Year INT NOT NULL CHECK (Year >= 2019) UNIQUE,
+    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
     Feb INT NOT NULL CHECK (Feb >= 0),
     Mar INT NOT NULL CHECK (Mar >= 0),
