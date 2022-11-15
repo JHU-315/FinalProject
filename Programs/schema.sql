@@ -5,13 +5,13 @@ CREATE TABLE Unemployment_Rate
 (
     Date VARCHAR(10) NOT NULL,
     Total FLOAT(4) NOT NULL,
-    Men_20Yrs_Over FLOAT(4),
-    Women_20Yrs_Over FLOAT(4),
-    16_to_19 FLOAT(4),
-    White FLOAT(4),
-    Black_Or_Asian FLOAT(4),
-    Asian FLOAT(4),
-    Hispanic_Or_Latino FLOAT(4),
+    Men_20Yrs_Over FLOAT(4) CHECK (Men_20Yrs_Over >= 0),
+    Women_20Yrs_Over FLOAT(4) CHECK (Women_20Yrs_Over >= 0),
+    16_to_19 FLOAT(4) CHECK (16_to_19 >= 0),
+    White FLOAT(4) CHECK (White >= 0),
+    Black_Or_Asian FLOAT(4) CHECK (Black_Or_Asian >= 0),
+    Asian FLOAT(4) CHECK (Asian >= 0),
+    Hispanic_Or_Latino FLOAT(4) CHECK (Hispanic_Or_Latino >= 0),
     PRIMARY KEY(Date)
 );
 
@@ -20,19 +20,19 @@ CREATE TABLE Unemployment_Rate
 DROP TABLE 16Yrs_Over_Labor;
 CREATE TABLE 16Yrs_Over_Labor
 (
-    Year INT NOT NULL,
-    Jan INT NOT NULL,
-    Feb INT NOT NULL,
-    Mar INT NOT NULL,
-    Apr INT NOT NULL,
-    May INT NOT NULL,
-    Jun INT NOT NULL,
-    Jul INT NOT NULL,
-    Aug INT NOT NULL,
-    Sep INT NOT NULL,
-    Oct INT NOT NULL,
-    Nov INT NOT NULL,
-    Dece INT NOT NULL,
+    Year INT NOT NULL CHECK (Year >= 2019),
+    Jan INT NOT NULL CHECK (Jan >= 0),
+    Feb INT NOT NULL CHECK (Feb >= 0),
+    Mar INT NOT NULL CHECK (Mar >= 0),
+    Apr INT NOT NULL CHECK (Apr >= 0),
+    May INT NOT NULL CHECK (May >= 0),
+    Jun INT NOT NULL CHECK (Jun >= 0),
+    Jul INT NOT NULL CHECK (Jul >= 0),
+    Aug INT NOT NULL CHECK (Aug >= 0),
+    Sep INT NOT NULL CHECK (Sep >= 0),
+    Oct INT NOT NULL CHECK (Oct >= 0),
+    Nov INT NOT NULL CHECK (Nov >= 0),
+    Dece INT NOT NULL CHECK (Dece >= 0),
     PRIMARY KEY(Year)
 );
 
