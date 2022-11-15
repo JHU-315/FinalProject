@@ -207,3 +207,64 @@ CREATE TABLE COVID_By_Age(
     PRIMARY KEY(Week_Number)
 );
 
+
+/*State Household Income*/
+/*Millions of Dollars, seasonally adjusted*/
+/*Realistically we only need values from 2021*/
+
+CREATE TABLE Household_Income(
+    State VARCHAR(20),
+    2021_Q1 INT,
+    2021_Q2 INT,
+    2021_Q3 INT,
+    2021_Q4 INT,
+    2022_Q1 INT,
+    2022_Q2 INT,
+    2021_Q2_Percent_Change FLOAT(4),
+    2021_Q3_Percent_Change FLOAT(4),
+    2021_Q4_Percent_Change FLOAT(4),
+    2022_Q1_Percent_Change FLOAT(4),
+    2022_Q2_Percent_Change FLOAT(4),
+    PRIMARY KEY(State)
+);
+
+/*Vaccination Status*/
+/*Populations and Ratios*/
+CREATE TABLE Vaccination_Status(
+    Outcome VARCHAR(20),
+    Month VARCHAR(10),
+    MMWR Week INT,
+    Age_Group VARCHAR(10),
+    Vaccine_Product VARCHAR(20),
+    Vaccination_With_Outcome INT,
+    Fully_Vaccinated INT,
+    Unvaccinated_With_Outcome INT,
+    Unvaccinated_Population INT,
+    Crude_Vax_IR FLOAT(7),
+    Crude_Unvax_IR FLOAT(7),
+    Crude_IR FLOAT(7),
+    Crude_IRR FLOAT(7),
+    Age_Adjusted_Vax_IR FLOAT(7),
+    Age_Adjusted_Unvax_IR FLOAT(7),
+    Age_Adjusted_IRR FLOAT(7),
+    PRIMARY KEY(MMWR Week, Age_Group)
+);
+
+
+/*Health Conditions Contribuition To COVID*/
+CREATE TABLE Health_Conditions_Causing_COVID(
+    Data_As_Of  VARCHAR(10),
+    Start_Date  VARCHAR(10),
+    End_Date    VARCHAR(10),
+    Group       VARCHAR(15),
+    Year        INT,
+    Month       INT,
+    State       VARCHAR(20),
+    Condition_Group VARCHAR(20),
+    Condition VARCHAR(20),
+    ICD10_Code VARCHAR(20),
+    Age_Group VARCHAR(20),
+    COVID_19_Death INT,
+    Number_Of_Mentions INT
+    PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Condition_Group,Age_Group)
+);
