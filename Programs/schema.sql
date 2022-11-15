@@ -126,3 +126,84 @@ CASE TABLE COVID_Cases
     Cases_Avg FLOAT(4),
     Cases_Avg_100k FLOAT(4),
 );
+
+/*Consumer Prices*/
+/*12 month percent change*/
+CASE TABLE Consumer_Prices(
+    Date VARCHAR(10),
+    All_Items FLOAT(4),
+    Food FLOAT(4),
+    Food_At_Home FLOAT(4),
+    Food_Away_From_Home FLOAT(4),
+    Energy FLOAT(4),
+    Gasoline FLOAT(4),
+    Electricity FLOAT(4),
+    Natural_Gas FLOAT(4),
+    All_Items_Less_Food_And_Energy FLOAT(4),
+    Commodities FLOAT(4),
+    Apparel FLOAT(4),
+    New_Vehicles FLOAT(4),
+    Medical_Care FLOAT(4),
+    Services_Less_Energy_Services FLOAT(4),
+    Shelter FLOAT(4),
+    Medical_Care_Services FLOAT(4),
+    Education_and_Communications FLOAT(4),
+    PRIMARY KEY(Date)
+);
+
+/*COVID Cases By Race*/
+/*Data Information Indicated by Percentage*/
+CREATE TABLE COVID_Cases_By_Race(
+    Data_As_Of VARCHAR(10),
+    Start_Date VARCHAR(10),
+    End_Date VARCHAR(10),
+    Year VARCHAR(10),
+    /*May want to change year to int*/
+    Month INT,
+    Group VARCHAR(15),
+    State VARCHAR(20),
+    Indicator VARCHAR(100),
+    Non_Hispanic_White INT,
+    Non_Hispanic_Black INT,
+    Non_Hispanic_Asian INT,
+    Non_Hispanic_Native_Hawaiian_Pacific_Islander INT,
+    Non_Hispanic_More_Than_One_Race INT,
+    Hispanic_Or_Latino INT,
+    PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Year, Month, Group, Indicator)
+
+);
+
+/*COVID Cases By Age*/
+/*Number of Patients*/
+CREATE TABLE COVID_Cases_By_Age(
+    Date_As_Of VARCHAR(10),
+    Start_Date VARCHAR(10),
+    End_Date VARCHAR(10),
+    Group VARCHAR(15),
+    Year INT,
+    /*May want to change year to var char depending*/
+    Month INT,
+    State VARCHAR(20),
+    Age_Group VARCHAR(20),
+    COVID_19_Death INT,
+    TOTAL_DEATHS INT,
+    Pneumonia_Deaths INT,
+    Pneumonia_and_COVID_19_Deaths INT,
+    Influenza_Deaths INT,
+    Pneumonia_Influenza_or_COVID_19_Deaths INT,
+    PRIMARY KEY(Date_As_Of, Start_Date, End_Date, Age_Group)
+);
+
+/**COVID Cases By Age*/
+/*Number of Patients*/
+CREATE TABLE COVID_By_Age(
+    Year INT,
+    Week_Number Number,
+    0_4_yrs INT,
+    5_17_yrs INT,
+    18_49_yrs INT,
+    50_64_yrs INT,
+    65_plus_yrs INT,
+    PRIMARY KEY(Week_Number)
+);
+
