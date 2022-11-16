@@ -160,10 +160,10 @@ CREATE TABLE Consumer_Prices(
     PRIMARY KEY(Date_Text)
 );
 
-/*COVID Cases By Race*/
+/*COVID Deaths By Race*/
 /*Data Information Indicated by Percentage*/
-DROP TABLE COVID_Cases_By_Race;
-CREATE TABLE COVID_Cases_By_Race(
+DROP TABLE COVID_Deaths_By_Race;
+CREATE TABLE COVID_Deaths_By_Race(
     Data_As_Of VARCHAR(10),
     Start_Date VARCHAR(10),
     End_Date VARCHAR(10),
