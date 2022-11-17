@@ -31,7 +31,7 @@
     w. Which conditions contributed to COVID deaths?
 
 4. Schema in SQL Format - schema.sql
-   Schema in Relational Model - schema.png //TODO
+   Schema in Relational Model - schema.pdf //TODO
 
 5. SQL Queries - See Queries.sql
 
