@@ -10,7 +10,7 @@
     a. Compare the total unemployment rate as of December 2019 to the total unemployment rate as of April 2020. Has COVID impacted the employment rate?
     b. Compare unemployment rates of men and women who are 16 to 19-year-olds, 20 years and over, and over 65 years old in December 2019 vs. April 2020. Has COVID disproportionately affected some age groups versus others in terms of employment? 
     c. Compare unemployment rates of Asian, White, Black or African American, Hispanic, or Latinos in December 2019 vs. April 2020. Do certain races face higher unemployment rates than others?
-    d. Compare the percent of employed by nonfarm sectors of the economy in  December 2019 vs. April 2020. Has COVID impacted the employment rate by sector?
+    d. Compare the percent contribution of each nonfarm sector of the economy to the total employment level in both December 2019 vs. April 2020.
     e. How does the pandemic affect different sectors of industry in terms of GDP? Were some industries more clearly affected than others? If so, which ones?
     f. Compare the total GDP for all industries in the first quarter of 2020 vs. the second quarter of 2020. How signifiganctly did the pandemic impact the economy?
     g. Do quarters with lower/negative percent changes in GDP from the preceding period in total GDP correspond to peaks in COVID cases
