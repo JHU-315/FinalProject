@@ -135,6 +135,33 @@ CREATE TABLE COVID_Cases
     PRIMARY KEY(Date_Text,GeoID)
 );
 
+/*nonfarm unemployment*/
+DROP TABLE Non_farm_unemployment;
+CREATE TABLE Non_farm_unemployment
+(
+    Date VARCHAR(10) NOT NULL UNIQUE,
+    Total_nonFarm INT CHECK (Total_nonFarm >= 0),
+    Total_nonFarm_Avg FLOAT(4) CHECK (Total_nonFarm_Avg >= 0),
+    Mining_and_Logging INT CHECK (Mining_and_Logging >= 0),
+    Construction INT CHECK (Construction >= 0),
+    Manufacturing INT CHECK (Manufacturing >= 0),
+    Wholesale_Trade INT CHECK (Wholesale_Trade >= 0),
+    Retail_Trade INT CHECK (Retail_Trade >= 0),
+    Transportation_and_Warehousing INT CHECK (Transportation_and_Warehousing >= 0),
+    Utilities INT CHECK (Utilities >= 0),
+    Information INT CHECK (Information >= 0),
+    Finance_and_Insurance INT CHECK (Finance_and_Insurance >= 0),
+    Profesional_and_Business Services INT CHECK (Profesional and Business Services >= 0),
+    Education_and_Health_Services INT CHECK (Education_and_Health_Services >= 0),
+    Leisure_and_Hospitality INT CHECK (Leisure_and_Hospitality >= 0),
+    Other_Services INT CHECK (Other_Services >= 0),
+    Federal_Government INT CHECK (Federal_Government >= 0),
+    State_Government INT CHECK (State_Government >= 0),
+    Local_Government INT CHECK (Local_Government >= 0),
+    PRIMARY KEY(Date)
+);
+
+
 /*Consumer Prices*/
 /*12 month percent change*/
 DROP TABLE Consumer_Prices;
@@ -288,20 +315,33 @@ DROP TABLE COVID_Test_Race;
 CREATE TABLE COVID_Test_Race(
     Date_Text VARCHAR(10),
     State_Name VARCHAR(10),
-    Tests_Total INT,
-    Tests_White INT,
-    Tests_Black INT,
-    Tests_LatinX INT,
-    Tests_Asian INT,
-    Tests_AIAN INT,
-    Tests_NHPI INT,
-    Test_Multiracial INT,
-    Tests_Other INT,
-    Tests_Unknown INT,
-    Tests_Ethincity_Hispanic INT,
-    Tests_Ethincity_Non_Hispanic INT,
-    Test_Ethnncity_Unknown INT,
+    Tests_Total INT CHECK (Tests_Total >= 0),
+    Tests_White INT CHECK (Tests_White >= 0),
+    Tests_Black INT CHECK (Tests_Black >= 0),
+    Tests_LatinX INT CHECK (Tests_LatinX >= 0),
+    Tests_Asian INT CHECK (Tests_Asian >= 0),
+    Tests_AIAN INT CHECK (Tests_AIAN >= 0),
+    Tests_NHPI INT CHECK (Tests_NHPI >= 0),
+    Test_Multiracial INT CHECK (Test_Multiracial >= 0),
+    Tests_Other INT CHECK (Tests_Other >= 0),
+    Tests_Unknown INT CHECK (Tests_Unknown >= 0),
+    Tests_Ethincity_Hispanic INT CHECK (Tests_Ethincity_Hispanic >= 0),
+    Tests_Ethincity_Non_Hispanic INT CHECK (Tests_Ethincity_Non_Hispanic >= 0),
+    Test_Ethnncity_Unknown INT CHECK (Test_Ethnncity_Unknown >= 0),
     PRIMARY KEY(Date_Text, State_Name) 
+);
+
+/*COVID Hopistalizations by Age*/
+DROP TABLE COVID_Hospitalizations_Age;
+CREATE TABLE COVID_Hospitalizations_Race(
+    YEAR VARCHAR(10),
+    WEEK VARCHAR(10),
+    0_4_yrs INT CHECK (0_4_yrs >= 0),
+    5_17_yrs INT    CHECK (5_17_yrs >= 0),
+    18_49_yrs INT  CHECK (18_49_yrs >= 0),
+    50_64_yrs INT CHECK (50_64_yrs >= 0),
+    65_plus_yrs INT CHECK (65_plus_yrs >= 0),
+    PRIMARY KEY(YEAR, WEEK)
 );
 
 /*COVID Hospitalizations by Race*/
@@ -309,19 +349,19 @@ DROP TABLE COVID_Hospitalizations_Race;
 CREATE TABLE COVID_Hospitalizations_Race(
     Date_Text VARCHAR(10),
     State_Name VARCHAR(10),
-    Hospitalizations_Total INT,
-    Hospitalizations_White INT,
-    Hospitalizations_Black INT,
-    Hospitalizations_LatinX INT,
-    Hospitalizations_Asian INT,
-    Hospitalizations_AIAN INT,
-    Hospitalizations_NHPI INT,
-    Hospitalizations_Multiracial INT,
-    Hospitalizations_Other INT,
-    Hospitalizations_Unknown INT,
-    Hospitalizations_Ethincity_Hispanic INT,
-    Hospitalizations_Ethincity_Non_Hispanic INT,
-    Hospitalizations_Ethnncity_Unknown INT,
+    Hospitalizations_Total INT CHECK (Hospitalizations_Total >= 0),
+    Hospitalizations_White INT CHECK (Hospitalizations_White >= 0),
+    Hospitalizations_Black INT CHECK (Hospitalizations_Black >= 0),
+    Hospitalizations_LatinX INT CHECK (Hospitalizations_LatinX >= 0),
+    Hospitalizations_Asian INT CHECK (Hospitalizations_Asian >= 0),
+    Hospitalizations_AIAN INT CHECK (Hospitalizations_AIAN >= 0),
+    Hospitalizations_NHPI INT CHECK (Hospitalizations_NHPI >= 0),
+    Hospitalizations_Multiracial INT CHECK (Hospitalizations_Multiracial >= 0),
+    Hospitalizations_Other INT CHECK (Hospitalizations_Other >= 0),
+    Hospitalizations_Unknown INT CHECK (Hospitalizations_Unknown >= 0),
+    Hospitalizations_Ethincity_Hispanic INT CHECK (Hospitalizations_Ethincity_Hispanic >= 0),
+    Hospitalizations_Ethincity_Non_Hispanic INT CHECK (Hospitalizations_Ethincity_Non_Hispanic >= 0),
+    Hospitalizations_Ethnncity_Unknown INT CHECK (Hospitalizations_Ethnncity_Unknown >= 0),
     PRIMARY KEY(Date_Text, State_Name)
 );
 
