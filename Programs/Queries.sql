@@ -6,3 +6,4 @@ SELECT SUM(5_17_yrs,18_49_yrs,50_64_yrs,65_plus_yrs) FROM COVID_Hospitalizations
 GROUP BY Week_Number
 
 
+
