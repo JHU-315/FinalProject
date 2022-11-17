@@ -282,3 +282,85 @@ CREATE TABLE Health_Conditions_Causing_COVID(
     Number_Of_Mentions INT,
     PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Condition_Group,Age_Group)
 );
+
+/*COVID Tests by Race*/
+DROP TABLE COVID_Test_Race;
+CREATE TABLE COVID_Test_Race(
+    Date_Text VARCHAR(10),
+    State_Name VARCHAR(10),
+    Tests_Total INT,
+    Tests_White INT,
+    Tests_Black INT,
+    Tests_LatinX INT,
+    Tests_Asian INT,
+    Tests_AIAN INT,
+    Tests_NHPI INT,
+    Test_Multiracial INT,
+    Tests_Other INT,
+    Tests_Unknown INT,
+    Tests_Ethincity_Hispanic INT,
+    Tests_Ethincity_Non_Hispanic INT,
+    Test_Ethnncity_Unknown INT,
+    PRIMARY KEY(Date_Text, State_Name) 
+);
+
+/*COVID Hospitalizations by Race*/
+DROP TABLE COVID_Hospitalizations_Race;
+CREATE TABLE COVID_Hospitalizations_Race(
+    Date_Text VARCHAR(10),
+    State_Name VARCHAR(10),
+    Hospitalizations_Total INT,
+    Hospitalizations_White INT,
+    Hospitalizations_Black INT,
+    Hospitalizations_LatinX INT,
+    Hospitalizations_Asian INT,
+    Hospitalizations_AIAN INT,
+    Hospitalizations_NHPI INT,
+    Hospitalizations_Multiracial INT,
+    Hospitalizations_Other INT,
+    Hospitalizations_Unknown INT,
+    Hospitalizations_Ethincity_Hispanic INT,
+    Hospitalizations_Ethincity_Non_Hispanic INT,
+    Hospitalizations_Ethnncity_Unknown INT,
+    PRIMARY KEY(Date_Text, State_Name)
+);
+
+/*DateToMonth*/
+DROP TABLE DateToMonth;
+CREATE TABLE DateToMonth(
+    Date_Text VARCHAR(10),
+    Month INT,
+    PRIMARY KEY(Date_Text)
+);
+
+/*MonthToQuarter*/
+DROP TABLE MonthToQuarter;
+CREATE TABLE MonthToQuarter(
+    Month VARCHAR(10),
+    Quarter varchar(6),
+    PRIMARY KEY(Month)
+);
+
+/*State Abbrivation to State Name*/
+DROP TABLE State_Abbrivation;
+CREATE TABLE State_Abbrivation(
+    State_Abbrivation VARCHAR(10),
+    State_Name VARCHAR(20),
+    PRIMARY KEY(State_Abbrivation)
+);
+
+/*State Has Industry*/
+DROP TABLE State_Has_Industry;
+CREATE TABLE State_Has_Industry(
+    State_Name VARCHAR(20),
+    Industry_Name VARCHAR(20),
+    PRIMARY KEY(State_Name, Industry_Name)
+);
+
+/*Industry Category*/
+DROP TABLE Industry_Category;
+CREATE TABLE Industry_Category(
+    Industry_Name VARCHAR(20),
+    Industry_Category VARCHAR(20),
+    PRIMARY KEY(Industry_Name)
+);
