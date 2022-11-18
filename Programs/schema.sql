@@ -95,9 +95,9 @@ CREATE TABLE GDP_Percent_Change
     PRIMARY KEY(Industry)
 );
 
-/*nonfarm unemployment*/
-DROP TABLE Nonfarm_unemployment;
-CREATE TABLE Nonfarm_unemployment
+/*nonfarm employment*/
+DROP TABLE Nonfarm_Employment;
+CREATE TABLE Nonfarm_Employment
 (
     Date VARCHAR(10) NOT NULL UNIQUE,
     Total_nonFarm INT CHECK (Total_nonFarm >= 0),
