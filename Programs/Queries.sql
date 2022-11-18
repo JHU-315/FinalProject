@@ -2,6 +2,9 @@
 
 
 
+
+
+
 /*o*/
 /* Better to transpose the information and with race as one column and the other column as number of deaths*/
 SELECT Race FROM(
