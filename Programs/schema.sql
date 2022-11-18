@@ -7,11 +7,11 @@ CREATE TABLE Unemployment_Rate
     Total FLOAT(4) NOT NULL,
     Men_20Yrs_Over FLOAT(4) CHECK (Men_20Yrs_Over >= 0),
     Women_20Yrs_Over FLOAT(4) CHECK (Women_20Yrs_Over >= 0),
-    16_to_19 FLOAT(4) CHECK (16_to_19 >= 0),
+    Yrs_16_to_19 FLOAT(4) CHECK (Yrs_16_to_19 >= 0),
     White FLOAT(4) CHECK (White >= 0),
-    Black_Or_Asian FLOAT(4) CHECK (Black_Or_Asian >= 0),
+    Black_or_AfricanAmerican FLOAT(4) CHECK (Black_or_AfricanAmerican >= 0),
     Asian FLOAT(4) CHECK (Asian >= 0),
-    Hispanic_Or_Latino FLOAT(4) CHECK (Hispanic_Or_Latino >= 0),
+    Hispanic_or_Latino FLOAT(4) CHECK (Hispanic_or_Latino >= 0),
     PRIMARY KEY(Date)
 );
 
@@ -75,7 +75,7 @@ CREATE TABLE State_Unemployment_Rates
 );
 
 
-/*Civillian Labor Force - No Disability 16 yrs and over*/
+/* FIX LABOR FORCE */
 /*Numbers in thousands*/
 DROP TABLE Labor_Over_16Yrs;
 CREATE TABLE Labor_Over_16Yrs
@@ -97,7 +97,7 @@ CREATE TABLE Labor_Over_16Yrs
 );
 
 
-/*Civillian Labor Force - No Disability 16 yrs and over, Men*/
+/* FIX LABOR FORCE */
 /*Numbers in thousands*/
 DROP TABLE Men_Labor_16yrs_64yrs;
 CREATE TABLE Men_Labor_16yrs_64yrs
@@ -118,7 +118,7 @@ CREATE TABLE Men_Labor_16yrs_64yrs
     PRIMARY KEY(Year)
 );
 
-/*Civillian Labor Force - No Disability 16 yrs and over, Women*/
+/* FIX LABOR FORCE */
 /*Numbers in thousands*/
 DROP TABLE Women_Labor_16yrs_64yrs;
 CREATE TABLE Women_Labor_16yrs_64yrs
@@ -139,7 +139,7 @@ CREATE TABLE Women_Labor_16yrs_64yrs
     PRIMARY KEY(Year)
 );
 
-/*Civillian Labor Force - No Disability 65 yrs and over*/
+/* FIX LABOR FORCE */
 /*Numbers in thousands*/
 DROP TABLE Labor_65yrs_older;
 CREATE TABLE Labor_65yrs_older
