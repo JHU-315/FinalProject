@@ -159,19 +159,31 @@ CREATE TABLE Consumer_Prices(
 );
 
 /*COVID Cases By State*/
-/*average cases for seven-day trailing average*/
-DROP TABLE COVID_Cases;
-CREATE TABLE COVID_Cases
+DROP TABLE COVID_Cases_By_State;
+CREATE TABLE COVID_Cases_By_State
 (
-    Date_Text VARCHAR(10),
-    GeoID VARCHAR(6) NOT NULL,
-    State_Name VARCHAR(30),
-    Cases INT CHECK (Cases >= 0),
-    Cases_Avg FLOAT(4) CHECK (Cases_Avg >= 0),
-    Cases_Avg_100k FLOAT(4) CHECK (Cases_Avg_100k >= 0),
-    PRIMARY KEY(Date_Text,GeoID)
+    Date VARCHAR(10) NOT NULL,
+    State_Code VARCHAR(2),
+    tot_cases INT CHECK (tot_cases >= 0),
+    new_cases INT CHECK (new_cases >= 0),
+    PRIMARY KEY(Date, State_Code)
 );
 
+/*COVID Deaths By State*/
+DROP TABLE COVID_Deaths_By_State;
+CREATE TABLE COVID_Deaths_By_State
+(
+    Date VARCHAR(10) NOT NULL,
+    State_Code VARCHAR(2),
+    tot_deaths INT CHECK (tot_deaths >= 0),
+    new_deaths INT CHECK (new_deaths >= 0),
+    PRIMARY KEY(Date, State_Code)
+);
+
+/* ADD THIS BASED ON NEW TABLE */
+/*COVID Cases By Race*/
+
+/* FIX THIS BASED ON NEW TABLE */
 /*COVID Deaths By Race*/
 /*Data Information Indicated by Percentage*/
 DROP TABLE COVID_Deaths_By_Race;
@@ -195,28 +207,19 @@ CREATE TABLE COVID_Deaths_By_Race(
 
 );
 
-/*COVID Deaths By Age*/
+/*COVID Deaths By Age and Gender*/
 /*Number of Patients*/
-DROP TABLE COVID_Deaths_By_Age;
-CREATE TABLE COVID_Deaths_By_Age(
-    Date_As_Of VARCHAR(10),
-    Start_Date VARCHAR(10) NOT NULL,
-    End_Date VARCHAR(10),
-    Group_Name VARCHAR(15),
-    Year INT,
-    /*May want to change year to var char depending*/
-    Month INT,
-    State_Name VARCHAR(20),
+DROP TABLE COVID_Deaths_By_Age_Gender;
+CREATE TABLE COVID_Deaths_By_Age_Gender(
+    Date VARCHAR(10) NOT NULL,
+    Sex VARCHAR(20),
     Age_Group VARCHAR(20),
-    COVID_19_Death INT CHECK (COVID_19_Death >= 0),
     Total_Deaths INT CHECK (Total_Deaths >= 0),
-    Pneumonia_Deaths INT CHECK (Pneumonia_Deaths >= 0),
-    Pneumonia_and_COVID_19_Deaths INT CHECK (Pneumonia_and_COVID_19_Deaths >= 0),
-    Influenza_Deaths INT CHECK (Influenza_Deaths >= 0),
-    Pneumonia_Influenza_or_COVID_19_Deaths INT CHECK (Pneumonia_Influenza_or_COVID_19_Deaths >= 0),
-    PRIMARY KEY(Date_As_Of, Start_Date, End_Date, Age_Group)
+    COVID_19_Deaths INT CHECK (COVID_19_Death >= 0),
+    PRIMARY KEY(Date, Sex, Age_Group)
 );
 
+/* this is not a table, need to be a subquery */
 /**COVID Cases By Age*/
 /*Number of Patients*/
 DROP TABLE COVID_By_Age;
@@ -275,8 +278,8 @@ CREATE TABLE Health_Conditions_Causing_COVID(
 );
 
 /*COVID Tests by Race*/
-DROP TABLE COVID_Test_Race;
-CREATE TABLE COVID_Test_Race(
+DROP TABLE COVID_Tests_By_Race;
+CREATE TABLE COVID_Tests_By_Race(
     Date_Text VARCHAR(10),
     State_Name VARCHAR(10),
     Tests_Total INT CHECK (Tests_Total >= 0),
@@ -296,8 +299,8 @@ CREATE TABLE COVID_Test_Race(
 );
 
 /*COVID Hospitalizations by Age*/
-DROP TABLE COVID_Hospitalizations_Age;
-CREATE TABLE COVID_Hospitalizations_Age(
+DROP TABLE COVID_Hospitalizations_By_Age;
+CREATE TABLE COVID_Hospitalizations_By_Age(
     YEAR VARCHAR(10),
     WEEK VARCHAR(10),
     Yrs_0_to_4 INT CHECK (Yrs_0_to_4 >= 0),
@@ -309,8 +312,8 @@ CREATE TABLE COVID_Hospitalizations_Age(
 );
 
 /*COVID Hospitalizations by Race*/
-DROP TABLE COVID_Hospitalizations_Race;
-CREATE TABLE COVID_Hospitalizations_Race(
+DROP TABLE COVID_Hospitalizations_By_Race;
+CREATE TABLE COVID_Hospitalizations_By_Race(
     Date_Text VARCHAR(10),
     State_Name VARCHAR(10),
     Hospitalizations_Total INT CHECK (Hospitalizations_Total >= 0),
