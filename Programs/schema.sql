@@ -180,31 +180,46 @@ CREATE TABLE COVID_Deaths_By_State
     PRIMARY KEY(Date, State_Code)
 );
 
-/* ADD THIS BASED ON NEW TABLE */
 /*COVID Cases By Race*/
+DROP TABLE COVID_Cases_By_Race;
+CREATE TABLE COVID_Cases_By_Race(
+    Date_Text VARCHAR(10),
+    State_Name VARCHAR(10),
+    Cases_Total INT CHECK (Cases_Total >= 0),
+    Cases_White INT CHECK (Cases_White >= 0),
+    Cases_Black INT CHECK (Cases_Black >= 0),
+    Cases_LatinX INT CHECK (Cases_LatinX >= 0),
+    Cases_Asian INT CHECK (Cases_Asian >= 0),
+    Cases_AIAN INT CHECK (Cases_AIAN >= 0),
+    Cases_NHPI INT CHECK (Cases_NHPI >= 0),
+    Cases_Multiracial INT CHECK (Cases_Multiracial >= 0),
+    Cases_Other INT CHECK (Cases_Other >= 0),
+    Cases_Unknown INT CHECK (Cases_Unknown >= 0),
+    Cases_Ethincity_Hispanic INT CHECK (Cases_Ethincity_Hispanic >= 0),
+    Cases_Ethincity_Non_Hispanic INT CHECK (Cases_Ethincity_Non_Hispanic >= 0),
+    Cases_Ethnncity_Unknown INT CHECK (Cases_Ethnncity_Unknown >= 0),
+    PRIMARY KEY(Date_Text, State_Name)
+);
 
-/* FIX THIS BASED ON NEW TABLE */
 /*COVID Deaths By Race*/
-/*Data Information Indicated by Percentage*/
 DROP TABLE COVID_Deaths_By_Race;
 CREATE TABLE COVID_Deaths_By_Race(
-    Data_As_Of VARCHAR(10),
-    Start_Date VARCHAR(10),
-    End_Date VARCHAR(10),
-    Year VARCHAR(10) NOT NULL,
-    /*May want to change year to int*/
-    Month INT,
-    Group_Name VARCHAR(15),
-    State_Name VARCHAR(20),
-    Indicator VARCHAR(100),
-    Non_Hispanic_White INT CHECK (Non_Hispanic_White >= 0),
-    Non_Hispanic_Black INT CHECK (Non_Hispanic_Black >= 0),
-    Non_Hispanic_Asian INT CHECK (Non_Hispanic_Asian >= 0),
-    Non_Hispanic_Native_Hawaiian_Pacific_Islander INT CHECK (Non_Hispanic_Native_Hawaiian_Pacific_Islander >= 0),
-    Non_Hispanic_More_Than_One_Race INT CHECK (Non_Hispanic_More_Than_One_Race >= 0),
-    Hispanic_Or_Latino INT CHECK (Hispanic_Or_Latino >= 0),
-    PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Year, Month, Group_Name, Indicator)
-
+    Date_Text VARCHAR(10),
+    State_Name VARCHAR(10),
+    Deaths_Total INT CHECK (Deaths_Total >= 0),
+    Deaths_White INT CHECK (Deaths_White >= 0),
+    Deaths_Black INT CHECK (Deaths_Black >= 0),
+    Deaths_LatinX INT CHECK (Deaths_LatinX >= 0),
+    Deaths_Asian INT CHECK (Deaths_Asian >= 0),
+    Deaths_AIAN INT CHECK (Deaths_AIAN >= 0),
+    Deaths_NHPI INT CHECK (Deaths_NHPI >= 0),
+    Deaths_Multiracial INT CHECK (Deaths_Multiracial >= 0),
+    Deaths_Other INT CHECK (Deaths_Other >= 0),
+    Deaths_Unknown INT CHECK (Deaths_Unknown >= 0),
+    Deaths_Ethincity_Hispanic INT CHECK (Deaths_Ethincity_Hispanic >= 0),
+    Deaths_Ethincity_Non_Hispanic INT CHECK (Deaths_Ethincity_Non_Hispanic >= 0),
+    Deaths_Ethnncity_Unknown INT CHECK (Deaths_Ethnncity_Unknown >= 0),
+    PRIMARY KEY(Date_Text, State_Name)
 );
 
 /*COVID Deaths By Age and Gender*/
