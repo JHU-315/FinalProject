@@ -15,10 +15,70 @@ CREATE TABLE Unemployment_Rate
     PRIMARY KEY(Date)
 );
 
+DROP TABLE State_Unemployment_Rates;
+CREATE TABLE State_Unemployment_Rates
+(
+    Date VARCHAR(10) NOT NULL UNIQUE,
+    Alabama VARCHAR(20) NOT NULL,
+    Alaska VARCHAR(20) NOT NULL,
+    Arizona VARCHAR(20) NOT NULL,
+    Arkansas VARCHAR(20) NOT NULL,
+    California VARCHAR(20) NOT NULL,
+    Colorado VARCHAR(20) NOT NULL,
+    Connecticut VARCHAR(20) NOT NULL,
+    Delaware VARCHAR(20) NOT NULL,
+    District_of_Columbia VARCHAR(20) NOT NULL,
+    Florida VARCHAR(20) NOT NULL,
+    Georgia VARCHAR(20) NOT NULL,
+    Hawaii VARCHAR(20) NOT NULL,
+    Idaho VARCHAR(20) NOT NULL,
+    Illinois VARCHAR(20) NOT NULL,
+    Indiana VARCHAR(20) NOT NULL,
+    Iowa VARCHAR(20) NOT NULL,
+    Kansas VARCHAR(20) NOT NULL,
+    Kentucky VARCHAR(20) NOT NULL,
+    Louisiana VARCHAR(20) NOT NULL,
+    Maine VARCHAR(20) NOT NULL,
+    Maryland VARCHAR(20) NOT NULL,
+    Massachusetts VARCHAR(20) NOT NULL,
+    Michigan VARCHAR(20) NOT NULL,
+    Minnesota VARCHAR(20) NOT NULL,
+    Mississippi VARCHAR(20) NOT NULL,
+    Missouri VARCHAR(20) NOT NULL,
+    Montana VARCHAR(20) NOT NULL,
+    Nebraska VARCHAR(20) NOT NULL,
+    Nevada VARCHAR(20) NOT NULL,
+    New Hampshire VARCHAR(20) NOT NULL,
+    New Jersey VARCHAR(20) NOT NULL,
+    New Mexico VARCHAR(20) NOT NULL,
+    New York VARCHAR(20) NOT NULL,
+    North Carolina VARCHAR(20) NOT NULL,
+    North Dakota VARCHAR(20) NOT NULL,
+    Ohio VARCHAR(20) NOT NULL,
+    Oklahoma VARCHAR(20) NOT NULL,
+    Oregon VARCHAR(20) NOT NULL,
+    Pennsylvania VARCHAR(20) NOT NULL,
+    Rhode Island VARCHAR(20) NOT NULL,
+    South Carolina VARCHAR(20) NOT NULL,
+    South Dakota VARCHAR(20) NOT NULL,
+    Tennessee VARCHAR(20) NOT NULL,
+    Texas VARCHAR(20) NOT NULL,
+    Utah VARCHAR(20) NOT NULL,
+    Vermont VARCHAR(20) NOT NULL, 
+    Virginia VARCHAR(20) NOT NULL,
+    Washington VARCHAR(20) NOT NULL,
+    West_Virginia VARCHAR(20) NOT NULL,
+    Wisconsin VARCHAR(20) NOT NULL,
+    Wyoming VARCHAR(20) NOT NULL,
+    Puerto_Rico VARCHAR(20) NOT NULL,
+    PRIMARY KEY(Date)
+);
+
+
 /*Civillian Labor Force - No Disability 16 yrs and over*/
 /*Numbers in thousands*/
-DROP TABLE 16Yrs_Over_Labor;
-CREATE TABLE 16Yrs_Over_Labor
+DROP TABLE Labor_Over_16Yrs;
+CREATE TABLE Labor_Over_16Yrs
 (
     Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
@@ -37,10 +97,10 @@ CREATE TABLE 16Yrs_Over_Labor
 );
 
 
-/*Civillian Labor Force - No Disability 16 yrs and over*/
+/*Civillian Labor Force - No Disability 16 yrs and over, Men*/
 /*Numbers in thousands*/
-DROP TABLE 16yrs_64_yrs_men_labor;
-CREATE TABLE 16yrs_64_yrs_men_labor
+DROP TABLE Men_Labor_16yrs_64yrs;
+CREATE TABLE Men_Labor_16yrs_64yrs
 (
     Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
@@ -58,10 +118,10 @@ CREATE TABLE 16yrs_64_yrs_men_labor
     PRIMARY KEY(Year)
 );
 
-/*Civillian Labor Force - No Disability 16 yrs and over*/
+/*Civillian Labor Force - No Disability 16 yrs and over, Women*/
 /*Numbers in thousands*/
-DROP TABLE 16yrs_64_yrs_women_labor;
-CREATE TABLE 16yrs_64_yrs_women_labor
+DROP TABLE Women_Labor_16yrs_64yrs;
+CREATE TABLE Women_Labor_16yrs_64yrs
 (
     Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
@@ -81,8 +141,8 @@ CREATE TABLE 16yrs_64_yrs_women_labor
 
 /*Civillian Labor Force - No Disability 65 yrs and over*/
 /*Numbers in thousands*/
-DROP TABLE 65yrs_older_labor;
-CREATE TABLE 65yrs_older_labor
+DROP TABLE Labor_65yrs_older;
+CREATE TABLE Labor_65yrs_older
 (
     Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
     Jan INT NOT NULL CHECK (Jan >= 0),
@@ -136,8 +196,8 @@ CREATE TABLE COVID_Cases
 );
 
 /*nonfarm unemployment*/
-DROP TABLE Non_farm_unemployment;
-CREATE TABLE Non_farm_unemployment
+DROP TABLE Nonfarm_unemployment;
+CREATE TABLE Nonfarm_unemployment
 (
     Date VARCHAR(10) NOT NULL UNIQUE,
     Total_nonFarm INT CHECK (Total_nonFarm >= 0),
@@ -248,22 +308,14 @@ CREATE TABLE COVID_By_Age(
 
 
 /*State Household Income*/
-/*Millions of Dollars, seasonally adjusted*/
-/*Realistically we only need values from 2021*/
+/* FIX THIS WITH NEW TABLE */
 DROP TABLE Household_Income;
 CREATE TABLE Household_Income(
     State_Name VARCHAR(20) NOT NULL UNIQUE,
-    2021_Q1 INT CHECK (2021_Q1 >= 0),
-    2021_Q2 INT CHECK (2021_Q2 >= 0),
-    2021_Q3 INT CHECK (2021_Q3 >= 0),
-    2021_Q4 INT CHECK (2021_Q4 >= 0),
-    2022_Q1 INT CHECK (2022_Q1 >= 0),
-    2022_Q2 INT CHECK (2022_Q2 >= 0),
-    2021_Q2_Percent_Change FLOAT(4) CHECK (2021_Q2_Percent_Change >= 0),
-    2021_Q3_Percent_Change FLOAT(4) CHECK (2021_Q3_Percent_Change >= 0),
-    2021_Q4_Percent_Change FLOAT(4) CHECK (2021_Q4_Percent_Change >= 0),
-    2022_Q1_Percent_Change FLOAT(4) CHECK (2022_Q1_Percent_Change >= 0),
-    2022_Q2_Percent_Change FLOAT(4) CHECK (2022_Q2_Percent_Change >= 0),
+     INT CHECK (2021_Q1 >= 0),
+    
+    FLOAT(4) CHECK (2021_Q2_Percent_Change >= 0),
+    
     PRIMARY KEY(State_Name)
 );
 
@@ -331,9 +383,9 @@ CREATE TABLE COVID_Test_Race(
     PRIMARY KEY(Date_Text, State_Name) 
 );
 
-/*COVID Hopistalizations by Age*/
+/*COVID Hospitalizations by Age*/
 DROP TABLE COVID_Hospitalizations_Age;
-CREATE TABLE COVID_Hospitalizations_Race(
+CREATE TABLE COVID_Hospitalizations_Age(
     YEAR VARCHAR(10),
     WEEK VARCHAR(10),
     0_4_yrs INT CHECK (0_4_yrs >= 0),
@@ -381,12 +433,20 @@ CREATE TABLE MonthToQuarter(
     PRIMARY KEY(Month)
 );
 
-/*State Abbrivation to State Name*/
-DROP TABLE State_Abbrivation;
-CREATE TABLE State_Abbrivation(
-    State_Abbrivation VARCHAR(10),
+/*State Code to State Name*/
+DROP TABLE State_Code;
+CREATE TABLE State_Code(
+    State_Code VARCHAR(10),
     State_Name VARCHAR(20),
-    PRIMARY KEY(State_Abbrivation)
+    PRIMARY KEY(State)
+);
+
+/*State Name to Region*/
+DROP TABLE State_Region;
+CREATE TABLE State_Region(
+    State_Region VARCHAR(10),
+    State_Name VARCHAR(20),
+    PRIMARY KEY(State)
 );
 
 /*State Has Industry*/
