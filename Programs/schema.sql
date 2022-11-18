@@ -298,11 +298,11 @@ DROP TABLE COVID_By_Age;
 CREATE TABLE COVID_By_Age(
     Year INT,
     Week_Number INT NOT NULL,
-    0_4_yrs INT CHECK (0_4_yrs >= 0),
-    5_17_yrs INT CHECK (5_17_yrs >= 0),
-    18_49_yrs INT CHECK (18_49_yrs >= 0),
-    50_64_yrs INT CHECK (50_64_yrs >= 0),
-    65_plus_yrs INT CHECK (65_plus_yrs >= 0),
+    Yrs_0_to_4 INT CHECK (Yrs_0_to_4 >= 0),
+    Yrs_5_to_17 INT CHECK (Yrs_0_to_4 >= 0),
+    Yrs_18_to_49 INT CHECK (Yrs_18_to_49 >= 0),
+    Yrs_50_to_64 INT CHECK (Yrs_50_to_64 >= 0),
+    Yrs_65_plus INT CHECK (Yrs_65_plus >= 0),
     PRIMARY KEY(Week_Number)
 );
 
@@ -388,11 +388,11 @@ DROP TABLE COVID_Hospitalizations_Age;
 CREATE TABLE COVID_Hospitalizations_Age(
     YEAR VARCHAR(10),
     WEEK VARCHAR(10),
-    0_4_yrs INT CHECK (0_4_yrs >= 0),
-    5_17_yrs INT    CHECK (5_17_yrs >= 0),
-    18_49_yrs INT  CHECK (18_49_yrs >= 0),
-    50_64_yrs INT CHECK (50_64_yrs >= 0),
-    65_plus_yrs INT CHECK (65_plus_yrs >= 0),
+    Yrs_0_to_4 INT CHECK (Yrs_0_to_4 >= 0),
+    Yrs_5_to_17 INT CHECK (Yrs_0_to_4 >= 0),
+    Yrs_18_to_49 INT CHECK (Yrs_18_to_49 >= 0),
+    Yrs_50_to_64 INT CHECK (Yrs_50_to_64 >= 0),
+    Yrs_65_plus INT CHECK (Yrs_65_plus >= 0),
     PRIMARY KEY(YEAR, WEEK)
 );
 
