@@ -74,92 +74,6 @@ CREATE TABLE State_Unemployment_Rates
     PRIMARY KEY(Date)
 );
 
-
-/* FIX LABOR FORCE */
-/*Numbers in thousands*/
-DROP TABLE Labor_Over_16Yrs;
-CREATE TABLE Labor_Over_16Yrs
-(
-    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
-    Jan INT NOT NULL CHECK (Jan >= 0),
-    Feb INT NOT NULL CHECK (Feb >= 0),
-    Mar INT NOT NULL CHECK (Mar >= 0),
-    Apr INT NOT NULL CHECK (Apr >= 0),
-    May INT NOT NULL CHECK (May >= 0),
-    Jun INT NOT NULL CHECK (Jun >= 0),
-    Jul INT NOT NULL CHECK (Jul >= 0),
-    Aug INT NOT NULL CHECK (Aug >= 0),
-    Sep INT NOT NULL CHECK (Sep >= 0),
-    Oct INT NOT NULL CHECK (Oct >= 0),
-    Nov INT NOT NULL CHECK (Nov >= 0),
-    Dece INT NOT NULL CHECK (Dece >= 0),
-    PRIMARY KEY(Year)
-);
-
-
-/* FIX LABOR FORCE */
-/*Numbers in thousands*/
-DROP TABLE Men_Labor_16yrs_64yrs;
-CREATE TABLE Men_Labor_16yrs_64yrs
-(
-    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
-    Jan INT NOT NULL CHECK (Jan >= 0),
-    Feb INT NOT NULL CHECK (Feb >= 0),
-    Mar INT NOT NULL CHECK (Mar >= 0),
-    Apr INT NOT NULL CHECK (Apr >= 0),
-    May INT NOT NULL CHECK (May >= 0),
-    Jun INT NOT NULL CHECK (Jun >= 0),
-    Jul INT NOT NULL CHECK (Jul >= 0),
-    Aug INT NOT NULL CHECK (Aug >= 0),
-    Sep INT NOT NULL CHECK (Sep >= 0),
-    Oct INT NOT NULL CHECK (Oct >= 0),
-    Nov INT NOT NULL CHECK (Nov >= 0),
-    Dece INT NOT NULL CHECK (Dece >= 0),
-    PRIMARY KEY(Year)
-);
-
-/* FIX LABOR FORCE */
-/*Numbers in thousands*/
-DROP TABLE Women_Labor_16yrs_64yrs;
-CREATE TABLE Women_Labor_16yrs_64yrs
-(
-    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
-    Jan INT NOT NULL CHECK (Jan >= 0),
-    Feb INT NOT NULL CHECK (Feb >= 0),
-    Mar INT NOT NULL CHECK (Mar >= 0),
-    Apr INT NOT NULL CHECK (Apr >= 0),
-    May INT NOT NULL CHECK (May >= 0),
-    Jun INT NOT NULL CHECK (Jun >= 0),
-    Jul INT NOT NULL CHECK (Jul >= 0),
-    Aug INT NOT NULL CHECK (Aug >= 0),
-    Sep INT NOT NULL CHECK (Sep >= 0),
-    Oct INT NOT NULL CHECK (Oct >= 0),
-    Nov INT NOT NULL CHECK (Nov >= 0),
-    Dece INT NOT NULL CHECK (Dece >= 0),
-    PRIMARY KEY(Year)
-);
-
-/* FIX LABOR FORCE */
-/*Numbers in thousands*/
-DROP TABLE Labor_65yrs_older;
-CREATE TABLE Labor_65yrs_older
-(
-    Year INT UNIQUE NOT NULL CHECK (Year >= 2019),
-    Jan INT NOT NULL CHECK (Jan >= 0),
-    Feb INT NOT NULL CHECK (Feb >= 0),
-    Mar INT NOT NULL CHECK (Mar >= 0),
-    Apr INT NOT NULL CHECK (Apr >= 0),
-    May INT NOT NULL CHECK (May >= 0),
-    Jun INT NOT NULL CHECK (Jun >= 0),
-    Jul INT NOT NULL CHECK (Jul >= 0),
-    Aug INT NOT NULL CHECK (Aug >= 0),
-    Sep INT NOT NULL CHECK (Sep >= 0),
-    Oct INT NOT NULL CHECK (Oct >= 0),
-    Nov INT NOT NULL CHECK (Nov >= 0),
-    Dece INT NOT NULL CHECK (Dece >= 0),
-    PRIMARY KEY(Year)
-);
-
 /*Gross Output By Industry*/
 /*Percent Change in Real Gross Domestic Product*/
 DROP TABLE GDP_Percent_Change;
@@ -179,20 +93,6 @@ CREATE TABLE GDP_Percent_Change
     2021_Q3 INT CHECK (2021_Q3 >= 0),
     2021_Q4 INT CHECK (2021_Q4 >= 0),
     PRIMARY KEY(Industry)
-);
-
-/*COVID Cases By State*/
-/*average cases for seven-day trailing average*/
-DROP TABLE COVID_Cases;
-CREATE TABLE COVID_Cases
-(
-    Date_Text VARCHAR(10),
-    GeoID VARCHAR(6) NOT NULL,
-    State_Name VARCHAR(30),
-    Cases INT CHECK (Cases >= 0),
-    Cases_Avg FLOAT(4) CHECK (Cases_Avg >= 0),
-    Cases_Avg_100k FLOAT(4) CHECK (Cases_Avg_100k >= 0),
-    PRIMARY KEY(Date_Text,GeoID)
 );
 
 /*nonfarm unemployment*/
@@ -221,6 +121,17 @@ CREATE TABLE Nonfarm_unemployment
     PRIMARY KEY(Date)
 );
 
+/*State Household Income*/
+/* FIX THIS WITH NEW TABLE */
+DROP TABLE Household_Income;
+CREATE TABLE Household_Income(
+    State_Name VARCHAR(20) NOT NULL UNIQUE,
+     INT CHECK (2021_Q1 >= 0),
+    
+    FLOAT(4) CHECK (2021_Q2_Percent_Change >= 0),
+    
+    PRIMARY KEY(State_Name)
+);
 
 /*Consumer Prices*/
 /*12 month percent change*/
@@ -247,6 +158,20 @@ CREATE TABLE Consumer_Prices(
     PRIMARY KEY(Date_Text)
 );
 
+/*COVID Cases By State*/
+/*average cases for seven-day trailing average*/
+DROP TABLE COVID_Cases;
+CREATE TABLE COVID_Cases
+(
+    Date_Text VARCHAR(10),
+    GeoID VARCHAR(6) NOT NULL,
+    State_Name VARCHAR(30),
+    Cases INT CHECK (Cases >= 0),
+    Cases_Avg FLOAT(4) CHECK (Cases_Avg >= 0),
+    Cases_Avg_100k FLOAT(4) CHECK (Cases_Avg_100k >= 0),
+    PRIMARY KEY(Date_Text,GeoID)
+);
+
 /*COVID Deaths By Race*/
 /*Data Information Indicated by Percentage*/
 DROP TABLE COVID_Deaths_By_Race;
@@ -270,10 +195,10 @@ CREATE TABLE COVID_Deaths_By_Race(
 
 );
 
-/*COVID Cases By Age*/
+/*COVID Deaths By Age*/
 /*Number of Patients*/
-DROP TABLE COVID_Cases_By_Age;
-CREATE TABLE COVID_Cases_By_Age(
+DROP TABLE COVID_Deaths_By_Age;
+CREATE TABLE COVID_Deaths_By_Age(
     Date_As_Of VARCHAR(10),
     Start_Date VARCHAR(10) NOT NULL,
     End_Date VARCHAR(10),
@@ -304,19 +229,6 @@ CREATE TABLE COVID_By_Age(
     Yrs_50_to_64 INT CHECK (Yrs_50_to_64 >= 0),
     Yrs_65_plus INT CHECK (Yrs_65_plus >= 0),
     PRIMARY KEY(Week_Number)
-);
-
-
-/*State Household Income*/
-/* FIX THIS WITH NEW TABLE */
-DROP TABLE Household_Income;
-CREATE TABLE Household_Income(
-    State_Name VARCHAR(20) NOT NULL UNIQUE,
-     INT CHECK (2021_Q1 >= 0),
-    
-    FLOAT(4) CHECK (2021_Q2_Percent_Change >= 0),
-    
-    PRIMARY KEY(State_Name)
 );
 
 /*Vaccination Status*/
@@ -417,6 +329,8 @@ CREATE TABLE COVID_Hospitalizations_Race(
     PRIMARY KEY(Date_Text, State_Name)
 );
 
+/* INTERMEDIARY RELATIONS */
+
 /*DateToMonth*/
 DROP TABLE DateToMonth;
 CREATE TABLE DateToMonth(
@@ -457,7 +371,7 @@ CREATE TABLE State_Has_Industry(
     PRIMARY KEY(State_Name, Industry_Name)
 );
 
-/*Industry Category*/
+/*Industry Category, Nonfarm divided into Private and Government*/
 DROP TABLE Industry_Category;
 CREATE TABLE Industry_Category(
     Industry_Name VARCHAR(20),
