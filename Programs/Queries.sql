@@ -1,9 +1,15 @@
 /*QUESTIONS ARE SPECIFIED IN THE MARKDOWN*/
 
-/*t*/
-CREATE OR REPLACE VIEW TotalHospitalizationsByWeek AS
-SELECT SUM(5_17_yrs,18_49_yrs,50_64_yrs,65_plus_yrs) FROM COVID_Hospitalizations_Age
-GROUP BY Week_Number
 
 
+/*o*/
+/* Better to transpose the information and with race as one column and the other column as number of deaths*/
+SELECT Race FROM(
+    SELECT SUM(Deaths) as sumDeaths FROM COVID_Deaths_By_Race GROUP BY Race
+) WHERE sumDeaths = (SELECT MAX(sumDeaths) FROM (SELECT SUM(Deaths) as sumDeaths FROM COVID_Hospitalizations_Race GROUP BY Race) as d)
+
+/*w*/
+SELECT ICD10_Code FROM (
+SELECT ICDC10_Code, SUM(COVID_19_Death) as maxDeath FROM Health_Conditions_Causing_COVID GROUP BY ICD10_Code
+) WHERE maxDeath = (SELECT MAX(maxDeath) FROM (SELECT ICDC10_Code, SUM(COVID_19_Death) as maxDeath FROM Health_Conditions_Causing_COVID GROUP BY ICD10_Code) as d);
 
