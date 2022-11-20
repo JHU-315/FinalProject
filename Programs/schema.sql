@@ -3,22 +3,22 @@
 DROP TABLE Unemployment_Rate;
 CREATE TABLE Unemployment_Rate
 (
-    Date VARCHAR(10) NOT NULL UNIQUE,
+    Date DATE NOT NULL UNIQUE,
     Total FLOAT(4) NOT NULL,
-    Men_20Yrs_Over FLOAT(4) CHECK (Men_20Yrs_Over >= 0),
-    Women_20Yrs_Over FLOAT(4) CHECK (Women_20Yrs_Over >= 0),
-    Yrs_16_to_19 FLOAT(4) CHECK (Yrs_16_to_19 >= 0),
+    Men_20+ FLOAT(4) CHECK (Men_20+ >= 0),
+    Women_20+ FLOAT(4) CHECK (Women_20+ >= 0),
+    Yrs_16_19 FLOAT(4) CHECK (Yrs_16_19 >= 0),
     White FLOAT(4) CHECK (White >= 0),
-    Black_or_AfricanAmerican FLOAT(4) CHECK (Black_or_AfricanAmerican >= 0),
+    Black FLOAT(4) CHECK (Black >= 0),
     Asian FLOAT(4) CHECK (Asian >= 0),
-    Hispanic_or_Latino FLOAT(4) CHECK (Hispanic_or_Latino >= 0),
+    Hispanic FLOAT(4) CHECK (Hispanic >= 0),
     PRIMARY KEY(Date)
 );
 
 DROP TABLE State_Unemployment_Rates;
 CREATE TABLE State_Unemployment_Rates
 (
-    Date VARCHAR(10) NOT NULL UNIQUE,
+    Date DATE NOT NULL UNIQUE,
     Alabama FLOAT(4) NOT NULL,
     Alaska FLOAT(4) NOT NULL,
     Arizona FLOAT(4) NOT NULL,
@@ -102,9 +102,9 @@ CREATE TABLE GDP_Percent_Change
 DROP TABLE Nonfarm_Employment;
 CREATE TABLE Nonfarm_Employment
 (
-    Date VARCHAR(10) NOT NULL UNIQUE,
-    Total_nonFarm INT CHECK (Total_nonFarm >= 0),
-    Total_nonFarm_Avg FLOAT(4) CHECK (Total_nonFarm_Avg >= 0),
+    Date DATE NOT NULL UNIQUE,
+    Total_NonFarm INT CHECK (Total_NonFarm >= 0),
+    Total_Private FLOAT(4) CHECK (Total_Private >= 0),
     Mining_and_Logging INT CHECK (Mining_and_Logging >= 0),
     Construction INT CHECK (Construction >= 0),
     Manufacturing INT CHECK (Manufacturing >= 0),
@@ -114,10 +114,11 @@ CREATE TABLE Nonfarm_Employment
     Utilities INT CHECK (Utilities >= 0),
     Information INT CHECK (Information >= 0),
     Finance_and_Insurance INT CHECK (Finance_and_Insurance >= 0),
-    Profesional_and_Business Services INT CHECK (Profesional and Business Services >= 0),
+    Professional_and_Business Services INT CHECK (Professional and Business Services >= 0),
     Education_and_Health_Services INT CHECK (Education_and_Health_Services >= 0),
     Leisure_and_Hospitality INT CHECK (Leisure_and_Hospitality >= 0),
     Other_Services INT CHECK (Other_Services >= 0),
+    Government INT CHECK (Government >= 0),
     Federal_Government INT CHECK (Federal_Government >= 0),
     State_Government INT CHECK (State_Government >= 0),
     Local_Government INT CHECK (Local_Government >= 0),
@@ -140,7 +141,7 @@ CREATE TABLE Household_Income(
 /*12 month percent change*/
 DROP TABLE Consumer_Prices;
 CREATE TABLE Consumer_Prices(
-    Date_Text VARCHAR(10) NOT NULL UNIQUE,
+    Date DATE NOT NULL,
     All_Items FLOAT(4),
     Food FLOAT(4),
     Food_At_Home FLOAT(4),
@@ -158,14 +159,14 @@ CREATE TABLE Consumer_Prices(
     Shelter FLOAT(4),
     Medical_Care_Services FLOAT(4),
     Education_and_Communications FLOAT(4),
-    PRIMARY KEY(Date_Text)
+    PRIMARY KEY(Date)
 );
 
 /*COVID Cases By State*/
 DROP TABLE COVID_Cases_By_State;
 CREATE TABLE COVID_Cases_By_State
 (
-    Date VARCHAR(10) NOT NULL,
+    Date DATE NOT NULL,
     State_Code VARCHAR(2),
     tot_cases INT CHECK (tot_cases >= 0),
     new_cases INT CHECK (new_cases >= 0),
@@ -176,7 +177,7 @@ CREATE TABLE COVID_Cases_By_State
 DROP TABLE COVID_Deaths_By_State;
 CREATE TABLE COVID_Deaths_By_State
 (
-    Date VARCHAR(10) NOT NULL,
+    Date DATE NOT NULL,
     State_Code VARCHAR(2),
     tot_deaths INT CHECK (tot_deaths >= 0),
     new_deaths INT CHECK (new_deaths >= 0),
@@ -186,7 +187,7 @@ CREATE TABLE COVID_Deaths_By_State
 /*COVID Cases By Race*/
 DROP TABLE COVID_Cases_By_Race;
 CREATE TABLE COVID_Cases_By_Race(
-    Date_Text VARCHAR(10),
+    Date DATE NOT NULL,
     State_Name VARCHAR(10),
     Cases_Total INT CHECK (Cases_Total >= 0),
     Cases_White INT CHECK (Cases_White >= 0),
@@ -198,16 +199,16 @@ CREATE TABLE COVID_Cases_By_Race(
     Cases_Multiracial INT CHECK (Cases_Multiracial >= 0),
     Cases_Other INT CHECK (Cases_Other >= 0),
     Cases_Unknown INT CHECK (Cases_Unknown >= 0),
-    Cases_Ethincity_Hispanic INT CHECK (Cases_Ethincity_Hispanic >= 0),
-    Cases_Ethincity_Non_Hispanic INT CHECK (Cases_Ethincity_Non_Hispanic >= 0),
-    Cases_Ethnncity_Unknown INT CHECK (Cases_Ethnncity_Unknown >= 0),
-    PRIMARY KEY(Date_Text, State_Name)
+    Cases_Ethnicity_Hispanic INT CHECK (Cases_Ethnicity_Hispanic >= 0),
+    Cases_Ethnicity_Non_Hispanic INT CHECK (Cases_Ethnicity_Non_Hispanic >= 0),
+    Cases_Ethnicity_Unknown INT CHECK (Cases_Ethnicity_Unknown >= 0),
+    PRIMARY KEY(Date, State_Name)
 );
 
 /*COVID Deaths By Race*/
 DROP TABLE COVID_Deaths_By_Race;
 CREATE TABLE COVID_Deaths_By_Race(
-    Date_Text VARCHAR(10),
+    Date DATE NOT NULL,
     State_Name VARCHAR(10),
     Deaths_Total INT CHECK (Deaths_Total >= 0),
     Deaths_White INT CHECK (Deaths_White >= 0),
@@ -219,37 +220,35 @@ CREATE TABLE COVID_Deaths_By_Race(
     Deaths_Multiracial INT CHECK (Deaths_Multiracial >= 0),
     Deaths_Other INT CHECK (Deaths_Other >= 0),
     Deaths_Unknown INT CHECK (Deaths_Unknown >= 0),
-    Deaths_Ethincity_Hispanic INT CHECK (Deaths_Ethincity_Hispanic >= 0),
-    Deaths_Ethincity_Non_Hispanic INT CHECK (Deaths_Ethincity_Non_Hispanic >= 0),
-    Deaths_Ethnncity_Unknown INT CHECK (Deaths_Ethnncity_Unknown >= 0),
-    PRIMARY KEY(Date_Text, State_Name)
+    Deaths_Ethnicity_Hispanic INT CHECK (Deaths_Ethnicity_Hispanic >= 0),
+    Deaths_Ethnicity_Non_Hispanic INT CHECK (Deaths_Ethnicity_Non_Hispanic >= 0),
+    Deaths_Ethnicity_Unknown INT CHECK (Deaths_Ethnicity_Unknown >= 0),
+    PRIMARY KEY(Date, State_Name)
 );
 
+/*COVID Cases By Gender */
+DROP TABLE COVID_Cases_By_Gender;
+CREATE TABLE COVID_Cases_By_Gender(
+    Date DATE NOT NULL, 	
+    State VARCHAR(20),
+    Total_Count	INT CHECK (Total_Count >= 0),
+    Male_Count INT CHECK (Male_Count >= 0),
+    Female_Count INT CHECK (Female_Count >= 0),	
+    Male_Percentage	FLOAT(4), 
+    Female_Percentage FLOAT(4)
+    PRIMARY KEY(Date, State)
+);
+    
 /*COVID Deaths By Age and Gender*/
 /*Number of Patients*/
 DROP TABLE COVID_Deaths_By_Age_Gender;
 CREATE TABLE COVID_Deaths_By_Age_Gender(
-    Date VARCHAR(10) NOT NULL,
+    Date DATE NOT NULL,
     Sex VARCHAR(20),
     Age_Group VARCHAR(20),
     Total_Deaths INT CHECK (Total_Deaths >= 0),
     COVID_19_Deaths INT CHECK (COVID_19_Death >= 0),
     PRIMARY KEY(Date, Sex, Age_Group)
-);
-
-/* this is not a table, need to be a subquery */
-/**COVID Cases By Age*/
-/*Number of Patients*/
-DROP TABLE COVID_By_Age;
-CREATE TABLE COVID_By_Age(
-    Year INT,
-    Week_Number INT NOT NULL,
-    Yrs_0_to_4 INT CHECK (Yrs_0_to_4 >= 0),
-    Yrs_5_to_17 INT CHECK (Yrs_0_to_4 >= 0),
-    Yrs_18_to_49 INT CHECK (Yrs_18_to_49 >= 0),
-    Yrs_50_to_64 INT CHECK (Yrs_50_to_64 >= 0),
-    Yrs_65_plus INT CHECK (Yrs_65_plus >= 0),
-    PRIMARY KEY(Week_Number)
 );
 
 /*Vaccination Status*/
@@ -279,9 +278,7 @@ CREATE TABLE Vaccination_Status(
 /*Health Conditions Contribuition To COVID*/
 DROP TABLE Health_Conditions_Causing_COVID;
 CREATE TABLE Health_Conditions_Causing_COVID(
-    Data_As_Of  VARCHAR(10),
-    Start_Date  VARCHAR(10),
-    End_Date    VARCHAR(10),
+    Date DATE NOT NULL,
     Group_Name  VARCHAR(15),
     Year        INT,
     Month       INT,
@@ -292,13 +289,13 @@ CREATE TABLE Health_Conditions_Causing_COVID(
     Age_Group VARCHAR(20),
     COVID_19_Death INT,
     Number_Of_Mentions INT,
-    PRIMARY KEY(Data_As_Of, Start_Date, End_Date, Condition_Group,Age_Group)
+    PRIMARY KEY(Date, Condition_Group,Age_Group)
 );
 
 /*COVID Tests by Race*/
 DROP TABLE COVID_Tests_By_Race;
 CREATE TABLE COVID_Tests_By_Race(
-    Date_Text VARCHAR(10),
+    Date DATE NOT NULL,
     State_Name VARCHAR(10),
     Tests_Total INT CHECK (Tests_Total >= 0),
     Tests_White INT CHECK (Tests_White >= 0),
@@ -310,10 +307,10 @@ CREATE TABLE COVID_Tests_By_Race(
     Test_Multiracial INT CHECK (Test_Multiracial >= 0),
     Tests_Other INT CHECK (Tests_Other >= 0),
     Tests_Unknown INT CHECK (Tests_Unknown >= 0),
-    Tests_Ethincity_Hispanic INT CHECK (Tests_Ethincity_Hispanic >= 0),
-    Tests_Ethincity_Non_Hispanic INT CHECK (Tests_Ethincity_Non_Hispanic >= 0),
-    Test_Ethnncity_Unknown INT CHECK (Test_Ethnncity_Unknown >= 0),
-    PRIMARY KEY(Date_Text, State_Name) 
+    Tests_Ethnicity_Hispanic INT CHECK (Tests_Ethnicity_Hispanic >= 0),
+    Tests_Ethnicity_Non_Hispanic INT CHECK (Tests_Ethnicity_Non_Hispanic >= 0),
+    Test_Ethnicity_Unknown INT CHECK (Test_Ethnicity_Unknown >= 0),
+    PRIMARY KEY(Date, State_Name) 
 );
 
 /*COVID Hospitalizations by Age*/
@@ -332,7 +329,7 @@ CREATE TABLE COVID_Hospitalizations_By_Age(
 /*COVID Hospitalizations by Race*/
 DROP TABLE COVID_Hospitalizations_By_Race;
 CREATE TABLE COVID_Hospitalizations_By_Race(
-    Date_Text VARCHAR(10),
+    Date DATE NOT NULL,
     State_Name VARCHAR(10),
     Hospitalizations_Total INT CHECK (Hospitalizations_Total >= 0),
     Hospitalizations_White INT CHECK (Hospitalizations_White >= 0),
@@ -344,10 +341,10 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
     Hospitalizations_Multiracial INT CHECK (Hospitalizations_Multiracial >= 0),
     Hospitalizations_Other INT CHECK (Hospitalizations_Other >= 0),
     Hospitalizations_Unknown INT CHECK (Hospitalizations_Unknown >= 0),
-    Hospitalizations_Ethincity_Hispanic INT CHECK (Hospitalizations_Ethincity_Hispanic >= 0),
-    Hospitalizations_Ethincity_Non_Hispanic INT CHECK (Hospitalizations_Ethincity_Non_Hispanic >= 0),
-    Hospitalizations_Ethnncity_Unknown INT CHECK (Hospitalizations_Ethnncity_Unknown >= 0),
-    PRIMARY KEY(Date_Text, State_Name)
+    Hospitalizations_Ethnicity_Hispanic INT CHECK (Hospitalizations_Ethnicity_Hispanic >= 0),
+    Hospitalizations_Ethnicity_Non_Hispanic INT CHECK (Hospitalizations_Ethnicity_Non_Hispanic >= 0),
+    Hospitalizations_Ethnicity_Unknown INT CHECK (Hospitalizations_Ethnicity_Unknown >= 0),
+    PRIMARY KEY(Date, State_Name)
 );
 
 /* INTERMEDIARY RELATIONS */
@@ -355,9 +352,9 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
 /*DateToMonth*/
 DROP TABLE DateToMonth;
 CREATE TABLE DateToMonth(
-    Date_Text VARCHAR(10),
+    Date DATE NOT NULL,
     Month INT,
-    PRIMARY KEY(Date_Text)
+    PRIMARY KEY(Date)
 );
 
 /*MonthToQuarter*/
