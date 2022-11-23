@@ -8,25 +8,45 @@
 
 3. English Questions
     a. Compare the total unemployment rate as of December 2019 to the total unemployment rate as of April 2020. Has COVID impacted the employment rate?
+
     b. Compare unemployment rates of men and women who are 16 to 19-year-olds, 20 years and over, and over 65 years old in December 2019 vs. April 2020. Has COVID disproportionately affected some age groups versus others in terms of employment? 
+
     c. Compare unemployment rates of Asian, White, Black or African American, Hispanic, or Latinos in December 2019 vs. April 2020. Do certain races face higher unemployment rates than others?
+
     d. Compare the percent contribution of each nonfarm sector of the economy to the total employment level in both December 2019 vs. April 2020.
+
     e. How does the pandemic affect different sectors of industry in terms of GDP? Were some industries more clearly affected than others? If so, which ones?
+
     f. Compare the total GDP for all industries in the first quarter of 2020 vs. the second quarter of 2020. How signifiganctly did the pandemic impact the economy?
+
     g. Do quarters with lower/negative percent changes in GDP from the preceding period in total GDP correspond to peaks in COVID cases
+
     h. Do quarters with lower/negative percent changes in GDP from the preceding period of certain service sectors, like healthcare services, correspond to peaks in COVID cases?
+
     i. How did consumer prices for selected items, like medical care services, increase during the pandemic? Did they correlate with peaks? 
+
     j. How was unemployment of women affected (have to stay more with children) vs. men?
+
     k How were different races/ethnicities affected in employment (Hispanics and blacks work more in service sectors/manual labor) during the pandemic? Were these races also affected by COVID?
+
     l. Which gender group was more likely to be affected by the pandemic? In terms of outcomes?
+
     m. Which age group was more likely to be affected by the pandemic? 
+
     n. Are the 65 and older population more prone to death or health complications due to the pandemic? 
+
     o. Are certain races/ethnicities more prone to deaths or cases in the pandemic?
+
     p. Associate that with a possible correlation between race and corresponding household income (working in certain service sectors)
+
     q. Has COVID disproportionately affected household income of some races/ethnic groups?
+
     r. Does a peak in COVID cases correspond to higher unemployment? And is there a direct correlation, or have industries adapted to COVID? 
+
     s. Does vaccination decrease hospitalizations? 
+
     t. Are states with high vaccination rates having low rates of COVID deaths and cases? (Pointing the effectiveness of vaccination in a certain direction) 
+    
     u. Do testing rates correlate with decreased hospitalizations, cases, or deaths?
     w. Which conditions contributed to COVID deaths?
 
