@@ -1,5 +1,7 @@
 import sys
 import pandas as pd
+import locale
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 def main():
 
@@ -76,6 +78,7 @@ def generateSQLSchema(data, fileName):
                 sqlFile.write(key + " FLOAT,\n")
             except ValueError:
                 sqlFile.write(key + " VARCHAR(255),\n")
+
     sqlFile.write(");\n")
     
     sqlFile.close()
@@ -102,13 +105,29 @@ def generateSQLInsertionScript(data, fileName):
                 if( count != len(dictionaryKeys) - 1):
                     sqlFile.write(", ")
             else:
-                sqlFile.write(str(data[key][i]));
+                writeValue = checkString(str(data[key][i]))
+                sqlFile.write(writeValue)
                 if( count != len(dictionaryKeys) - 1):
                     sqlFile.write(", ")
             count += 1
         sqlFile.write(");\n")
     sqlFile.close()
     print("Write Successful")
+
+
+def checkString(value):
+    try: 
+        locale.atoi(value)
+        value = value.replace(',', '')
+
+        int(value)
+        return value
+    except ValueError:
+        try:
+            float(value)
+            return value
+        except ValueError:
+            return "\""+value+"\""
 
 if __name__ == "__main__":
     main()
