@@ -12,7 +12,8 @@ def main():
 
     printData(csvFile)
     while(True):
-        usrInput = input("Select an option\nremoves key: rmKey\nGenerate SQL Insertion File: genSql\nPrint the table: printTab\ntoquit: q\nUser Input:  ")
+        usrInput = input("Select an option\nremoves key: rmKey\nGenerate SQL Insertion File: \
+        genSql\nPrint the table: printTab\nGenerate Schema File: genSch\ntoquit: q\nUser Input:  ")
         print("=====================================")
         if(usrInput == "rmKey"):
             selectKeys(csvFile)
@@ -22,6 +23,10 @@ def main():
             printData(csvFile)
         elif(usrInput == "genSql"):
             generateSQLInsertionScript(csvFile, sys.argv[1])
+        elif(usrInput == "genSch"):
+            generateSQLSchema(csvFile, sys.argv[1])
+        else:
+            print("Invalid input")
         print("=====================================")
 
     print("PROGRAM FINISHED")
@@ -54,6 +59,29 @@ def selectKeys(data):
     for key in keysToRemove:
         del data[key]
     
+def generateSQLSchema(data, fileName):
+    title = fileName.split(".")[0]
+    sqlFile = open("sqlSchema.sql", "w")
+
+    sqlFile.write("DROP TABLE IF EXISTS " + title + ";\n")
+    sqlFile.write("CREATE TABLE " + title + " (\n")
+    for key in data.keys():
+        testData = data[key][0]
+        try: 
+            int(testData)
+            sqlFile.write(key + " INT,\n")
+        except ValueError:
+            try:
+                float(testData)
+                sqlFile.write(key + " FLOAT,\n")
+            except ValueError:
+                sqlFile.write(key + " VARCHAR(255),\n")
+    sqlFile.write(");\n")
+    
+    sqlFile.close()
+
+
+
 
 def generateSQLInsertionScript(data, fileName):
 
@@ -63,8 +91,6 @@ def generateSQLInsertionScript(data, fileName):
     pandasKeys = data.keys()
     dictionaryKeys = pandasKeys.tolist()
     totalElements = len(data[dictionaryKeys[0]])
-
-    
 
     for i in range(totalElements):
         sqlFile.write("INSERT INTO ")
