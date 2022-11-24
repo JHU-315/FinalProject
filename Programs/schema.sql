@@ -15,87 +15,15 @@ CREATE TABLE Unemployment_Rate
     PRIMARY KEY(Date)
 );
 
-DROP TABLE State_Unemployment_Rates;
-CREATE TABLE State_Unemployment_Rates
+/*Unemployment Rate By State*/
+/*Data are as a percentage for rate*/
+DROP TABLE Unemployment_Rate_By_State;
+CREATE TABLE Unemployment_Rate_By_State
 (
     Date DATE NOT NULL UNIQUE,
-    Alabama FLOAT(4) NOT NULL,
-    Alaska FLOAT(4) NOT NULL,
-    Arizona FLOAT(4) NOT NULL,
-    Arkansas FLOAT(4) NOT NULL,
-    California FLOAT(4) NOT NULL,
-    Colorado FLOAT(4) NOT NULL,
-    Connecticut FLOAT(4) NOT NULL,
-    Delaware FLOAT(4) NOT NULL,
-    District_of_Columbia FLOAT(4) NOT NULL,
-    Florida FLOAT(4) NOT NULL,
-    Georgia FLOAT(4) NOT NULL,
-    Hawaii FLOAT(4) NOT NULL,
-    Idaho FLOAT(4) NOT NULL,
-    Illinois FLOAT(4) NOT NULL,
-    Indiana FLOAT(4) NOT NULL,
-    Iowa FLOAT(4) NOT NULL,
-    Kansas FLOAT(4) NOT NULL,
-    Kentucky FLOAT(4) NOT NULL,
-    Louisiana FLOAT(4) NOT NULL,
-    Maine FLOAT(4) NOT NULL,
-    Maryland FLOAT(4) NOT NULL,
-    Massachusetts FLOAT(4) NOT NULL,
-    Michigan FLOAT(4) NOT NULL,
-    Minnesota FLOAT(4) NOT NULL,
-    Mississippi FLOAT(4) NOT NULL,
-    Missouri FLOAT(4) NOT NULL,
-    Montana FLOAT(4) NOT NULL,
-    Nebraska FLOAT(4) NOT NULL,
-    Nevada FLOAT(4) NOT NULL,
-    New_Hampshire FLOAT(4) NOT NULL,
-    New_Jersey FLOAT(4) NOT NULL,
-    New_Mexico FLOAT(4) NOT NULL,
-    New_York FLOAT(4) NOT NULL,
-    North_Carolina FLOAT(4) NOT NULL,
-    North_Dakota FLOAT(4) NOT NULL,
-    Ohio FLOAT(4) NOT NULL,
-    Oklahoma FLOAT(4) NOT NULL,
-    Oregon FLOAT(4) NOT NULL,
-    Pennsylvania FLOAT(4) NOT NULL,
-    Rhode_Island FLOAT(4) NOT NULL,
-    South_Carolina FLOAT(4) NOT NULL,
-    South_Dakota FLOAT(4) NOT NULL,
-    Tennessee FLOAT(4) NOT NULL,
-    Texas FLOAT(4) NOT NULL,
-    Utah FLOAT(4) NOT NULL,
-    Vermont FLOAT(4) NOT NULL, 
-    Virginia FLOAT(4) NOT NULL,
-    Washington FLOAT(4) NOT NULL,
-    West_Virginia FLOAT(4) NOT NULL,
-    Wisconsin FLOAT(4) NOT NULL,
-    Wyoming FLOAT(4) NOT NULL,
-    Puerto_Rico FLOAT(4) NOT NULL,
-    PRIMARY KEY(Date)
-);
-
-/*Gross Output By Industry*/
-/*Percent Change in Real Gross Domestic Product*/
-DROP TABLE GDP_Percent_Change;
-CREATE TABLE GDP_Percent_Change
-(
-    Industry VARCHAR(30) NOT NULL UNIQUE,
-    Q1_2019 INT CHECK (Q1_2019 >= 0),
-    Q2_2019 INT CHECK (Q2_2019 >= 0),
-    Q3_2019 INT CHECK (Q3_2019 >= 0),
-    Q4_2019 INT CHECK (Q4_2019 >= 0),
-    Q1_2020 INT CHECK (Q1_2020 >= 0),
-    Q2_2020 INT CHECK (Q2_2020 >= 0),
-    Q3_2020 INT CHECK (Q3_2020 >= 0), 
-    Q4_2020 INT CHECK (Q4_2020 >= 0),
-    Q1_2021 INT CHECK (Q1_2021 >= 0),
-    Q2_2021 INT CHECK (Q2_2021 >= 0),
-    Q3_2021 INT CHECK (Q3_2021 >= 0),
-    Q4_2021 INT CHECK (Q4_2021 >= 0),
-    Q1_2022 INT CHECK (Q1_2022 >= 0),
-    Q2_2022 INT CHECK (Q2_2022 >= 0),
-    Q3_2022 INT CHECK (Q3_2022 >= 0),
-    PRIMARY KEY(Industry)
+    State_Name VARCHAR(20) NOT NULL,
+    Unemp_Rate FLOAT(4),
+    PRIMARY KEY(Date, State_Name)
 );
 
 /*nonfarm employment*/
@@ -113,28 +41,79 @@ CREATE TABLE Nonfarm_Employment
     Transportation_and_Warehousing INT CHECK (Transportation_and_Warehousing >= 0),
     Utilities INT CHECK (Utilities >= 0),
     Information INT CHECK (Information >= 0),
-    Finance_and_Insurance INT CHECK (Finance_and_Insurance >= 0),
-    Professional_and_Business Services INT CHECK (Professional and Business Services >= 0),
+    Financial_Activities INT CHECK (Financial_Activities >= 0),
+    Professional_and_Business_Services INT CHECK (Professional_and_Business_Services >= 0),
     Education_and_Health_Services INT CHECK (Education_and_Health_Services >= 0),
     Leisure_and_Hospitality INT CHECK (Leisure_and_Hospitality >= 0),
     Other_Services INT CHECK (Other_Services >= 0),
-    Government INT CHECK (Government >= 0),
+    Total_Government INT CHECK Total_Government >= 0),
     Federal_Government INT CHECK (Federal_Government >= 0),
     State_Government INT CHECK (State_Government >= 0),
     Local_Government INT CHECK (Local_Government >= 0),
     PRIMARY KEY(Date)
 );
 
-/*State Household Income*/
-/* FIX THIS WITH NEW TABLE */
-DROP TABLE Household_Income;
-CREATE TABLE Household_Income(
-    State_Name VARCHAR(20) NOT NULL UNIQUE,
-     INT CHECK (2021_Q1 >= 0),
-    
-    FLOAT(4) CHECK (2021_Q2_Percent_Change >= 0),
-    
-    PRIMARY KEY(State_Name)
+/* Real Gross Domestic Product, Billions of chained (2012) dollars */
+DROP TABLE GDP_National;
+CREATE TABLE GDP_National
+(
+    Quarter VARCHAR(6) NOT NULL,
+    Gross_Domestic_Product FLOAT(8),
+    PRIMARY KEY(Quarter)
+);
+
+/*Real Gross Domestic Product By Industry, Billions of chained (2012) dollars*/
+DROP TABLE GDP_By_Industry;
+CREATE TABLE GDP_By_Industry
+(
+    Quarter VARCHAR(6) NOT NULL,
+    Total_All_Industries FLOAT(8),
+    Total_Private FLOAT(8),
+    Agriculture FLOAT(8),
+    Mining FLOAT(8), 
+    Utilities FLOAT(8),
+    Construction FLOAT(8), 
+    Manufacturing FLOAT(8), 
+    Wholesale_Trade FLOAT(8), 
+    Retail_Trade FLOAT(8), 
+    Transportation_and_Warehousing FLOAT(8), 
+    Information FLOAT(8), 
+    Financial_Activities FLOAT(8), 
+    Professional_and_Business_Services FLOAT(8),
+    Education_and_Health_Services FLOAT(8),
+    Leisure_and_Hospitality FLOAT(8),
+    Other_Services FLOAT(8),
+    Total_Government FLOAT(8), 
+    Federal_Government FLOAT(8),
+    State_Local_Government FLOAT(8), 
+    PRIMARY KEY(Quarter)
+);
+
+/* Real Gross Domestic Product by Quarter per State in millions of dollars */
+DROP TABLE GDP_By_State;
+CREATE TABLE Personal_Income_By_State(
+    Quarter VARCHAR(6) NOT NULL,
+    State_Name VARCHAR(20) NOT NULL,
+    Gross_Domestic_Product FLOAT(10),
+    PRIMARY KEY(Quarter, State_Name)
+);
+
+/* Personal Income by Quarter per State in millions of dollars */
+DROP TABLE Personal_Income_By_State;
+CREATE TABLE Personal_Income_By_State(
+    Quarter VARCHAR(6) NOT NULL,
+    State_Name VARCHAR(20) NOT NULL,
+    Personal_Income FLOAT(4),
+    PRIMARY KEY(Quarter, State_Name)
+);
+
+/* Personal Income by Month for Entire Nation in billions of dollars*/
+DROP TABLE Personal_Income_National;
+CREATE TABLE Personal_Income_National(
+    Date DATE NOT NULL UNIQUE,
+    Personal_Income FLOAT(8), 
+    Personal_Saving FLOAT(8),
+    PRIMARY KEY(Date)
 );
 
 /*Consumer Prices*/
@@ -350,25 +329,29 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
 /* INTERMEDIARY RELATIONS */
 
 /*DateToMonth*/
+/* Month is a date that corresponds to the first day of that month for easier comparison */
+
 DROP TABLE DateToMonth;
 CREATE TABLE DateToMonth(
     Date DATE NOT NULL,
-    Month INT,
+    Month DATE NOT NULL,
     PRIMARY KEY(Date)
 );
 
 /*MonthToQuarter*/
+
+/* Month is a date that corresponds to the first day of that month for easier comparison */
 DROP TABLE MonthToQuarter;
 CREATE TABLE MonthToQuarter(
-    Month VARCHAR(10),
-    Quarter varchar(6),
+    Month DATE NOT NULL,
+    Quarter VARCHAR(6),
     PRIMARY KEY(Month)
 );
 
 /*State Code to State Name*/
 DROP TABLE State_Code;
 CREATE TABLE State_Code(
-    State_Code VARCHAR(10),
+    State_Code VARCHAR(2),
     State_Name VARCHAR(20),
     PRIMARY KEY(State)
 );

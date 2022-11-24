@@ -128,7 +128,7 @@ WHERE u.Date = c.Date;
 /*
 Find the date corresponding to the min unemployment rate for Whites through the 6 months before the pandemic started.
 */
-
+/* unemployment rate by month, so represent month as first day of that month */
 CREATE or REPLACE VIEW MinWhiteUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
@@ -286,10 +286,10 @@ Find the date corresponding to the max government employment level through the 6
 CREATE or REPLACE VIEW MaxGovEmp AS 
 SELECT e2.Date
 FROM Nonfarm_Employment e2, 
-    (SELECT MAX (Government) mx
+    (SELECT MAX (Total_Government) mx
      FROM Nonfarm_Employment
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') e1
-WHERE e1.mx = e2.Government;
+WHERE e1.mx = e2.Total_Government;
 
 
 /* Analyze the non-farm employment level during peak periods of different COVID variants as a percentage of the max pre-COVID non-farm employment level to see trends */
@@ -332,11 +332,11 @@ SELECT gov.GEL2/gov.GEL1 * 100 AS gov_wt_pct,
        gov.GEL4/gov.GEL1 * 100 AS gov_delta_pct,
        gov.GEL5/gov.GEL1 * 100 AS gov_omicron_pct
 FROM
-    (SELECT (CASE WHEN e.Date=g.Date THEN e.Government ELSE 0 END) GEL1,
-           (CASE WHEN e.Date=wt.Date THEN e.Government ELSE 0 END) GEL2,
-           (CASE WHEN e.Date=a.Date THEN e.Government ELSE 0 END) GEL3,
-           (CASE WHEN e.Date=d.Date THEN e.Government ELSE 0 END) GEL4,
-           (CASE WHEN e.Date=o.Date THEN e.Government ELSE 0 END) GEL5
+    (SELECT (CASE WHEN e.Date=g.Date THEN e.Total_Government ELSE 0 END) GEL1,
+           (CASE WHEN e.Date=wt.Date THEN e.Total_Government ELSE 0 END) GEL2,
+           (CASE WHEN e.Date=a.Date THEN e.Total_Government ELSE 0 END) GEL3,
+           (CASE WHEN e.Date=d.Date THEN e.Total_Government ELSE 0 END) GEL4,
+           (CASE WHEN e.Date=o.Date THEN e.Total_Government ELSE 0 END) GEL5
 
     FROM Nonfarm_Employment e, MaxGovEmp as g, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron as o
     WHERE e.Date in (g.Date, wt.Date, a.Date, d.Date, o.Date)) gov;
@@ -353,7 +353,7 @@ WHERE e.Date = c.Date;
 /*
 Compare trends in employment levels of the overarching private and goverment sectors of the economy to trends in COVID cases 
 */
-SELECT e.Date, e.Total_Private, e.Government, c.Cases_Total
+SELECT e.Date, e.Total_Private, e.Total_Government, c.Cases_Total
 FROM Nonfarm_Employment e, COVID_Cases c
 WHERE e.Date = c.Date;
 
@@ -471,7 +471,7 @@ FROM
     WHERE u.Date in (l.Date, wt.Date, a.Date, d.Date, o.Date)) urate;
 
 /*
-Analyze the trend in unemployment rate for workers over 20 years of age at the peak periods of different COVID variants.
+Analyze the trend in unemployment rate for workers 20 years of age and over at the peak periods of different COVID variants.
 */
 
 SELECT urate.GUR1 - urate.GUR2 AS wtChangeG20,
@@ -496,7 +496,7 @@ WHERE u.Date = c.Date;
 /*
 Find the maximum count of the COVID cases by race throughout all pertinent time periods. 
 */
-/* Need to make race as a column */
+/* Need to make race as a column
 
 CREATE or REPLACE TABLE MaxCaseRace AS
 SELECT c1.Race, c1.Max, c2.Date
@@ -507,7 +507,10 @@ FROM COVID_Cases_By_Race c2,
 	GROUP BY Race) c1
 WHERE c1.max = c2.cases and c1.race = c2.race;
 
+CREATE or REPLACE VIEW Unemp_Rate_By_Region AS 
+SELECT (SUM(Connecticut + Massachusetts + Maine + New Hampshire + New Jersey + New York + Pennsylvania + Rhode Island + Vermont) / 9) Northeast
+FROM State_Unemployment_Rates 
 
-
+*/
 
 
