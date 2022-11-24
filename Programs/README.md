@@ -1,12 +1,16 @@
 
 1. Group Members
+
     Jonathan Young
+    
     Natalie Vallejo
 
 2. Target Domain 
+
     The impact of COVID on patient outcomes, symptoms, and longevity as well as the economy. 
 
 3. English Questions
+
     a. Compare the total unemployment rate as of December 2019 to the total unemployment rate as of April 2020. Has COVID impacted the employment rate?
 
     b. Compare unemployment rates of men and women who are 16 to 19-year-olds, 20 years and over, and over 65 years old in December 2019 vs. April 2020. Has COVID disproportionately affected some age groups versus others in terms of employment? 
@@ -46,7 +50,7 @@
     s. Does vaccination decrease hospitalizations? 
 
     t. Are states with high vaccination rates having low rates of COVID deaths and cases? (Pointing the effectiveness of vaccination in a certain direction) 
-    
+
     u. Do testing rates correlate with decreased hospitalizations, cases, or deaths?
     w. Which conditions contributed to COVID deaths?
 
@@ -56,11 +60,16 @@
 5. SQL Queries - See Queries.sql
 
 6. Loading Data 
+
     All of the data will come from downloading from the links listed in the section below:
+
     These .csv files will be loaded into a python script that isolates the column required to process, while also outputting the script required to input the data into the database according to the defined schema. 
+
     Key economic indicators in the time of COVID-19
+
     LINKS 
-        https://data.bls.gov/apps/covid-dashboard/home.htm
+        https://data.bls.gov/apps/covid-dashboard/home.html
+
         Civilian Unemployment Rate
         State Unemployment Rates Animated Map
         Reasons for Unemployment
@@ -72,19 +81,31 @@
         Consumer Prices
         GDP data (by Industry)
         https://www.bea.gov/sites/default/files/2022-09/gdp2q22_3rd.xlsx
+
         Percent Change From Preceding Period in Real Gross Domestic Product
+
         https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCIzMSJdXX0=
+
         COVID
+
         https://data.cdc.gov/Case-Surveillance/Weekly-United-States-COVID-19-Cases-and-Deaths-by-/pwn4-m3yp OR https://raw.githubusercontent.com/nytimes/covid-19-data/master/rolling-averages/us-states.csv (more workable)
+
         https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Week-Sex-and-Age/vsak-wrfu
+
         https://covid.cdc.gov/covid-data-tracker/#demographicsovertime
+
         https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku
+
         RACE
+
         https://covidtracking.com/race/dashboard
+
         https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-Distribution-of-Deaths/pj7m-y5uh
 
         GENDER
+
         https://www.genderscilab.org/gender-and-sex-in-covid19/#DataTable
+
         HEALTH CONDITIONS
         https://data.cdc.gov/NCHS/Conditions-Contributing-to-COVID-19-Deaths-by-Stat/hk9y-quqm
         HOSPITALIZATIONS
