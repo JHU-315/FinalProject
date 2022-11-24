@@ -1,1 +1,1 @@
-python generator.py CovidCasesByGender.csv
+python generator.py CovidCasesByState.csv

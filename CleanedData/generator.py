@@ -8,8 +8,8 @@ def main():
     if(len(sys.argv) < 2):
         print("Usage: generator.py <number of files>")
         return
-        
-    inputFile = open(sys.argv[1], "r")
+    parentDir = "CSV Files\\"
+    inputFile = open(parentDir + sys.argv[1], "r")
     csvFile = pd.read_csv(inputFile)
 
     printData(csvFile)
@@ -88,7 +88,8 @@ def generateSQLSchema(data, fileName):
 
 def generateSQLInsertionScript(data, fileName):
 
-    title = fileName.split(".")[0]
+
+    title = input("Enter the name of the table: ")
 
     sqlFile = open("sqlInsertionScript.sql", "w")
     pandasKeys = data.keys()

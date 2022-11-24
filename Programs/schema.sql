@@ -5,8 +5,8 @@ CREATE TABLE Unemployment_Rate
 (
     Date DATE NOT NULL UNIQUE,
     Total FLOAT(4) NOT NULL,
-    Men_20+ FLOAT(4) CHECK (Men_20+ >= 0),
-    Women_20+ FLOAT(4) CHECK (Women_20+ >= 0),
+    Men_20_plus FLOAT(4) CHECK (Men_20_plus >= 0),
+    Women_20_plus FLOAT(4) CHECK (Women_20_plus >= 0),
     Yrs_16_19 FLOAT(4) CHECK (Yrs_16_19 >= 0),
     White FLOAT(4) CHECK (White >= 0),
     Black FLOAT(4) CHECK (Black >= 0),
@@ -47,7 +47,7 @@ CREATE TABLE Nonfarm_Employment
     Education_and_Health_Services INT CHECK (Education_and_Health_Services >= 0),
     Leisure_and_Hospitality INT CHECK (Leisure_and_Hospitality >= 0),
     Other_Services INT CHECK (Other_Services >= 0),
-    Total_Government INT CHECK Total_Government >= 0),
+    Total_Government INT CHECK (Total_Government >= 0),
     Federal_Government INT CHECK (Federal_Government >= 0),
     State_Government INT CHECK (State_Government >= 0),
     Local_Government INT CHECK (Local_Government >= 0),
@@ -223,11 +223,13 @@ CREATE TABLE COVID_Cases_By_Gender(
 /*Number of Patients*/
 DROP TABLE COVID_Deaths_By_Age_Gender;
 CREATE TABLE COVID_Deaths_By_Age_Gender(
-    Date DATE NOT NULL,
+    Date DATE,
     Sex VARCHAR(20),
     Age_Group VARCHAR(20),
-    Total_Deaths INT CHECK (Total_Deaths >= 0),
-    COVID_19_Deaths INT CHECK (COVID_19_Death >= 0),
+    Total_Deaths INT,
+    COVID_19_Deaths INT,
+    CHECK (Total_Deaths >=0),
+    CHECK (Covid_19_Deaths >=0),
     PRIMARY KEY(Date, Sex, Age_Group)
 );
 
@@ -298,11 +300,16 @@ DROP TABLE COVID_Hospitalizations_By_Age;
 CREATE TABLE COVID_Hospitalizations_By_Age(
     YEAR VARCHAR(10),
     WEEK VARCHAR(10),
-    Yrs_0_to_4 INT CHECK (Yrs_0_to_4 >= 0),
-    Yrs_5_to_17 INT CHECK (Yrs_0_to_4 >= 0),
-    Yrs_18_to_49 INT CHECK (Yrs_18_to_49 >= 0),
-    Yrs_50_to_64 INT CHECK (Yrs_50_to_64 >= 0),
-    Yrs_65_plus INT CHECK (Yrs_65_plus >= 0),
+    Yrs_0_to_4 INT,
+    Yrs_5_to_17 INT,
+    Yrs_18_to_49 INT,
+    Yrs_50_to_64 INT,
+    Yrs_65_plus INT,
+    CHECK (Yrs_0_to_4 >= 0),
+    CHECK (Yrs_5_to_17 >= 0),
+    CHECK (Yrs_18_to_49 >= 0),
+    CHECK (Yrs_50_to_64 >= 0),
+    CHECK (Yrs_65_plus >= 0),
     PRIMARY KEY(YEAR, WEEK)
 );
 
