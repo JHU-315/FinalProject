@@ -90,16 +90,16 @@ CREATE TABLE GDP_By_Industry
     PRIMARY KEY(Quarter)
 );
 
-/* Real Gross Domestic Product by Quarter per State in millions of dollars */
+/* Real Gross Domestic Product by Quarter per State in billions of dollars */
 DROP TABLE GDP_By_State;
-CREATE TABLE Personal_Income_By_State(
+CREATE TABLE GDP_By_State(
     Quarter VARCHAR(6) NOT NULL,
     State VARCHAR(20) NOT NULL,
     Gross_Domestic_Product FLOAT(10),
     PRIMARY KEY(Quarter, State)
 );
 
-/* Personal Income by Quarter per State in millions of dollars */
+/* Personal Income by Quarter per State in billions of dollars */
 DROP TABLE Personal_Income_By_State;
 CREATE TABLE Personal_Income_By_State(
     Quarter VARCHAR(6) NOT NULL,
@@ -153,17 +153,6 @@ CREATE TABLE COVID_Cases_By_State
     PRIMARY KEY(Date, State_Code)
 );
 
-/*COVID Deaths By State*/
-DROP TABLE COVID_Deaths_By_State;
-CREATE TABLE COVID_Deaths_By_State
-(
-    Date DATE NOT NULL,
-    State_Code VARCHAR(2),
-    tot_deaths INT CHECK (tot_deaths >= 0),
-    new_deaths INT CHECK (new_deaths >= 0),
-    PRIMARY KEY(Date, State_Code)
-);
-
 /*COVID Cases By Race*/
 DROP TABLE COVID_Cases_By_Race;
 CREATE TABLE COVID_Cases_By_Race(
@@ -185,6 +174,30 @@ CREATE TABLE COVID_Cases_By_Race(
     PRIMARY KEY(Date, State)
 );
 
+/*COVID Cases By Gender */
+DROP TABLE COVID_Cases_By_Gender;
+CREATE TABLE COVID_Cases_By_Gender(
+    Date DATE NOT NULL, 	
+    State VARCHAR(20),
+    Total_Count	INT CHECK (Total_Count >= 0),
+    Male_Count INT CHECK (Male_Count >= 0),
+    Female_Count INT CHECK (Female_Count >= 0),	
+    Male_Percentage	FLOAT(4), 
+    Female_Percentage FLOAT(4)
+    PRIMARY KEY(Date, State)
+);
+
+/*COVID Deaths By State*/
+DROP TABLE COVID_Deaths_By_State;
+CREATE TABLE COVID_Deaths_By_State
+(
+    Date DATE NOT NULL,
+    State_Code VARCHAR(2),
+    tot_deaths INT CHECK (tot_deaths >= 0),
+    new_deaths INT CHECK (new_deaths >= 0),
+    PRIMARY KEY(Date, State_Code)
+);
+
 /*COVID Deaths By Race*/
 DROP TABLE COVID_Deaths_By_Race;
 CREATE TABLE COVID_Deaths_By_Race(
@@ -203,19 +216,6 @@ CREATE TABLE COVID_Deaths_By_Race(
     Deaths_Ethnicity_Hispanic INT CHECK (Deaths_Ethnicity_Hispanic >= 0),
     Deaths_Ethnicity_Non_Hispanic INT CHECK (Deaths_Ethnicity_Non_Hispanic >= 0),
     Deaths_Ethnicity_Unknown INT CHECK (Deaths_Ethnicity_Unknown >= 0),
-    PRIMARY KEY(Date, State)
-);
-
-/*COVID Cases By Gender */
-DROP TABLE COVID_Cases_By_Gender;
-CREATE TABLE COVID_Cases_By_Gender(
-    Date DATE NOT NULL, 	
-    State VARCHAR(20),
-    Total_Count	INT CHECK (Total_Count >= 0),
-    Male_Count INT CHECK (Male_Count >= 0),
-    Female_Count INT CHECK (Female_Count >= 0),	
-    Male_Percentage	FLOAT(4), 
-    Female_Percentage FLOAT(4)
     PRIMARY KEY(Date, State)
 );
     
