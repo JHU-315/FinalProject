@@ -3,7 +3,7 @@
 DROP TABLE Unemployment_Rate;
 CREATE TABLE Unemployment_Rate
 (
-    Date DATE NOT NULL UNIQUE,
+    Date VARCHAR(6) NOT NULL UNIQUE,
     Total FLOAT(4) NOT NULL,
     Men_20_plus FLOAT(4) CHECK (Men_20_plus >= 0),
     Women_20_plus FLOAT(4) CHECK (Women_20_plus >= 0),
@@ -21,7 +21,7 @@ CREATE TABLE Unemployment_Rate
 DROP TABLE Unemployment_Rate_By_State;
 CREATE TABLE Unemployment_Rate_By_State
 (
-    Date DATE NOT NULL UNIQUE,
+    Date VARCHAR(6) NOT NULL UNIQUE,
     State VARCHAR(20) NOT NULL,
     Unemp_Rate FLOAT(4),
     PRIMARY KEY(Date, State)
@@ -31,7 +31,7 @@ CREATE TABLE Unemployment_Rate_By_State
 DROP TABLE Nonfarm_Employment;
 CREATE TABLE Nonfarm_Employment
 (
-    Date DATE NOT NULL UNIQUE,
+    Date VARCHAR(6) NOT NULL UNIQUE,
     Total_NonFarm INT CHECK (Total_NonFarm >= 0),
     Total_Private FLOAT(4) CHECK (Total_Private >= 0),
     Mining_and_Logging INT CHECK (Mining_and_Logging >= 0),
@@ -111,7 +111,7 @@ CREATE TABLE Personal_Income_By_State(
 /* Personal Income by Month for Entire Nation in billions of dollars*/
 DROP TABLE Personal_Income_National;
 CREATE TABLE Personal_Income_National(
-    Date DATE NOT NULL UNIQUE,
+    Date VARCHAR(6) NOT NULL UNIQUE,
     Personal_Income FLOAT(8), 
     Personal_Saving FLOAT(8),
     PRIMARY KEY(Date)
@@ -121,7 +121,7 @@ CREATE TABLE Personal_Income_National(
 /*12 month percent change*/
 DROP TABLE Consumer_Prices;
 CREATE TABLE Consumer_Prices(
-    Date DATE NOT NULL,
+    Date VARCHAR(6) NOT NULL,
     All_Items FLOAT(4),
     Food FLOAT(4),
     Food_At_Home FLOAT(4),
