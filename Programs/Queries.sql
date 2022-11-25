@@ -20,7 +20,7 @@ SELECT ICDC10_Code, SUM(COVID_19_Death) as maxDeath FROM Health_Conditions_Causi
 /*
 Find the corresponding month where the total number of COVID cases was the highest in the database. 
 */
-
+/*  2021-03-07 */
 CREATE or REPLACE VIEW MaxCaseDate AS 
 SELECT c2.Date
 FROM COVID_Cases_By_Race c2, 
@@ -28,17 +28,12 @@ FROM COVID_Cases_By_Race c2,
      FROM COVID_Cases_By_Race) c1
 WHERE c1.mx = c2.Cases_Total;
 
-/*
-Find the date corresponding to the min total unemployment rate through the 6 months before the pandemic started.
-*/
+/* conversion of date string to month date */
+CREATE or REPLACE VIEW UnempRate AS
+SELECT u.*, m.MonthDate
+FROM Unemployment_Rate u, MonthString_To_MonthDate m
+WHERE u.Date = m.MonthString;
 
-CREATE or REPLACE VIEW MinUnempRate AS 
-SELECT u2.Date
-FROM Unemployment_Rate u2, 
-    (SELECT MIN (Total) min
-     FROM Unemployment_Rate
-     WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
-WHERE u1.min = u2.Total;
 
 /*
 Create a view corresponding to all cases on a given date throughout all states.
@@ -52,73 +47,79 @@ GROUP BY Date;
 /*
 Create a view corresponding to the COVID Wild Type peak, i.e. the corresponding month where the total number cases was highest within the time period where the Wild Type variant was most prevalent.
 */
-
+/*2020-10-29*/
 CREATE or REPLACE VIEW MaxCaseWT AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
+SELECT c1.mx, c2.Date, md.MonthDate
+FROM COVID_Cases c2, Date_To_MonthDate md,
     (SELECT MAX(Cases_Total) mx
      FROM COVID_Cases
      WHERE Date >= '2020-01-01' and Date < '2020-11-01') c1
-WHERE c1.mx = c2.Cases_Total;
+WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 /*
 Create a view corresponding to the COVID Alpha peak, i.e. the corresponding month where the total number cases was highest within the time period where the Alpha variant was most prevalent.
 */
 
+/*2021-01-14*/
 CREATE or REPLACE VIEW MaxCaseAlpha AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
+SELECT c1.mx, c2.Date, md.MonthDate
+FROM COVID_Cases c2, Date_To_MonthDate md,
     (SELECT MAX(Cases_Total) mx
      FROM COVID_Cases
      WHERE Date >= '2020-11-01' and Date < '2021-06-01') c1
-WHERE c1.mx = c2.Cases_Total;
+WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 
 /*
 Create a view corresponding to the COVID Delta peak, i.e. the corresponding month where the total number cases was highest within the time period where the Delta variant was most prevalent.
 */
 
+/*2021-09-02*/
+
 CREATE or REPLACE VIEW MaxCaseDelta AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
+SELECT c1.mx, c2.Date, md.MonthDate
+FROM COVID_Cases c2, Date_To_MonthDate md,
     (SELECT MAX(Cases_Total) mx
      FROM COVID_Cases
      WHERE Date >= '2021-06-01' and Date < '2021-11-01') c1
-WHERE c1.mx = c2.Cases_Total;
+WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 
 /*
 Create a view corresponding to the COVID Omicron peak, i.e. the corresponding month where the total number cases was highest within the time period where the Omicron variant was most prevalent.
 */
-
+/*2022-01-20*/
 CREATE or REPLACE VIEW MaxCaseOmicron AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
-    (SELECT MAX(COVID_Cases.Cases_Total) mx
+SELECT c1.mx, c2.Date, md.MonthDate
+FROM COVID_Cases c2, Date_To_MonthDate md, 
+    (SELECT MAX(Cases_Total) mx
      FROM COVID_Cases
      WHERE Date >= '2021-11-01') c1
-WHERE c1.mx = c2.Cases_Total;
+WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 
 /*
-Analyze the trend in total unemployment rate at the peak periods of different COVID variants.
+Analyze the trend in total unemployment rate at the peak periods of different COVID variants in comparison to the pre-COVID rate, defined as Dec 2019
 */
 
 /* show increase or decline trends in unemployment by subtracting (minimum unemployment rate before pandemic - rate at a given variant peak) */
 
-SELECT urate.TUR1 - urate.TUR2 AS wtChange,
- 	   urate.TUR1 - urate.TUR3 AS AlphaChange,
- 	   urate.TUR1 - urate.TUR4 AS DeltaChange,
- 	   urate.TUR1 - urate.TUR5 AS OmicronChange
+SELECT CONCAT(urate.TUR1, ' %') AS Unemployment_Rate_Dec2019,
+       CONCAT(urate.TUR2, ' %') AS Unemployment_Rate_WildType_Peak, 
+ 	   CONCAT(urate.TUR3, ' %') AS Unemployment_Rate_Alpha_Peak, 
+ 	   CONCAT(urate.TUR4, ' %') AS Unemployment_Rate_Delta_Peak,
+ 	   CONCAT(urate.TUR5, ' %') AS Unemployment_Rate_Omicron_Peak
 FROM
-    (SELECT (CASE WHEN u.Date=m.Date THEN u.Total ELSE 0 END) TUR1,
-           (CASE WHEN u.Date=wt.Date THEN u.Total ELSE 0 END) TUR2,
-           (CASE WHEN u.Date=a.Date THEN u.Total ELSE 0 END) TUR3,
-           (CASE WHEN u.Date=d.Date THEN u.Total ELSE 0 END) TUR4,
-           (CASE WHEN u.Date=o.Date THEN u.Total ELSE 0 END) TUR5
-    FROM Unemployment_Rate u, MinUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron as o
-    WHERE u.Date in (m.Date, wt.Date, a.Date, d.Date, o.Date)) urate;
+    (SELECT SUM(CASE WHEN u.MonthDate='2019-12-01' THEN u.Total ELSE 0 END) TUR1,
+           SUM(CASE WHEN u.MonthDate=wt.MonthDate THEN u.Total ELSE 0 END) TUR2,
+           SUM(CASE WHEN u.MonthDate=a.MonthDate THEN u.Total ELSE 0 END) TUR3,
+           SUM(CASE WHEN u.MonthDate=d.MonthDate THEN u.Total ELSE 0 END) TUR4,
+           SUM(CASE WHEN u.MonthDate=o.MonthDate THEN u.Total ELSE 0 END) TUR5
+    FROM UnempRate u, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron as o
+    WHERE u.MonthDate in ('2019-12-01', wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
 
+/* maybe output a table of max COVID case levels at each of the peaks */
+    
 /* Compare trends in total unemployment rate to trends in COVID cases over all relevant dates*/
 
 SELECT u.Date, u.Total, c.Cases_Total
@@ -132,12 +133,10 @@ Find the date corresponding to the min unemployment rate for Whites through the 
 CREATE or REPLACE VIEW MinWhiteUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (White) min
-     FROM Unemployment_Rate
-     WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
+    (SELECT MIN(White) min
+     FROM UnempRate
+     WHERE MonthDate >= '2019-06-01' and MonthDate <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
-
-/*Generalized Case*/
 
 /*
 Find the date corresponding to the min unemployment rate for Blacks through the 6 months before the pandemic started.
@@ -146,7 +145,7 @@ Find the date corresponding to the min unemployment rate for Blacks through the 
 CREATE or REPLACE VIEW MinBlackUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (Black) min
+    (SELECT MIN(Black) min
      FROM Unemployment_Rate
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
@@ -158,7 +157,7 @@ Find the date corresponding to the min unemployment rate for Hispanics through t
 CREATE or REPLACE VIEW MinHispanicUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (Hispanic) min
+    (SELECT MIN(Hispanic) min
      FROM Unemployment_Rate
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
@@ -171,7 +170,7 @@ Find the date corresponding to the min unemployment rate for Asians through the 
 CREATE or REPLACE VIEW MinAsianUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (Asian) min
+    (SELECT MIN(Asian) min
      FROM Unemployment_Rate
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
@@ -264,7 +263,7 @@ Find the date corresponding to the max nonfarm employment level through the 6 mo
 CREATE or REPLACE VIEW MaxNonFarmEmp AS 
 SELECT e2.Date
 FROM Nonfarm_Employment e2, 
-    (SELECT MAX (Total_NonFarm) mx
+    (SELECT MAX(Total_NonFarm) mx
      FROM Nonfarm_Employment
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') e1
 WHERE e1.mx = e2.Total_NonFarm;
@@ -276,7 +275,7 @@ Find the date corresponding to the max private sector employment level through t
 CREATE or REPLACE VIEW MaxPrivateEmp AS 
 SELECT e2.Date
 FROM Nonfarm_Employment e2, 
-    (SELECT MAX (Total_Private) mx
+    (SELECT MAX(Total_Private) mx
      FROM Nonfarm_Employment
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') e1
 WHERE e1.mx = e2.Total_Private;
@@ -288,7 +287,7 @@ Find the date corresponding to the max government employment level through the 6
 CREATE or REPLACE VIEW MaxGovEmp AS 
 SELECT e2.Date
 FROM Nonfarm_Employment e2, 
-    (SELECT MAX (Total_Government) mx
+    (SELECT MAX(Total_Government) mx
      FROM Nonfarm_Employment
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') e1
 WHERE e1.mx = e2.Total_Government;
@@ -366,7 +365,7 @@ Find the date corresponding to the min unemployment rate for men 20 years and ol
 CREATE or REPLACE VIEW MinMenUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (Men_20+) min
+    (SELECT MIN(Men_20_plus) min
      FROM Unemployment_Rate
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
@@ -378,7 +377,7 @@ Find the date corresponding to the min unemployment rate for women 20 years and 
 CREATE or REPLACE VIEW MinWomenUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (Women_20+) min
+    (SELECT MIN(Women_20_plus) min
      FROM Unemployment_Rate
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
@@ -396,11 +395,11 @@ SELECT urate.MUR1 - urate.MUR2 AS wtChangeMen,
  	   urate.MUR1 - urate.MUR4 AS DeltaChangeMen,
  	   urate.MUR1 - urate.MUR5 AS OmicronChangeMen
 FROM
-    (SELECT (CASE WHEN u.Date=mM.Date THEN u.Men_20+ ELSE 0 END) MUR1,
-           (CASE WHEN u.Date=wt.Date THEN u.Men_20+ ELSE 0 END) MUR2,
-           (CASE WHEN u.Date=a.Date THEN u.Men_20+ ELSE 0 END) MUR3,
-           (CASE WHEN u.Date=d.Date THEN u.Men_20+ ELSE 0 END) MUR4,
-           (CASE WHEN u.Date=o.Date THEN u.Men_20+ ELSE 0 END) MUR5
+    (SELECT (CASE WHEN u.Date=mM.Date THEN u.Men_20_plus ELSE 0 END) MUR1,
+           (CASE WHEN u.Date=wt.Date THEN u.Men_20_plus ELSE 0 END) MUR2,
+           (CASE WHEN u.Date=a.Date THEN u.Men_20_plus ELSE 0 END) MUR3,
+           (CASE WHEN u.Date=d.Date THEN u.Men_20_plus ELSE 0 END) MUR4,
+           (CASE WHEN u.Date=o.Date THEN u.Men_20_plus ELSE 0 END) MUR5
     FROM Unemployment_Rate u, MinMenUnempRate as mM, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o
     WHERE u.Date in (mM.Date, wt.Date, a.Date, d.Date, o.Date)) urate;
 
@@ -413,17 +412,17 @@ SELECT urate.WUR1 - urate.WUR2 AS wtChangeWomen,
  	   urate.WUR1 - urate.WUR4 AS DeltaChangeWomen,
  	   urate.WUR1 - urate.WUR5 AS OmicronChangeWomen
 FROM
-    (SELECT (CASE WHEN u.Date=mW.Date THEN u.Women_20+ ELSE 0 END) WUR1,
-           (CASE WHEN u.Date=wt.Date THEN u.Women_20+ ELSE 0 END) WUR2,
-           (CASE WHEN u.Date=a.Date THEN u.Women_20+ ELSE 0 END) WUR3,
-           (CASE WHEN u.Date=d.Date THEN u.Women_20+ ELSE 0 END) WUR4,
-           (CASE WHEN u.Date=o.Date THEN u.Women_20+ ELSE 0 END) WUR5  
+    (SELECT (CASE WHEN u.Date=mW.Date THEN u.Women_20_plus ELSE 0 END) WUR1,
+           (CASE WHEN u.Date=wt.Date THEN u.Women_20_plus ELSE 0 END) WUR2,
+           (CASE WHEN u.Date=a.Date THEN u.Women_20_plus ELSE 0 END) WUR3,
+           (CASE WHEN u.Date=d.Date THEN u.Women_20_plus ELSE 0 END) WUR4,
+           (CASE WHEN u.Date=o.Date THEN u.Women_20_plus ELSE 0 END) WUR5  
     FROM Unemployment_Rate u, MinWomenUnempRate as mW, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o
     WHERE u.Date in (mW.Date, wt.Date, a.Date, d.Date, o.Date)) urate;
     
 /* Compare trends in unemployment rate by gender to trends in COVID cases by gender over all relevant dates*/
 
-SELECT u.Date, u.Men_20+, u.Women_20+, g.Male_Count, g.Female_Count 
+SELECT u.Date, u.Men_20_plus, u.Women_20_plus, g.Male_Count, g.Female_Count 
 FROM Unemployment_Rate u, COVID_Cases_By_Gender g
 WHERE u.Date = c.Date;
 
@@ -434,7 +433,7 @@ Find the date corresponding to the min unemployment rate for workers 16 to 19 ye
 CREATE or REPLACE VIEW MinL20UnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (Yrs_16_19) min
+    (SELECT MIN(Yrs_16_19) min
      FROM Unemployment_Rate
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
@@ -446,7 +445,7 @@ Find the date corresponding to the min unemployment rate for workers 20 years an
 CREATE or REPLACE VIEW MinG20UnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
-    (SELECT MIN (Men_20+ + Women_20+) min
+    (SELECT MIN(Men_20_plus + Women_20_plus) min
      FROM Unemployment_Rate
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
@@ -481,17 +480,17 @@ SELECT urate.GUR1 - urate.GUR2 AS wtChangeG20,
  	   urate.GUR1 - urate.GUR4 AS DeltaChangeG20,
  	   urate.GUR1 - urate.GUR5 AS OmicronChangeG20
 FROM
-(SELECT (CASE WHEN u.Date=g.Date THEN (u.Men_20+ + u.Women_20+) ELSE 0 END) GUR1,
-	   (CASE WHEN u.Date=wt.Date THEN (u.Men_20+ + u.Women_20+) ELSE 0 END) GUR2,
-	   (CASE WHEN u.Date=a.Date THEN (u.Men_20+ + u.Women_20+) ELSE 0 END) GUR3,
-	   (CASE WHEN u.Date=d.Date THEN (u.Men_20+ + u.Women_20+) ELSE 0 END) GUR4,
-	   (CASE WHEN u.Date=o.Date THEN (u.Men_20+ + u.Women_20+) ELSE 0 END) GUR5 
+(SELECT (CASE WHEN u.Date=g.Date THEN (u.Men_20_plus + u.Women_20_plus) ELSE 0 END) GUR1,
+	   (CASE WHEN u.Date=wt.Date THEN (u.Men_20_plus + u.Women_20_plus) ELSE 0 END) GUR2,
+	   (CASE WHEN u.Date=a.Date THEN (u.Men_20_plus + u.Women_20_plus) ELSE 0 END) GUR3,
+	   (CASE WHEN u.Date=d.Date THEN (u.Men_20_plus + u.Women_20_plus) ELSE 0 END) GUR4,
+	   (CASE WHEN u.Date=o.Date THEN (u.Men_20_plus + u.Women_20_plus) ELSE 0 END) GUR5 
 FROM Unemployment_Rate u, MinG20UnempRate as g, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron as o
 WHERE u.Date in (g.Date, wt.Date, a.Date, d.Date, o.Date)) urate;
 
 /* Compare trends in unemployment rate by age to trends in COVID cases by over all relevant dates*/
 
-SELECT u.Date, u.Yrs_16_19, (u.Men_20+ + u.Women_20+) as Yrs_20+, c.Cases_Total
+SELECT u.Date, u.Yrs_16_19, (u.Men_20_plus + u.Women_20_plus) as Yrs_20+, c.Cases_Total
 FROM Unemployment_Rate u, COVID_Cases c
 WHERE u.Date = c.Date;
 
@@ -514,5 +513,13 @@ SELECT (SUM(Connecticut + Massachusetts + Maine + New Hampshire + New Jersey + N
 FROM State_Unemployment_Rates 
 
 */
+
+SELECT u.Date, r.Region, AVG(Unemp_Rate) 
+FROM Unemployment_Rate_By_State u, State_To_Region r
+WHERE u.State = r.State
+GROUP BY u.Date, r.Region;
+
+
+
 
 
