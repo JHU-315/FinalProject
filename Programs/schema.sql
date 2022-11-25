@@ -339,19 +339,27 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
 /*DateToMonth*/
 /* Month is a date that corresponds to the first day of that month for easier comparison */
 
-DROP TABLE Date_To_Month;
-CREATE TABLE Date_To_Month(
+DROP TABLE Date_To_MonthDate;
+CREATE TABLE Date_To_MonthDate(
     Date DATE NOT NULL,
-    Month DATE NOT NULL,
+    MonthDate DATE NOT NULL,
     PRIMARY KEY(Date)
 );
 
-/*MonthToQuarter*/
+DROP TABLE MonthString_To_MonthDate;
+CREATE TABLE MonthString_To_MonthDate(
+    MonthString VARCHAR(6) NOT NULL,
+    MonthDate DATE NOT NULL,
+    PRIMARY KEY(MonthString)
+);
+
 
 /* Month is a date that corresponds to the first day of that month for easier comparison */
+
+/*MonthToQuarter*/
 DROP TABLE Month_To_Quarter;
 CREATE TABLE Month_To_Quarter(
-    Month DATE NOT NULL,
+    Month VARCHAR(6) NOT NULL,
     Quarter VARCHAR(6),
     PRIMARY KEY(Month)
 );
