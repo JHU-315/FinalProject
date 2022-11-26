@@ -34,6 +34,13 @@ SELECT Date, SUM(new_cases) Cases_Total
 FROM COVID_Cases_By_State
 GROUP BY Date;
 
+/*Create a view for all tests given throughout all states*/
+CREATE or REPLACE VIEW COVID_Tests AS
+SELECT Date, SUM(Tests_Total) Tests_Total
+FROM COVID_Test_By_Race
+GROUP BY Date;
+
+
 /*
 Create a view corresponding to the COVID Wild Type peak, i.e. the corresponding month where the total number cases was highest within the time period where the Wild Type variant was most prevalent.
 */
@@ -83,3 +90,19 @@ FROM COVID_Cases c2,
      FROM COVID_Cases
      WHERE Date >= '2021-11-01') c1
 WHERE c1.mx = c2.Cases_Total;
+
+
+/*link up cases with state name*/
+CREATE OR REPLACE VIEW COVID_Cases_By_With_State_Name AS 
+SELECT * FROM jhu_315_final_project.COVID_Cases_By_Race JOIN jhu_315_final_project.State_To_Code 
+ON jhu_315_final_project.State_To_Code.code = jhu_315_final_project.COVID_Cases_By_Race.State
+
+/*link up deaths with state name*/
+CREATE OR REPLACE VIEW COVID_Deaths_By_With_State_Name AS 
+SELECT * FROM jhu_315_final_project.COVID_Deaths_By_Race JOIN jhu_315_final_project.State_To_Code 
+ON jhu_315_final_project.State_To_Code.code = jhu_315_final_project.COVID_Deaths_By_Race.State
+
+/*link up test with state name*/
+CREATE OR REPLACE VIEW COVID_Test_By_With_State_Name AS 
+SELECT * FROM jhu_315_final_project.COVID_Test_By_Race JOIN jhu_315_final_project.State_To_Code 
+ON jhu_315_final_project.State_To_Code.code = jhu_315_final_project.COVID_Test_By_Race.State
