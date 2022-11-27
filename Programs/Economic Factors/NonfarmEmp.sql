@@ -91,12 +91,12 @@ Compare trends in employment levels of the specific subdivisions of the private 
 */
 
 SELECT e.Date, e.Mining_and_Logging, e.Manufacturing, e.Retail_Trade, e.Utilities, e.Finance_and_Insurance, c.Education_and_Health_Services, e.Other_Services, e.Construction, e.Wholesale_Trade, e.Transportation_and_Warehousing, e.Information, e.Professional, e.Leisure_and_Hospitality, c.Cases_Total
-FROM Nonfarm_Employment e, COVID_Cases c
+FROM Nonfarm_Employment e, COVID_Cases_Monthly c
 WHERE e.Date = c.Date;
 
 /*
 Compare trends in employment levels of the overarching private and goverment sectors of the economy to trends in COVID cases 
 */
 SELECT e.Date, e.Total_Private, e.Total_Government, c.Cases_Total
-FROM Nonfarm_Employment e, COVID_Cases c
+FROM Nonfarm_Employment e, COVID_Cases_Monthly c
 WHERE e.Date = c.Date;

@@ -6,8 +6,8 @@ CREATE or REPLACE VIEW MinWhiteUnempRate AS
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
     (SELECT MIN(White) min
-     FROM UnempRate
-     WHERE MonthDate >= '2019-06-01' and MonthDate <= '2019-12-01') u1
+     FROM Unemployment_Rate
+     WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
 
 /*

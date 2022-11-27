@@ -64,10 +64,6 @@ FROM
     
 /* Compare trends in unemployment rate by age to trends in COVID cases by over all relevant dates*/
 
-SELECT u.Date, u.Yrs_16_19, ((u.Men_20_plus + u.Women_20_plus) / 2) as Yrs_20up, c.Cases_Total
-FROM Unemployment_Rate u, COVID_Cases c
-WHERE u.Date = c.Date;
-
 SELECT u.Date, u.Yrs_16_19, ((u.Men_20_plus + u.Women_20_plus) / 2) as Yrs_20up
 FROM Unemployment_Rate u
 
