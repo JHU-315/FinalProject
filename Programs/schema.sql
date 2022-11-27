@@ -3,15 +3,15 @@
 DROP TABLE Unemployment_Rate;
 CREATE TABLE Unemployment_Rate
 (
-    Date VARCHAR(6) NOT NULL UNIQUE,
-    Total FLOAT(4) NOT NULL,
-    Men_20_plus FLOAT(4) CHECK (Men_20_plus >= 0),
-    Women_20_plus FLOAT(4) CHECK (Women_20_plus >= 0),
-    Yrs_16_19 FLOAT(4) CHECK (Yrs_16_19 >= 0),
-    White FLOAT(4) CHECK (White >= 0),
-    Black FLOAT(4) CHECK (Black >= 0),
-    Asian FLOAT(4) CHECK (Asian >= 0),
-    Hispanic FLOAT(4) CHECK (Hispanic >= 0),
+    Date DATE NOT NULL UNIQUE,
+    Total DECIMAL(3, 1) NOT NULL,
+    Men_20_plus DECIMAL(3, 1) CHECK (Men_20_plus >= 0),
+    Women_20_plus DECIMAL(3, 1) CHECK (Women_20_plus >= 0),
+    Yrs_16_19 DECIMAL(3, 1) CHECK (Yrs_16_19 >= 0),
+    White DECIMAL(3, 1) CHECK (White >= 0),
+    Black DECIMAL(3, 1) CHECK (Black >= 0),
+    Asian DECIMAL(3, 1) CHECK (Asian >= 0),
+    Hispanic DECIMAL(3, 1) CHECK (Hispanic >= 0),
     PRIMARY KEY(Date)
 );
 
@@ -21,19 +21,29 @@ CREATE TABLE Unemployment_Rate
 DROP TABLE Unemployment_Rate_By_State;
 CREATE TABLE Unemployment_Rate_By_State
 (
-    Date VARCHAR(6) NOT NULL UNIQUE,
+    Date DATE NOT NULL,
     State VARCHAR(20) NOT NULL,
     Unemp_Rate FLOAT(4),
     PRIMARY KEY(Date, State)
+);
+
+/* employment level by age 
+Date is in month format */
+DROP TABLE Employment_Level_By_Age;
+CREATE TABLE Employment_Level_By_Age (
+    Date DATE NOT NULL,
+    Age_Group VARCHAR(20),
+    Employment_Level INT,
+    PRIMARY KEY(Date, Age_Group)
 );
 
 /*nonfarm employment*/
 DROP TABLE Nonfarm_Employment;
 CREATE TABLE Nonfarm_Employment
 (
-    Date VARCHAR(6) NOT NULL UNIQUE,
+    Date DATE NOT NULL UNIQUE,
     Total_NonFarm INT CHECK (Total_NonFarm >= 0),
-    Total_Private FLOAT(4) CHECK (Total_Private >= 0),
+    Total_Private INT CHECK (Total_Private >= 0),
     Mining_and_Logging INT CHECK (Mining_and_Logging >= 0),
     Construction INT CHECK (Construction >= 0),
     Manufacturing INT CHECK (Manufacturing >= 0),
@@ -111,7 +121,7 @@ CREATE TABLE Personal_Income_By_State(
 /* Personal Income by Month for Entire Nation in billions of dollars*/
 DROP TABLE Personal_Income_National;
 CREATE TABLE Personal_Income_National(
-    Date VARCHAR(6) NOT NULL UNIQUE,
+    Date DATE NOT NULL UNIQUE,
     Personal_Income FLOAT(8), 
     Personal_Saving FLOAT(8),
     PRIMARY KEY(Date)
@@ -121,7 +131,7 @@ CREATE TABLE Personal_Income_National(
 /*12 month percent change*/
 DROP TABLE Consumer_Prices;
 CREATE TABLE Consumer_Prices(
-    Date VARCHAR(6) NOT NULL,
+    Date DATE NOT NULL,
     All_Items FLOAT(4),
     Food FLOAT(4),
     Food_At_Home FLOAT(4),
@@ -142,7 +152,8 @@ CREATE TABLE Consumer_Prices(
     PRIMARY KEY(Date)
 );
 
-/*COVID Cases By State*/
+/*COVID Cases By State
+This is weekly data */
 DROP TABLE COVID_Cases_By_State;
 CREATE TABLE COVID_Cases_By_State
 (
@@ -174,16 +185,15 @@ CREATE TABLE COVID_Cases_By_Race(
     PRIMARY KEY(Date, State)
 );
 
-/*COVID Cases By Gender */
+/*COVID Cases By Gender 
+This is weekly data */
 DROP TABLE COVID_Cases_By_Gender;
 CREATE TABLE COVID_Cases_By_Gender(
     Date DATE NOT NULL, 	
     State VARCHAR(20),
     Total_Count	INT CHECK (Total_Count >= 0),
     Male_Count INT CHECK (Male_Count >= 0),
-    Female_Count INT CHECK (Female_Count >= 0),	
-    Male_Percentage	FLOAT(4), 
-    Female_Percentage FLOAT(4)
+    Female_Count INT CHECK (Female_Count >= 0),
     PRIMARY KEY(Date, State)
 );
 
