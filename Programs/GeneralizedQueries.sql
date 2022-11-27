@@ -139,15 +139,33 @@ FROM COVID_Cases c2,
      WHERE Date >= '2021-06-01' and Date < '2021-11-01') c1
 WHERE c1.mx = c2.Cases_Total;
 
+/*Deaths for racial group General*/
+CREATE OR REPLACE View MaxDeathsDeltaGeneral AS
+SELECT * FROM COVID_Deaths WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Deaths_Total DESC LIMIT 1;
+
+/*Cases for Racial Group*/
+CREATE OR REPLACE VIEW MaxCasesDelta AS 
+SELECT *  FROM COVID_Cases_By_Race ccbr WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Cases_Total DESC LIMIT 1;
+
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsDelta AS 
-SELECT Date, Deaths_Total  FROM COVID_Deaths WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Deaths_Total DESC LIMIT 1
+SELECT *  FROM COVID_Deaths_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Deaths_Total DESC LIMIT 1;
 
 /*Hospitalizations*/
 CREATE OR REPLACE VIEW MaxHospDelta AS
-SELECT Date, Hosp_Total FROM COVID_Hospitalizations_National WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Hosp_Total DESC LIMIT 1
+SELECT *  FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Hosp_Total DESC LIMIT 1;
 
+/*Deaths Over time*/
+CREATE OR REPLACE VIEW DeathsDelta AS 
+SELECT * FROM COVID_Deaths_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01';
 
+/*Hospitalizations Over Time*/
+CREATE OR REPLACE VIEW HospDelta AS
+SELECT * FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01';
+
+/*Cases Over Time*/
+CREATE OR REPLACE VIEW CasesDelta AS
+SELECT * FROM COVID_Cases_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01';
 
 /*OMICRON VARIANT-------------------------------------------------------*/
 
