@@ -64,7 +64,7 @@ WHERE c1.mx = c2.Cases_Total;
 
 /*Cases for Racial Group*/
 CREATE OR REPLACE VIEW MaxCasesWT AS 
-SELECT *  FROM COVID_Cases_By_Race ccbr  WHERE Date >= '2020-01-01' and Date < '2020-11-01' ORDER BY Cases_Total DESC LIMIT 1;
+SELECT *  FROM COVID_Cases_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' ORDER BY Cases_Total DEC LIMIT 1;
 
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsWT AS 
