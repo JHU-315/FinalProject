@@ -26,10 +26,10 @@ FROM Unemployment_Rate u2,
 WHERE u1.min = u2.Total;
 
 /*
-Create a view corresponding to all cases on a given date throughout all states.
+Create a view corresponding to all cases on a given date (weekly data) throughout all states.
 */
 
-CREATE or REPLACE VIEW COVID_Cases AS
+CREATE or REPLACE VIEW COVID_Cases_Weekly AS
 SELECT Date, SUM(new_cases) Cases_Total
 FROM COVID_Cases_By_State
 GROUP BY Date;
@@ -55,11 +55,11 @@ Create a view corresponding to the COVID Wild Type peak, i.e. the corresponding 
 */
 
 CREATE or REPLACE VIEW MaxCaseWT AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
+SELECT c1.mx, c2.MonthDate
+FROM COVID_Cases_Monthly c2,
     (SELECT MAX(Cases_Total) mx
-     FROM COVID_Cases
-     WHERE Date >= '2020-01-01' and Date < '2020-11-01') c1
+     FROM COVID_Cases_Monthly
+     WHERE MonthDate >= '2020-01-01' and MonthDate < '2020-11-01') c1
 WHERE c1.mx = c2.Cases_Total;
 
 /*Cases for Racial Group*/
@@ -94,11 +94,11 @@ Create a view corresponding to the COVID Alpha peak, i.e. the corresponding mont
 */
 
 CREATE or REPLACE VIEW MaxCaseAlpha AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
+SELECT c1.mx, c2.MonthDate
+FROM COVID_Cases_Monthly c2,
     (SELECT MAX(Cases_Total) mx
-     FROM COVID_Cases
-     WHERE Date >= '2020-11-01' and Date < '2021-06-01') c1
+     FROM COVID_Cases_Monthly
+     WHERE MonthDate >= '2020-11-01' and MonthDate < '2021-06-01') c1
 WHERE c1.mx = c2.Cases_Total;
 
 
@@ -132,11 +132,11 @@ Create a view corresponding to the COVID Delta peak, i.e. the corresponding mont
 */
 
 CREATE or REPLACE VIEW MaxCaseDelta AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
+SELECT c1.mx, c2.MonthDate
+FROM COVID_Cases_Monthly c2,
     (SELECT MAX(Cases_Total) mx
-     FROM COVID_Cases
-     WHERE Date >= '2021-06-01' and Date < '2021-11-01') c1
+     FROM COVID_Cases_Monthly
+     WHERE MonthDate >= '2021-06-01' and MonthDate < '2021-11-01') c1
 WHERE c1.mx = c2.Cases_Total;
 
 /*Deaths for racial group General*/
@@ -173,12 +173,12 @@ SELECT * FROM COVID_Cases_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11
 Create a view corresponding to the COVID Omicron peak, i.e. the corresponding month where the total number cases was highest within the time period where the Omicron variant was most prevalent.
 */
 
-CREATE or REPLACE VIEW MaxCaseOmicron AS 
-SELECT c2.Date
-FROM COVID_Cases c2, 
-    (SELECT MAX(COVID_Cases.Cases_Total) mx
-     FROM COVID_Cases
-     WHERE Date >= '2021-11-01') c1
+CREATE or REPLACE VIEW MaxCaseOmicron AS
+SELECT c1.mx, c2.MonthDate
+FROM COVID_Cases_Monthly c2,
+    (SELECT MAX(Cases_Total) mx
+     FROM COVID_Cases_Monthly
+     WHERE MonthDate >= '2021-11-01') c1
 WHERE c1.mx = c2.Cases_Total;
 
 /*Deaths*/
