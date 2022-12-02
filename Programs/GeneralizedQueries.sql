@@ -64,15 +64,18 @@ WHERE c1.mx = c2.Cases_Total;
 
 /*Cases for Racial Group*/
 CREATE OR REPLACE VIEW MaxCasesWT AS 
-SELECT *  FROM COVID_Cases_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' ORDER BY Cases_Total DEC LIMIT 1;
+SELECT Date, SUM(Cases_Total) as Total  FROM COVID_Cases_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date
+ORDER BY Total DESC LIMIT 1
 
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsWT AS 
-SELECT *  FROM COVID_Deaths_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' ORDER BY Deaths_Total DESC LIMIT 1;
+SELECT Date, SUM(Deaths_Total) AS TotalDeaths  FROM COVID_Deaths_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date
+ORDER BY TotalDeaths DESC LIMIT 1;
 
 /*Hospitalizations*/
 CREATE OR REPLACE VIEW MaxHospWT AS
-SELECT *  FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' ORDER BY Hosp_Total DESC LIMIT 1;
+SELECT Date, SUM(Hosp_Total) as hospTotal FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date
+ORDER BY hospTotal DESC LIMIT 1;
 
 /*Deaths Over time*/
 CREATE OR REPLACE VIEW DeathsWT AS 
