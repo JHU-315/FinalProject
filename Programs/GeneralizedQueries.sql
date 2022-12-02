@@ -64,18 +64,18 @@ WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 /*Cases for Racial Group*/
 CREATE OR REPLACE VIEW MaxCasesWT AS 
-SELECT Date, SUM(Cases_Total) as Total  FROM COVID_Cases_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date
-ORDER BY Total DESC LIMIT 1
+SELECT Date, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White, SUM(Cases_Black) Cases_Black, SUM(Cases_Latinx) Cases_Latinx, SUM(Cases_Asian) Cases_Asian, SUM(Cases_AIAN) Cases_AIAN, SUM(Cases_NHPI) Cases_NHPI, SUM(Cases_Multiracial) Cases_Multiracial, SUM(Cases_Other) Cases_Other, SUM(Cases_Unknown) Cases_Unknown
+FROM COVID_Cases_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date;
 
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsWT AS 
-SELECT Date, SUM(Deaths_Total) AS TotalDeaths  FROM COVID_Deaths_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date
-ORDER BY TotalDeaths DESC LIMIT 1;
+SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
+FROM COVID_Deaths_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date;
 
 /*Hospitalizations*/
 CREATE OR REPLACE VIEW MaxHospWT AS
-SELECT Date, SUM(Hosp_Total) as hospTotal FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date
-ORDER BY hospTotal DESC LIMIT 1;
+SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
+FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date;
 
 /*Deaths Over time*/
 CREATE OR REPLACE VIEW DeathsWT AS 
@@ -107,15 +107,26 @@ WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 /*Cases for Racial Group*/
 CREATE OR REPLACE VIEW MaxCasesAlpha AS 
-SELECT *  FROM COVID_Cases_By_Race ccbr WHERE Date >= '2020-11-01' and Date < '2021-06-01' ORDER BY Cases_Total DESC LIMIT 1;
+SELECT Date, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White, SUM(Cases_Black) Cases_Black, SUM(Cases_Latinx) Cases_Latinx, SUM(Cases_Asian) Cases_Asian, SUM(Cases_AIAN) Cases_AIAN, SUM(Cases_NHPI) Cases_NHPI, SUM(Cases_Multiracial) Cases_Multiracial, SUM(Cases_Other) Cases_Other, SUM(Cases_Unknown) Cases_Unknown
+FROM COVID_Cases_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01' GROUP BY Date;
 
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsAlpha AS 
-SELECT *  FROM COVID_Deaths_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01' ORDER BY Deaths_Total DESC LIMIT 1;
+SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
+FROM COVID_Deaths_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01' GROUP BY Date;
 
 /*Hospitalizations*/
 CREATE OR REPLACE VIEW MaxHospAlpha AS
-SELECT *  FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01' ORDER BY Hosp_Total DESC LIMIT 1;
+SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
+FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01' GROUP BY Date;
+
+/*Deaths Over time*/
+CREATE OR REPLACE VIEW DeathsWT AS 
+SELECT * FROM COVID_Deaths_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01';
+
+/*Hospitalizations Over Time*/
+CREATE OR REPLACE VIEW HospWT AS
+SELECT * FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01';
 
 /*Deaths Over time*/
 CREATE OR REPLACE VIEW DeathsAlpha AS 
@@ -148,15 +159,18 @@ SELECT * FROM COVID_Deaths WHERE Date >= '2021-06-01' and Date < '2021-11-01' OR
 
 /*Cases for Racial Group*/
 CREATE OR REPLACE VIEW MaxCasesDelta AS 
-SELECT *  FROM COVID_Cases_By_Race ccbr WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Cases_Total DESC LIMIT 1;
+SELECT Date, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White, SUM(Cases_Black) Cases_Black, SUM(Cases_Latinx) Cases_Latinx, SUM(Cases_Asian) Cases_Asian, SUM(Cases_AIAN) Cases_AIAN, SUM(Cases_NHPI) Cases_NHPI, SUM(Cases_Multiracial) Cases_Multiracial, SUM(Cases_Other) Cases_Other, SUM(Cases_Unknown) Cases_Unknown
+FROM COVID_Cases_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' GROUP BY Date;
 
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsDelta AS 
-SELECT *  FROM COVID_Deaths_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Deaths_Total DESC LIMIT 1;
+SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
+FROM COVID_Deaths_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' GROUP BY Date;
 
 /*Hospitalizations*/
 CREATE OR REPLACE VIEW MaxHospDelta AS
-SELECT *  FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Hosp_Total DESC LIMIT 1;
+SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
+FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' GROUP BY Date;
 
 /*Deaths Over time*/
 CREATE OR REPLACE VIEW DeathsDelta AS 
@@ -185,13 +199,20 @@ FROM COVID_Cases_Weekly c2, Date_To_MonthDate md,
 WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 
+/*Cases for Racial Group*/
+CREATE OR REPLACE VIEW MaxCasesOmicron AS 
+SELECT Date, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White, SUM(Cases_Black) Cases_Black, SUM(Cases_Latinx) Cases_Latinx, SUM(Cases_Asian) Cases_Asian, SUM(Cases_AIAN) Cases_AIAN, SUM(Cases_NHPI) Cases_NHPI, SUM(Cases_Multiracial) Cases_Multiracial, SUM(Cases_Other) Cases_Other, SUM(Cases_Unknown) Cases_Unknown
+FROM COVID_Cases_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
+
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsOmicron AS 
-SELECT Date, Deaths_Total  FROM COVID_Deaths WHERE Date >= '2021-11-01' ORDER BY Deaths_Total DESC LIMIT 1;
+SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
+FROM COVID_Deaths_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
 
 /*Hospitalizations*/
 CREATE OR REPLACE VIEW MaxHospOmicron AS
-SELECT Date, Hosp_Total FROM COVID_Hospitalizations_National WHERE Date >= '2021-11-01' ORDER BY Hosp_Total DESC LIMIT 1
+SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
+FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
 
 
 /*link up cases with state name*/
