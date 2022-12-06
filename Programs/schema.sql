@@ -109,7 +109,8 @@ CREATE TABLE GDP_By_State(
     State VARCHAR(20) NOT NULL,
     Gross_Domestic_Product FLOAT(10) CHECK (Gross_Domestic_Product >= 0),
     PRIMARY KEY(Quarter, State)
-    UNIQUE (Quarter, State)
+    UNIQUE (Quarter, State),
+    FOREIGN KEY (State) REFERENCES State(State_Name)
 );
 
 /* Personal Income by Quarter per State in billions of dollars */
@@ -119,7 +120,8 @@ CREATE TABLE Personal_Income_By_State(
     State VARCHAR(20) NOT NULL,
     Personal_Income FLOAT(4) CHECK (Personal_Income >= 0),
     PRIMARY KEY(Quarter, State)
-    UNIQUE (Quarter, State)
+    UNIQUE (Quarter, State),
+    FOREIGN KEY (State) REFERENCES State(State_Name)
 );
 
 /* Personal Income by Month for Entire Nation in billions of dollars*/
@@ -202,7 +204,8 @@ CREATE TABLE `COVID_Vaccinations` (
   CONSTRAINT 'Admin_Daily' CHECK (Admin_Daily >= 0),
   CONSTRAINT 'Admin_Dose_1' CHECK (Admin_Dose_1 >= 0),
     CONSTRAINT 'Boost_Daily' CHECK (Boost_Daily >= 0),
-    PRIMARY KEY (`Date`,`Location`)
+    PRIMARY KEY (`Date`,`Location`),
+    FOREIGN KEY (`Location`) REFERENCES State_To_Code(State_Name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- jhu_315_final_project.COVID_Cases_By_Race_Monthly definition
@@ -235,6 +238,7 @@ CREATE TABLE COVID_Cases_By_State
     new_cases INT CHECK (new_cases >= 0),
     PRIMARY KEY(Date, State_Code)
     UNIQUE (Date, State_Code)
+    FOREIGN KEY (State_Code) REFERENCES State_Code(code)
 );
 
 /*COVID Cases By Race*/
@@ -256,6 +260,7 @@ CREATE TABLE COVID_Cases_By_Race(
     Cases_Ethnicity_Non_Hispanic INT CHECK (Cases_Ethnicity_Non_Hispanic >= 0),
     Cases_Ethnicity_Unknown INT CHECK (Cases_Ethnicity_Unknown >= 0),
     PRIMARY KEY(Date, State)
+    FOREIGN KEY (State) REFERENCES State_Code(State_name)
 
 );
 
@@ -268,7 +273,8 @@ CREATE TABLE COVID_Cases_By_Gender(
     Total_Count	INT CHECK (Total_Count >= 0),
     Male_Count INT CHECK (Male_Count >= 0),
     Female_Count INT CHECK (Female_Count >= 0),
-    PRIMARY KEY(Date, State)
+    PRIMARY KEY(Date, State),
+    FOREIGN KEY (State) REFERENCES State_Code(State_name)
 );
 
 /*COVID Deaths By State*/
@@ -279,7 +285,8 @@ CREATE TABLE COVID_Deaths_By_State
     State_Code VARCHAR(2),
     tot_deaths INT CHECK (tot_deaths >= 0),
     new_deaths INT CHECK (new_deaths >= 0),
-    PRIMARY KEY(Date, State_Code)
+    PRIMARY KEY(Date, State_Code),
+    FOREIGN KEY (State_Code) REFERENCES State_Code(code)
 );
 
 /*COVID Deaths By Race*/
@@ -300,7 +307,8 @@ CREATE TABLE COVID_Deaths_By_Race(
     Deaths_Ethnicity_Hispanic INT CHECK (Deaths_Ethnicity_Hispanic >= 0),
     Deaths_Ethnicity_Non_Hispanic INT CHECK (Deaths_Ethnicity_Non_Hispanic >= 0),
     Deaths_Ethnicity_Unknown INT CHECK (Deaths_Ethnicity_Unknown >= 0),
-    PRIMARY KEY(Date, State)
+    PRIMARY KEY(Date, State),
+    FOREIGN KEY (State) REFERENCES State_Code(State_name)
 );
     
 /*COVID Deaths By Age and Gender*/
@@ -355,7 +363,8 @@ CREATE TABLE Health_Conditions_Causing_COVID(
     Age_Group VARCHAR(20),
     COVID_19_Death INT,
     Number_Of_Mentions INT,
-    PRIMARY KEY(Date, Condition_Group,Age_Group)
+    PRIMARY KEY(Date, Condition_Group,Age_Group),
+    FOREIGN KEY (State) REFERENCES State_Code(State_name)
 );
 
 /*COVID Tests by Race*/
@@ -376,7 +385,8 @@ CREATE TABLE COVID_Tests_By_Race(
     Tests_Ethnicity_Hispanic INT CHECK (Tests_Ethnicity_Hispanic >= 0),
     Tests_Ethnicity_Non_Hispanic INT CHECK (Tests_Ethnicity_Non_Hispanic >= 0),
     Test_Ethnicity_Unknown INT CHECK (Test_Ethnicity_Unknown >= 0),
-    PRIMARY KEY(Date, State) 
+    PRIMARY KEY(Date, State),
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
 
 /*COVID Hospitalizations by Age*/
@@ -415,7 +425,8 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
     Hospitalizations_Ethnicity_Hispanic INT CHECK (Hospitalizations_Ethnicity_Hispanic >= 0),
     Hospitalizations_Ethnicity_Non_Hispanic INT CHECK (Hospitalizations_Ethnicity_Non_Hispanic >= 0),
     Hospitalizations_Ethnicity_Unknown INT CHECK (Hospitalizations_Ethnicity_Unknown >= 0),
-    PRIMARY KEY(Date, State)
+    PRIMARY KEY(Date, State),
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
 
 /* INTERMEDIARY RELATIONS */
@@ -461,7 +472,8 @@ DROP TABLE State_To_Region;
 CREATE TABLE State_To_Region(
     State VARCHAR(20),
     Region VARCHAR(10),
-    PRIMARY KEY(State)
+    PRIMARY KEY(State),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
 /*State Has Industry*/
@@ -469,7 +481,8 @@ DROP TABLE State_Has_Industry;
 CREATE TABLE State_Has_Industry(
     State VARCHAR(20),
     Industry_Name VARCHAR(20),
-    PRIMARY KEY(State, Industry_Name)
+    PRIMARY KEY(State, Industry_Name),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
 /*Industry Category, Nonfarm divided into Private and Government*/
