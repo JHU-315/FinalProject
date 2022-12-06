@@ -25,7 +25,9 @@ def main():
 def getPanels(data,file):
 
         for item in data['panels']:
+            title = "no title"
             try:
+             title = item['title']       
              file.write("/*"+item['title']+ "*/\n")
             except KeyError:
                 print("No title found")
@@ -34,13 +36,13 @@ def getPanels(data,file):
                 for target in (item['targets']):
                     writeToFile(file, target['rawSql'])
             except KeyError:
-                print("No rawSql found")
+                print("No rawSql found "+title)
                 file.write("/*No targets found*/\n")
 
 
 
 def writeToFile(filename, data):
-    filename.write(data + "\n\n")
+    filename.write(data.replace("\n","") + "\n\n")
 
 
 def getJsonData(filename):
