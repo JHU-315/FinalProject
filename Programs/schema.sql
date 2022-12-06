@@ -25,6 +25,7 @@ CREATE TABLE Unemployment_Rate_By_State
     State VARCHAR(20) NOT NULL,
     Unemp_Rate FLOAT(4),
     PRIMARY KEY(Date, State)
+    UNIQUE (Date, State)
 );
 
 /* employment level by age 
@@ -32,9 +33,10 @@ Date is in month format */
 DROP TABLE Employment_Level_By_Age;
 CREATE TABLE Employment_Level_By_Age (
     Date DATE NOT NULL,
-    Age_Group VARCHAR(20),
-    Employment_Level INT,
+    Age_Group VARCHAR(20) NOT NULL,
+    Employment_Level INT CHECK(Employment_Level >= 0),
     PRIMARY KEY(Date, Age_Group)
+    UNIQUE (Date, Age_Group)
 );
 
 /*nonfarm employment*/
@@ -68,8 +70,8 @@ CREATE TABLE Nonfarm_Employment
 DROP TABLE GDP_National;
 CREATE TABLE GDP_National
 (
-    Quarter VARCHAR(6) NOT NULL,
-    Gross_Domestic_Product FLOAT(8),
+    Quarter VARCHAR(6) NOT NULL UNIQUE,
+    Gross_Domestic_Product FLOAT(8) CHECK (Gross_Domestic_Product >= 0),
     PRIMARY KEY(Quarter)
 );
 
@@ -77,26 +79,26 @@ CREATE TABLE GDP_National
 DROP TABLE GDP_By_Industry;
 CREATE TABLE GDP_By_Industry
 (
-    Quarter VARCHAR(6) NOT NULL,
-    Total_All_Industries FLOAT(8),
-    Total_Private FLOAT(8),
-    Agriculture FLOAT(8),
-    Mining FLOAT(8), 
-    Utilities FLOAT(8),
-    Construction FLOAT(8), 
-    Manufacturing FLOAT(8), 
-    Wholesale_Trade FLOAT(8), 
-    Retail_Trade FLOAT(8), 
-    Transportation_and_Warehousing FLOAT(8), 
-    Information FLOAT(8), 
-    Financial_Activities FLOAT(8), 
-    Professional_and_Business_Services FLOAT(8),
-    Education_and_Health_Services FLOAT(8),
-    Leisure_and_Hospitality FLOAT(8),
-    Other_Services FLOAT(8),
-    Total_Government FLOAT(8), 
-    Federal_Government FLOAT(8),
-    State_Local_Government FLOAT(8), 
+    Quarter VARCHAR(6) NOT NULL UNIQUE,
+    Total_All_Industries FLOAT(8) CHECK (Total_All_Industries >= 0),
+    Total_Private FLOAT(8) CHECK (Total_Private >= 0),
+    Agriculture FLOAT(8) CHECK (Agriculture >= 0),
+    Mining FLOAT(8) CHECK (Mining >= 0),, 
+    Utilities FLOAT(8) CHECK (Utilities >= 0),
+    Construction FLOAT(8) CHECK (Construction >= 0),
+    Manufacturing FLOAT(8) CHECK (Manufacturing >= 0), 
+    Wholesale_Trade FLOAT(8) CHECK (Wholesale_Trade >= 0), 
+    Retail_Trade FLOAT(8) CHECK (Retail_Trade >= 0), 
+    Transportation_and_Warehousing FLOAT(8) CHECK (Transportation_and_Warehousing >= 0), 
+    Information FLOAT(8) CHECK (Information >= 0),
+    Financial_Activities FLOAT(8) CHECK (Financial_Activities >= 0),
+    Professional_and_Business_Services FLOAT(8) CHECK (Professional_and_Business_Services >= 0),
+    Education_and_Health_Services FLOAT(8) CHECK (Education_and_Health_Services >= 0),
+    Leisure_and_Hospitality FLOAT(8) CHECK (Leisure_and_Hospitality >= 0),
+    Other_Services FLOAT(8) CHECK (Other_Services >= 0),
+    Total_Government FLOAT(8) CHECK (Total_Government >= 0), 
+    Federal_Government FLOAT(8) CHECK (Federal_Government >= 0),
+    State_Local_Government FLOAT(8) CHECK (State_Local_Government >= 0), 
     PRIMARY KEY(Quarter)
 );
 
@@ -105,8 +107,9 @@ DROP TABLE GDP_By_State;
 CREATE TABLE GDP_By_State(
     Quarter VARCHAR(6) NOT NULL,
     State VARCHAR(20) NOT NULL,
-    Gross_Domestic_Product FLOAT(10),
+    Gross_Domestic_Product FLOAT(10) CHECK (Gross_Domestic_Product >= 0),
     PRIMARY KEY(Quarter, State)
+    UNIQUE (Quarter, State)
 );
 
 /* Personal Income by Quarter per State in billions of dollars */
@@ -114,16 +117,17 @@ DROP TABLE Personal_Income_By_State;
 CREATE TABLE Personal_Income_By_State(
     Quarter VARCHAR(6) NOT NULL,
     State VARCHAR(20) NOT NULL,
-    Personal_Income FLOAT(4),
+    Personal_Income FLOAT(4) CHECK (Personal_Income >= 0),
     PRIMARY KEY(Quarter, State)
+    UNIQUE (Quarter, State)
 );
 
 /* Personal Income by Month for Entire Nation in billions of dollars*/
 DROP TABLE Personal_Income_National;
 CREATE TABLE Personal_Income_National(
     Date DATE NOT NULL UNIQUE,
-    Personal_Income FLOAT(8), 
-    Personal_Saving FLOAT(8),
+    Personal_Income FLOAT(8) CHECK (Personal_Income >= 0),,  
+    Personal_Saving FLOAT(8) CHECK (Personal_Saving >= 0),
     PRIMARY KEY(Date)
 );
 
@@ -132,23 +136,23 @@ CREATE TABLE Personal_Income_National(
 DROP TABLE Consumer_Prices;
 CREATE TABLE Consumer_Prices(
     Date DATE NOT NULL,
-    All_Items FLOAT(4),
-    Food FLOAT(4),
-    Food_At_Home FLOAT(4),
-    Food_Away_From_Home FLOAT(4),
-    Energy FLOAT(4),
-    Gasoline FLOAT(4),
-    Electricity FLOAT(4),
-    Natural_Gas FLOAT(4),
-    All_Items_Less_Food_And_Energy FLOAT(4),
-    Commodities FLOAT(4),
-    Apparel FLOAT(4),
-    New_Vehicles FLOAT(4),
-    Medical_Care FLOAT(4),
-    Services_Less_Energy_Services FLOAT(4),
-    Shelter FLOAT(4),
-    Medical_Care_Services FLOAT(4),
-    Education_and_Communications FLOAT(4),
+    All_Items FLOAT(4) CHECK (All_Items >= 0),
+    Food FLOAT(4) CHECK (Food >= 0),
+    Food_At_Home FLOAT(4) CHECK (Food_At_Home >= 0),
+    Food_Away_From_Home FLOAT(4) CHECK (Food_Away_From_Home >= 0),
+    Energy FLOAT(4) CHECK (Energy >= 0),
+    Gasoline FLOAT(4) CHECK (Gasoline >= 0),
+    Electricity FLOAT(4) CHECK (Electricity >= 0),
+    Natural_Gas FLOAT(4) CHECK (Natural_Gas >= 0),
+    All_Items_Less_Food_And_Energy FLOAT(4) CHECK (All_Items_Less_Food_And_Energy >= 0),
+    Commodities FLOAT(4) CHECK (Commodities >= 0),
+    Apparel FLOAT(4) CHECK (Apparel >= 0),
+    New_Vehicles FLOAT(4) CHECK (New_Vehicles >= 0),
+    Medical_Care FLOAT(4) CHECK (Medical_Care >= 0),
+    Services_Less_Energy_Services FLOAT(4) CHECK (Services_Less_Energy_Services >= 0),
+    Shelter FLOAT(4) CHECK (Shelter >= 0),
+    Medical_Care_Services FLOAT(4) CHECK (Medical_Care_Services >= 0),
+    Education_and_Communications FLOAT(4) CHECK (Education_and_Communications >= 0),
     PRIMARY KEY(Date)
 );
 
@@ -162,6 +166,7 @@ CREATE TABLE COVID_Cases_By_State
     tot_cases INT CHECK (tot_cases >= 0),
     new_cases INT CHECK (new_cases >= 0),
     PRIMARY KEY(Date, State_Code)
+    UNIQUE (Date, State_Code)
 );
 
 /*COVID Cases By Race*/
@@ -183,6 +188,7 @@ CREATE TABLE COVID_Cases_By_Race(
     Cases_Ethnicity_Non_Hispanic INT CHECK (Cases_Ethnicity_Non_Hispanic >= 0),
     Cases_Ethnicity_Unknown INT CHECK (Cases_Ethnicity_Unknown >= 0),
     PRIMARY KEY(Date, State)
+
 );
 
 /*COVID Cases By Gender 

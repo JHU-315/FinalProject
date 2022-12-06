@@ -4,14 +4,13 @@ import json
 DIRECTORY = 'Grafana Dashboards'
 
 def main():
-# assign directory
-    
-    # iterate over files in
-    # that directory
+    """
+        Iterates through all grafana json files and extracts the sql queries
+    """
     file = open("grafanaSql.sql", "w")
     for filename in os.listdir(DIRECTORY):
         f = os.path.join(DIRECTORY, filename)
-        commentedString = "/*" + filename + "*/\n"
+        commentedString = "/* DASHBOARD " + filename + "*/\n"
         file.write(commentedString)
         print(filename)
         if(filename.__contains__("Landing Page")):
@@ -23,12 +22,14 @@ def main():
     file.close()
 
 def getPanels(data,file):
-
-        for item in data['panels']:
+    """
+        Function to print the sql query to a file
+    """
+    for item in data['panels']:
             title = "no title"
             try:
              title = item['title']       
-             file.write("/*"+item['title']+ "*/\n")
+             file.write("/*"+item['title']+"\t PANEL "+"*/\n")
             except KeyError:
                 print("No title found")
                 file.write("/*No title found*/\n")

@@ -4,9 +4,11 @@ import locale
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 def main():
-
+    """
+        Main function, options are given to the user as to what they desire to do with the data
+    """
     if(len(sys.argv) < 2):
-        print("Usage: generator.py <number of files>")
+        print("Usage: generator.py <fileName>")
         return
     parentDir = "CSV Files\\"
     inputFile = open(parentDir + sys.argv[1], "r")
@@ -36,10 +38,16 @@ def main():
 
 
 def printData(data):
+    """
+        print the raw data of the file
+    """
     print("This is what the data looks like: ")
     print(data)
 
 def selectKeys(data):
+    """
+        Allows user to select keys (attributes) from the CSV file to remove
+    """
     print("These are the attributes. Select keys to REMOVE by INDEX, type in -1 to stop adding keys:")
     i = 0
     pandasKeys = data.keys()
@@ -62,6 +70,9 @@ def selectKeys(data):
         del data[key]
     
 def generateSQLSchema(data, fileName):
+    """
+        Generate a schema file with database DDL language
+    """
     title = fileName.split(".")[0]
     sqlFile = open("sqlSchema.sql", "w")
 
@@ -87,7 +98,9 @@ def generateSQLSchema(data, fileName):
 
 
 def generateSQLInsertionScript(data, fileName):
-
+    """
+        Generates the SQL insertion scripts
+    """
 
     title = input("Enter the name of the table: ")
 
