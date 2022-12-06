@@ -259,5 +259,8 @@ FROM COVID_Cases_By_Race_Totals
 
 /*Vaccination*/
 
-CREATE OR REPLACE VIEW State_Vaccinations AS 
-SELECT Date, Location, Admin_Dose_1_Daily FROM COVID_Vaccinations
+CREATE OR REPLACE VIEW Jabs_Per_Population_State AS
+SELECT State, SUM(Admin_Daily)/Total FROM (
+SELECT * FROM  COVID_Vaccinations JOIN State_To_Code ON COVID_Vaccinations.Location = State_To_Code.Code
+) as b JOIN US_Population_Racial upr ON b.State_Name = upr.State GROUP BY State 
+
