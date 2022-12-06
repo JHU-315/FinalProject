@@ -1,3 +1,5 @@
+/*Minimum white unemployment rate*/
+
 CREATE or REPLACE VIEW MinWhiteUnempRate AS 
 SELECT u2.Date
 FROM Unemployment_Rate u2, 
@@ -6,6 +8,7 @@ FROM Unemployment_Rate u2,
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Total;
 
+/*Max cases date across - variant independent*/
 CREATE or REPLACE VIEW MaxCaseDate AS 
 SELECT c2.Date
 FROM COVID_Cases_By_Race c2, 
@@ -214,6 +217,7 @@ CREATE OR REPLACE VIEW MaxHospOmicron AS
 SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
 FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
 
+/*END OF VARIANTS*/
 
 /*link up cases with state name*/
 CREATE OR REPLACE VIEW COVID_Cases_By_With_State_Name AS 
@@ -235,7 +239,7 @@ CREATE OR REPLACE VIEW COVID_Hospitalizations_By_With_State_Name AS
 SELECT * FROM jhu_315_final_project.COVID_Hospitalizations_By_Race JOIN jhu_315_final_project.State_To_Code 
 ON jhu_315_final_project.State_To_Code.code = jhu_315_final_project.COVID_Hospitalizations_By_Race.State
 
-/*US Population Racially Percentage*/
+/*US Population Racial Makeup Percentage*/
 CREATE OR REPLACE VIEW US_Population_Racial_Percentages AS
 SELECT State,
 WhiteTotal/Total as White,
@@ -246,7 +250,7 @@ IndianTotal/Total as AIAN,
 OtherTotal/Total AS Latinx
 FROM US_Population_Racial 
 
-/*US Population Racial Percentage Cases*/
+/*US Population Racial for each group as a percentage of total cases*/
 CREATE OR REPLACE VIEW COVID_Cases_By_Race_Per AS 
 SELECT State,
 	Cases_White/Cases_Total AS Per_White,
@@ -257,8 +261,7 @@ SELECT State,
 	Cases_NHPI/Cases_Total As Per_NHPI
 FROM COVID_Cases_By_Race_Totals 
 
-/*Vaccination*/
-
+/*Vaccination doses delivered per state population*/
 CREATE OR REPLACE VIEW Jabs_Per_Population_State AS
 SELECT State, SUM(Admin_Daily)/Total FROM (
 SELECT * FROM  COVID_Vaccinations JOIN State_To_Code ON COVID_Vaccinations.Location = State_To_Code.Code

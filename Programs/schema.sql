@@ -160,70 +160,70 @@ CREATE TABLE Consumer_Prices(
 
 -- jhu_315_final_project.US_Population_Racial definition
 
-CREATE TABLE `US_Population_Racial` (
-  `State` varchar(100) NOT NULL,
-  `Total` int DEFAULT NULL,
-  `WhiteTotal` int DEFAULT NULL,
-  `BlackTotal` int DEFAULT NULL,
-  `IndianTotal` int DEFAULT NULL,
-  `AsianTotal` int DEFAULT NULL,
-  `HawaiianTotal` int DEFAULT NULL,
-  `OtherTotal` int DEFAULT NULL,
-  PRIMARY KEY (`State`)
+CREATE TABLE US_Population_Racial (
+  State varchar(100) NOT NULL,
+  Total int DEFAULT NULL,
+  WhiteTotal int DEFAULT NULL,
+  BlackTotal int DEFAULT NULL,
+  IndianTotal int DEFAULT NULL,
+  AsianTotal int DEFAULT NULL,
+  HawaiianTotal int DEFAULT NULL,
+  OtherTotal int DEFAULT NULL,
+  PRIMARY KEY (State)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- jhu_315_final_project.Total_Economic_Factors definition
 
-CREATE TABLE `Total_Economic_Factors` (
-  `Date` date NOT NULL,
-  `GDP` float DEFAULT NULL,
-  `Unemployment_Rate` float DEFAULT NULL,
-  `Personal_Income` float DEFAULT NULL,
-  `Personal_Saving` float DEFAULT NULL,
-  `Personal_Saving_Rate` float DEFAULT NULL,
-  PRIMARY KEY (`Date`),
-  UNIQUE KEY `Date` (`Date`)
+CREATE TABLE Total_Economic_Factors (
+  Date date NOT NULL,
+  GDP float DEFAULT NULL,
+  Unemployment_Rate float DEFAULT NULL,
+  Personal_Income float DEFAULT NULL,
+  Personal_Saving float DEFAULT NULL,
+  Personal_Saving_Rate float DEFAULT NULL,
+  PRIMARY KEY (Date),
+  UNIQUE KEY Date (Date)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 
 -- jhu_315_final_project.COVID_Vaccinations definition
 
-CREATE TABLE `COVID_Vaccinations` (
-  `Date` date DEFAULT NULL,
-  `Date1` varchar(50) DEFAULT NULL,
-  `date_type` varchar(50) DEFAULT NULL,
-  `MMWR_week` int DEFAULT NULL,
-  `Location` varchar(50) DEFAULT NULL,
-  `Administered_Daily` varchar(50) DEFAULT NULL,
-  `Admin_Daily` double DEFAULT NULL,
-  `Admin_Dose_1_Daily` varchar(50) DEFAULT NULL,
-  `Admin_Dose_1` double DEFAULT NULL,
-  `Booster_Daily` varchar(50) DEFAULT NULL,
-  `Boost_Daily` double DEFAULT NULL,
+CREATE TABLE COVID_Vaccinations (
+  Date date DEFAULT NULL,
+  Date1 varchar(50) DEFAULT NULL,
+  date_type varchar(50) DEFAULT NULL,
+  MMWR_week int DEFAULT NULL,
+  Location varchar(50) DEFAULT NULL,
+  Administered_Daily varchar(50) DEFAULT NULL,
+  Admin_Daily double DEFAULT NULL,
+  Admin_Dose_1_Daily varchar(50) DEFAULT NULL,
+  Admin_Dose_1 double DEFAULT NULL,
+  Booster_Daily varchar(50) DEFAULT NULL,
+  Boost_Daily double DEFAULT NULL,
   CONSTRAINT 'Admin_Daily' CHECK (Admin_Daily >= 0),
   CONSTRAINT 'Admin_Dose_1' CHECK (Admin_Dose_1 >= 0),
     CONSTRAINT 'Boost_Daily' CHECK (Boost_Daily >= 0),
-    PRIMARY KEY (`Date`,`Location`),
-    FOREIGN KEY (`Location`) REFERENCES State_To_Code(State_Name)
+    PRIMARY KEY (Date,Location),
+    FOREIGN KEY (Location) REFERENCES State_To_Code(State_Name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- jhu_315_final_project.COVID_Cases_By_Race_Monthly definition
 
-CREATE TABLE `COVID_Cases_By_Race_Monthly` (
-  `MonthDate` date NOT NULL,
-  `Cases_Total` decimal(32,0) DEFAULT NULL,
-  `Cases_White` decimal(32,0) DEFAULT NULL,
-  `Cases_Black` decimal(32,0) DEFAULT NULL,
-  `Cases_LatinX` decimal(32,0) DEFAULT NULL,
-  `Cases_Asian` decimal(32,0) DEFAULT NULL,
-  CONSTRAINT `Cases_Total` CHECK (Cases_Total >= 0),
-    CONSTRAINT `Cases_White` CHECK (Cases_White >= 0),
-    CONSTRAINT `Cases_Black` CHECK (Cases_Black >= 0),
-    CONSTRAINT `Cases_LatinX` CHECK (Cases_LatinX >= 0),
-    CONSTRAINT `Cases_Asian` CHECK (Cases_Asian >= 0),
-  PRIMARY KEY (`MonthDate`)
-  UNIQUE (`MonthDate`)
+CREATE TABLE COVID_Cases_By_Race_Monthly (
+  MonthDate date NOT NULL,
+  Cases_Total decimal(32,0) DEFAULT NULL,
+  Cases_White decimal(32,0) DEFAULT NULL,
+  Cases_Black decimal(32,0) DEFAULT NULL,
+  Cases_LatinX decimal(32,0) DEFAULT NULL,
+  Cases_Asian decimal(32,0) DEFAULT NULL,
+  CONSTRAINT Cases_Total CHECK (Cases_Total >= 0),
+    CONSTRAINT Cases_White CHECK (Cases_White >= 0),
+    CONSTRAINT Cases_Black CHECK (Cases_Black >= 0),
+    CONSTRAINT Cases_LatinX CHECK (Cases_LatinX >= 0),
+    CONSTRAINT Cases_Asian CHECK (Cases_Asian >= 0),
+  PRIMARY KEY (MonthDate)
+  UNIQUE (MonthDate)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -496,33 +496,33 @@ CREATE TABLE Industry_Category(
 /*DISPLAY NAME - for the purposes of Grafana dropdowns*/
 -- jhu_315_final_project.GDP_Peaks definition
 
-CREATE TABLE `GDP_Peaks` (
-  `id` varchar(4) NOT NULL,
-  `Pre_COVID` double DEFAULT NULL,
-  `WildType_Peak` double DEFAULT NULL,
-  `Alpha_Peak` double DEFAULT NULL,
-  `Delta_Peak` double DEFAULT NULL,
-  `Omicron_Peak` double DEFAULT NULL,
+CREATE TABLE GDP_Peaks (
+  id varchar(4) NOT NULL,
+  Pre_COVID double DEFAULT NULL,
+  WildType_Peak double DEFAULT NULL,
+  Alpha_Peak double DEFAULT NULL,
+  Delta_Peak double DEFAULT NULL,
+  Omicron_Peak double DEFAULT NULL,
   CONSTRAINT 'Pre_COVID' CHECK (Pre_COVID >= 0),
     CONSTRAINT 'Wildtype_Peak' CHECK (WildType_Peak >= 0),
     CONSTRAINT 'Alpha_Peak' CHECK (Alpha_Peak >= 0),
     CONSTRAINT 'Delta_Peak' CHECK (Delta_Peak >= 0),
     CONSTRAINT 'Omicron_Peak' CHECK (Omicron_Peak >= 0),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- jhu_315_final_project.Natl_Econ_Peaks definition
-CREATE TABLE `Natl_Econ_Peaks` (
-  `id` varchar(3) NOT NULL,
-  `Pre_COVID` double  DEFAULT NULL,
-  `WildType_Peak` double DEFAULT NULL,
-  `Alpha_Peak` double DEFAULT NULL,
-  `Delta_Peak` double DEFAULT NULL,
-  `Omicron_Peak` double DEFAULT NULL,
+CREATE TABLE Natl_Econ_Peaks (
+  id varchar(3) NOT NULL,
+  Pre_COVID double  DEFAULT NULL,
+  WildType_Peak double DEFAULT NULL,
+  Alpha_Peak double DEFAULT NULL,
+  Delta_Peak double DEFAULT NULL,
+  Omicron_Peak double DEFAULT NULL,
     CONSTRAINT 'Pre_COVID' CHECK (Pre_COVID >= 0),
     CONSTRAINT 'Wildtype_Peak' CHECK (WildType_Peak >= 0),
     CONSTRAINT 'Alpha_Peak' CHECK (Alpha_Peak >= 0),
     CONSTRAINT 'Delta_Peak' CHECK (Delta_Peak >= 0),
     CONSTRAINT 'Omicron_Peak' CHECK (Omicron_Peak >= 0),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
