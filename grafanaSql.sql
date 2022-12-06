@@ -1,6 +1,8 @@
 /*COVID & Industries and Sectors-1670103334363.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Quarterly GDP By Selected Private Sector Subgroups*/
 SELECT m.MonthDate,(CASE WHEN '$Private_Subgroup' = 'Agriculture' THEN Agriculture END) AS Agriculture,(CASE WHEN '$Private_Subgroup' = 'Mining' THEN Mining END) AS Mining,(CASE WHEN '$Private_Subgroup' = 'Manufacturing' THEN Manufacturing END) AS Manufacturing,(CASE WHEN '$Private_Subgroup' = 'Retail Trade' THEN Retail_trade END) AS Retail_trade,(CASE WHEN '$Private_Subgroup' = 'Utilities' THEN Utilities END) AS Utilities,(CASE WHEN '$Private_Subgroup' = 'Financial Activities' THEN Financial_Activities END) AS Financial_Activities,(CASE WHEN '$Private_Subgroup' = 'Education/Health Services' THEN `Education_and_health services` END) AS Education_and_health_services,(CASE WHEN '$Private_Subgroup' = 'Construction' THEN Construction END) AS Construction,(CASE WHEN '$Private_Subgroup' = 'Wholesale Trade' THEN Wholesale_trade END) AS Wholesale_trade,(CASE WHEN '$Private_Subgroup' = 'Transportation/Warehousing' THEN Transportation_and_warehousing END) AS Transportation_and_warehousing,(CASE WHEN '$Private_Subgroup' = 'Information' THEN Information END) AS Information,(CASE WHEN '$Private_Subgroup' = 'Professional/Business Services' THEN Professional_and_business_services END) AS Professional_and_business_services,(CASE WHEN '$Private_Subgroup' = 'Leisure/Hospitality' THEN Leisure_and_Hospitality END) AS Leisure_and_Hospitality,(CASE WHEN '$Private_Subgroup' = 'Other Services' THEN Other_services END) AS Other_servicesFROM GDP_By_Industry g, MonthDate_To_Quarter m WHERE g.Quarter = m.Quarter;
@@ -24,7 +26,9 @@ SELECTg.Agriculture, g.Mining, g.Manufacturing, g.Retail_trade, g.Utilities, g.F
 
 /*COVID & Industries and Sectors-1670103344642.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Quarterly GDP By Selected Private Sector Subgroups*/
 SELECT m.MonthDate,(CASE WHEN '$Private_Subgroup' = 'Agriculture' THEN Agriculture END) AS Agriculture,(CASE WHEN '$Private_Subgroup' = 'Mining' THEN Mining END) AS Mining,(CASE WHEN '$Private_Subgroup' = 'Manufacturing' THEN Manufacturing END) AS Manufacturing,(CASE WHEN '$Private_Subgroup' = 'Retail Trade' THEN Retail_trade END) AS Retail_trade,(CASE WHEN '$Private_Subgroup' = 'Utilities' THEN Utilities END) AS Utilities,(CASE WHEN '$Private_Subgroup' = 'Financial Activities' THEN Financial_Activities END) AS Financial_Activities,(CASE WHEN '$Private_Subgroup' = 'Education/Health Services' THEN `Education_and_health services` END) AS Education_and_health_services,(CASE WHEN '$Private_Subgroup' = 'Construction' THEN Construction END) AS Construction,(CASE WHEN '$Private_Subgroup' = 'Wholesale Trade' THEN Wholesale_trade END) AS Wholesale_trade,(CASE WHEN '$Private_Subgroup' = 'Transportation/Warehousing' THEN Transportation_and_warehousing END) AS Transportation_and_warehousing,(CASE WHEN '$Private_Subgroup' = 'Information' THEN Information END) AS Information,(CASE WHEN '$Private_Subgroup' = 'Professional/Business Services' THEN Professional_and_business_services END) AS Professional_and_business_services,(CASE WHEN '$Private_Subgroup' = 'Leisure/Hospitality' THEN Leisure_and_Hospitality END) AS Leisure_and_Hospitality,(CASE WHEN '$Private_Subgroup' = 'Other Services' THEN Other_services END) AS Other_servicesFROM GDP_By_Industry g, MonthDate_To_Quarter m WHERE g.Quarter = m.Quarter;
@@ -48,7 +52,9 @@ SELECTg.Agriculture, g.Mining, g.Manufacturing, g.Retail_trade, g.Utilities, g.F
 
 /*COVID and Government Sector GDP-1670119981478.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Peak Trends in Government Sector GDP */
 SELECT Pre_COVID, WildType_Peak, Alpha_Peak, Delta_Peak, Omicron_PeakFROM GDP_PeaksWHERE id = 'gov';
@@ -65,7 +71,9 @@ SELECT m.MonthDate,(CASE WHEN '$Government_Subgroup' = 'Federal' THEN Federal EN
 SELECT g.Federal, g.State_and_localFROM GDP_By_Industry g, MaxCaseWT m WHERE g.Quarter = m.Quarter;
 
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Delta Type Variant Peak Breakdown*/
 SELECT g.Federal, g.State_and_localFROM GDP_By_Industry g, MaxCaseDelta m WHERE g.Quarter = m.Quarter;
@@ -81,10 +89,13 @@ SELECT g.Federal, g.State_and_localFROM GDP_By_Industry g, MaxCaseOmicron m WHER
 
 /*COVID and National Economic Factors-1670103319730.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Number of COVID Cases At Peak Point of Different Variants*/
-SELECT wt.mx Max_Cases_WildType, a.mx Max_Cases_Alpha, d.mx Max_Cases_Delta, o.mx Max_Cases_OmicronFROM MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron as o
+SELECT wt.mx Max_Cases_WildType, a.mx Max_Cases_Alpha, d.mx Max_Cases_Delta, o.mx Max_Cases_Omicron
+FROM MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron as o
 
 /*Peak Trends in National Economic Factors*/
 SELECT Pre_COVID, WildType_Peak, Alpha_Peak, Delta_Peak, Omicron_PeakFROM Natl_Econ_PeaksWHERE id = CASE '$Economic_Factor' WHEN 'Unemployment Rate' THEN 'ur'                                   WHEN 'Gross Domestic Product' THEN 'gdp'                                   WHEN 'Personal Income' THEN 'pi'                                   WHEN 'Personal Saving Rate' THEN 'ps'            END;
@@ -96,7 +107,9 @@ SELECT c.MonthDate, c.Cases_TotalFROM COVID_Cases_Monthly c
 
 /*COVID and Private Sector GDP-1670120039739.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Peak Trends in Private Sector GDP*/
 SELECT Pre_COVID, WildType_Peak, Alpha_Peak, Delta_Peak, Omicron_PeakFROM GDP_PeaksWHERE id = 'priv';
@@ -126,7 +139,9 @@ SELECTg.Agriculture, g.Mining, g.Manufacturing, g.Retail_trade, g.Utilities, g.F
 
 /*COVID and Unemployment Rate By Age-1670103303890.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Trends in Unemployment Rate For Ages 16 to 19*/
 SELECT urate.LUR1 AS Pre_COVID,       urate.LUR2 AS WildType_Peak,  	   urate.LUR3 AS Alpha_Peak,  	   urate.LUR4 AS Delta_Peak, 	   urate.LUR5 AS Omicron_PeakFROM    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.Yrs_16_19 ELSE 0 END) LUR1,           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.Yrs_16_19 ELSE 0 END) LUR2,           SUM(CASE WHEN u.Date=a.MonthDate THEN u.Yrs_16_19 ELSE 0 END) LUR3,           SUM(CASE WHEN u.Date=d.MonthDate THEN u.Yrs_16_19 ELSE 0 END) LUR4,           SUM(CASE WHEN u.Date=o.MonthDate THEN u.Yrs_16_19 ELSE 0 END) LUR5    FROM Unemployment_Rate u, MinL20UnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
@@ -157,7 +172,9 @@ SELECT e.Yrs_16_19, e.Yrs_20_24, e.Yrs_25_34, e.Yrs_35_44, e.Yrs_45_54, e.Yrs_55
 
 /*COVID and Unemployment Rate By Gender-1670103287438.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Trends in Unemployment Rate For Men*/
 SELECT urate.WUR1 AS Pre_COVID,       urate.WUR2 AS WildType_Peak,  	   urate.WUR3 AS Alpha_Peak,  	   urate.WUR4 AS Delta_Peak, 	   urate.WUR5 AS Omicron_PeakFROM    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.Women_20_plus ELSE 0 END) WUR1,           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.Women_20_plus ELSE 0 END) WUR2,           SUM(CASE WHEN u.Date=a.MonthDate THEN u.Women_20_plus ELSE 0 END) WUR3,           SUM(CASE WHEN u.Date=d.MonthDate THEN u.Women_20_plus ELSE 0 END) WUR4,           SUM(CASE WHEN u.Date=o.MonthDate THEN u.Women_20_plus ELSE 0 END) WUR5    FROM Unemployment_Rate u, MinWomenUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
@@ -186,7 +203,9 @@ SELECT g.MonthDate, g.Cases_Male, g.Cases_Female FROM COVID_Cases_By_Gender_Mont
 
 /*COVID and Unemployment Rate By Race-1670103265834.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Trends in Unemployment Rate For White*/
 SELECT urate.WUR1 AS Pre_COVID,       urate.WUR2 AS WildType_Peak,  	   urate.WUR3 AS Alpha_Peak,  	   urate.WUR4 AS Delta_Peak, 	   urate.WUR5 AS Omicron_PeakFROM    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.White ELSE 0 END) WUR1,           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.White ELSE 0 END) WUR2,           SUM(CASE WHEN u.Date=a.MonthDate THEN u.White ELSE 0 END) WUR3,           SUM(CASE WHEN u.Date=d.MonthDate THEN u.White ELSE 0 END) WUR4,           SUM(CASE WHEN u.Date=o.MonthDate THEN u.White ELSE 0 END) WUR5    FROM Unemployment_Rate u, MinWhiteUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
@@ -231,7 +250,9 @@ SELECT r.MonthDate, r.Cases_White, r.Cases_Black, r.Cases_LatinX, r.Cases_AsianF
 
 /*COVID and Unemployment Rate By Region-1670103250723.json*/
 /*No title found*/
-SELECT * FROM (SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC) as b LIMIT 1
+SELECT * FROM (
+SELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC
+) as b LIMIT 1
 
 /*Trends in Unemployment Rate For Western Region*/
 SELECT urate.WUR1 AS Pre_COVID,       urate.WUR2 AS WildType_Peak,  	   urate.WUR3 AS Alpha_Peak,  	   urate.WUR4 AS Delta_Peak, 	   urate.WUR5 AS Omicron_PeakFROM    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.West ELSE 0 END) WUR1,           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.West ELSE 0 END) WUR2,           SUM(CASE WHEN u.Date=a.MonthDate THEN u.West ELSE 0 END) WUR3,           SUM(CASE WHEN u.Date=d.MonthDate THEN u.West ELSE 0 END) WUR4,           SUM(CASE WHEN u.Date=o.MonthDate THEN u.West ELSE 0 END) WUR5    FROM UnempRateRegionCol u, MinWestUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
@@ -276,77 +297,334 @@ SELECT MonthDate, Cases_West, Cases_South, Cases_Northeast, Cases_MidwestFROM CO
 
 /*Landing Page Dashboard-1669511219504.json*/
 /*National COVID And Patient Outcomes By Race-1669509222429.json*/
-/*No title found*/
-/*No targets found*/
+
 /*Wild Type Variant Peak Statistics */
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND)) as DeathsFROM MaxDeathsWT
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END)) as Deaths
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND)) as CasesFROM MaxCasesWT
+FROM MaxDeathsWT
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as HospitalizationsFROM MaxHospWT
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END)) as Cases
+
+FROM MaxCasesWT
+
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Hospitalizations
+
+FROM MaxHospWT
 
 /*Alpha Type Variant Peak Statistics */
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND)) as DeathsFROM MaxDeathsAlpha
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END)) as Deaths
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND)) as CasesFROM MaxCasesAlpha
+FROM MaxDeathsAlpha
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as HospitalizationsFROM MaxHospAlpha
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END)) as Cases
+
+FROM MaxCasesAlpha
+
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Hospitalizations
+
+FROM MaxHospAlpha
 
 /*General Delta Type Variant Peak Statistics */
-SELECT * FROM MaxDeathsDeltaGeneral
+SELECT * FROM MaxDeathsDeltaGeneral
+
 
 SELECT mx as Cases FROM MaxCaseDelta
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as HospitalizationsFROM MaxHospDelta
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Hospitalizations
+
+FROM MaxHospDelta
 
 /*General Omicron Type Variant Peak Statistics */
 SELECT * FROM MaxDeathsDeltaGeneral
 
 SELECT mx as Cases FROM MaxCaseOmicron
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as HospitalizationsFROM MaxHospDelta
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Hospitalizations
+
+FROM MaxHospDelta
 
 /*Statistics for WildType*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM DeathsWT
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM CasesWT
+FROM DeathsWT
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospFROM HospWT
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+
+FROM CasesWT
+
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hosp
+
+FROM HospWT
 
 /*Statistics for WildType*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM DeathsAlpha
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM CasesAlpha
+FROM DeathsAlpha
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospFROM HospAlpha
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+
+FROM CasesAlpha
+
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hosp
+
+FROM HospAlpha
 
 /*Cases, Tests, and Deaths Per Race Nationally*/
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND)) as Total_CasesFROM COVID_Cases_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END)) as Total_Cases
+FROM COVID_Cases_By_Race GROUP BY Date
 
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Tests_AsianWHEN '$Racial_Group' = 'Black' THEN Tests_BlackWHEN '$Racial_Group' = 'White' THEN Tests_WhiteWHEN '$Racial_Group' = 'Total' THEN Tests_TotalWHEN '$Racial_Group' = 'Latinx' THEN Tests_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIANWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPIEND)) as Total_TestsFROM COVID_Test_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Tests_Asian
+WHEN '$Racial_Group' = 'Black' THEN Tests_Black
+WHEN '$Racial_Group' = 'White' THEN Tests_White
+WHEN '$Racial_Group' = 'Total' THEN Tests_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
+END)) as Total_Tests
+FROM COVID_Test_By_Race GROUP BY Date
 
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND)) as Total_DeathsFROM COVID_Deaths_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END)) as Total_Deaths
+FROM COVID_Deaths_By_Race GROUP BY Date
 
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as Total_HospitalizationsFROM COVID_Hospitalizations_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Total_Hospitalizations
+FROM COVID_Hospitalizations_By_Race GROUP BY Date
 
 /*State Population By Selected Racial Group*/
-SELECT State, (CASE WHEN '$Racial_Group' = 'Asian' THEN AsianTotalWHEN '$Racial_Group' = 'Black' THEN BlackTotalWHEN '$Racial_Group' = 'White' THEN WhiteTotalWHEN '$Racial_Group' = 'Latinx' THEN OtherTotalWHEN '$Racial_Group' = 'AIAN' THEN HawaiianTotalWHEN '$Racial_Group' = 'NHPI' THEN IndianTotalEND) as Population_PercentageFROM US_Population_Racial
+
+
+SELECT 
+State, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN AsianTotal
+WHEN '$Racial_Group' = 'Black' THEN BlackTotal
+WHEN '$Racial_Group' = 'White' THEN WhiteTotal
+WHEN '$Racial_Group' = 'Latinx' THEN OtherTotal
+WHEN '$Racial_Group' = 'AIAN' THEN HawaiianTotal
+WHEN '$Racial_Group' = 'NHPI' THEN IndianTotal
+END) as Population_Percentage
+FROM US_Population_Racial
 
 /*Cumulative  Hospitalizations By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Hosp_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Hosp_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Hosp_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Hosp_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Hosp_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Hosp_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Hosp_NHPI)END) AS Total_CasesFROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Hosp_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Hosp_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Hosp_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Hosp_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Hosp_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Hosp_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Hosp_NHPI)
+END) AS Total_Cases
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*Cumulative Tests By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Tests_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Tests_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Tests_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Tests_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Tests_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Tests_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Tests_NHPI)END) AS Total_TestsFROM COVID_Test_By_Race JOIN State_To_Code ONCOVID_Test_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Tests_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Tests_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Tests_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Tests_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Tests_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Tests_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Tests_NHPI)
+END) AS Total_Tests
+FROM COVID_Test_By_Race JOIN State_To_Code ON
+COVID_Test_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*Cumulative Cases By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Cases_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Cases_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Cases_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Cases_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Cases_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Cases_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Cases_NHPI)END) AS Total_CasesFROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Cases_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Cases_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Cases_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Cases_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Cases_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Cases_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Cases_NHPI)
+END) AS Total_Cases
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*Cumulative  Deaths By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Deaths_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Deaths_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Deaths_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Deaths_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Deaths_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Deaths_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Deaths_NHPI)END) AS Total_CasesFROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Deaths_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Deaths_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Deaths_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Deaths_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Deaths_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Deaths_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Deaths_NHPI)
+END) AS Total_Cases
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*National COVID And Patient Outcomes By Race-1670103226737.json*/
-/*No title found*/
-/*No targets found*/
+
 /*Wild Type Variant Peak Date*/
 SELECT Date FROM MaxCaseWTWeekly
 
@@ -360,184 +638,1079 @@ SELECT Date FROM MaxCaseDeltaWeekly
 SELECT Date FROM MaxCaseOmicronWeekly
 
 /*Wild Type Variant Peak Statistics */
-SELECT (CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM MaxDeathsWTORDER BY Deaths_Total DESC LIMIT 1
+SELECT 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM MaxDeathsWT
+ORDER BY Deaths_Total DESC LIMIT 1
 
-SELECT (CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as CasesFROM MaxCasesWTORDER BY Cases_Total DESC LIMIT 1
+SELECT 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases
+FROM MaxCasesWT
+ORDER BY Cases_Total DESC LIMIT 1
 
-SELECT (CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as HospitalizationsFROM MaxHospWTORDER BY Hosp_Total DESC LIMIT 1
+SELECT 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations
+FROM MaxHospWT
+ORDER BY Hosp_Total DESC LIMIT 1
 
 /*Alpha Type Variant Peak Date*/
-SELECTDate,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM MaxDeathsAlphaORDER BY Deaths_Total DESC LIMIT 1
+SELECT
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM MaxDeathsAlpha
+ORDER BY Deaths_Total DESC LIMIT 1
 
-SELECT (CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as CasesFROM MaxCasesAlphaORDER BY Cases_Total DESC LIMIT 1
+SELECT 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as HospitalizationsFROM MaxHospAlphaORDER BY Hosp_Total DESC LIMIT 1
+FROM MaxCasesAlpha
+ORDER BY Cases_Total DESC LIMIT 1
+
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Hospitalizations
+FROM MaxHospAlpha
+ORDER BY Hosp_Total DESC LIMIT 1
 
 /*General Delta Type Variant Peak Statistics */
-SELECT * FROM MaxDeathsDeltaGeneral
+SELECT * FROM MaxDeathsDeltaGeneral
+
 
 SELECT mx as Cases FROM MaxCaseDeltaWeekly
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as HospitalizationsFROM MaxHospDelta
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Hospitalizations
+
+FROM MaxHospDelta
 
 /*General Omicron Type Variant Peak Statistics */
 SELECT * FROM MaxDeathsDeltaGeneral
 
 SELECT mx as Cases FROM MaxCaseOmicronWeekly
 
-SELECT SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as HospitalizationsFROM MaxHospDelta
+SELECT 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Hospitalizations
+
+FROM MaxHospDelta
 
 /*Statistics for WildType*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM DeathsWT
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM CasesWT
+FROM DeathsWT
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospFROM HospWT
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+
+FROM CasesWT
+
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hosp
+
+FROM HospWT
 
 /*Statistics for AlphaType*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM DeathsAlpha
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM CasesAlpha
+FROM DeathsAlpha
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospFROM HospAlpha
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+
+FROM CasesAlpha
+
+SELECT Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hosp
+
+FROM HospAlpha
 
 /*Cases, Tests, and Deaths Per Race Nationally*/
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND)) as Total_CasesFROM COVID_Cases_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END)) as Total_Cases
+FROM COVID_Cases_By_Race GROUP BY Date
 
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Tests_AsianWHEN '$Racial_Group' = 'Black' THEN Tests_BlackWHEN '$Racial_Group' = 'White' THEN Tests_WhiteWHEN '$Racial_Group' = 'Total' THEN Tests_TotalWHEN '$Racial_Group' = 'Latinx' THEN Tests_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIANWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPIEND)) as Total_TestsFROM COVID_Test_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Tests_Asian
+WHEN '$Racial_Group' = 'Black' THEN Tests_Black
+WHEN '$Racial_Group' = 'White' THEN Tests_White
+WHEN '$Racial_Group' = 'Total' THEN Tests_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
+END)) as Total_Tests
+FROM COVID_Test_By_Race GROUP BY Date
 
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND)) as Total_DeathsFROM COVID_Deaths_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END)) as Total_Deaths
+FROM COVID_Deaths_By_Race GROUP BY Date
 
-SELECT Date, SUM((CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND)) as Total_HospitalizationsFROM COVID_Hospitalizations_By_Race GROUP BY Date
+SELECT 
+Date, 
+SUM((CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END)) as Total_Hospitalizations
+FROM COVID_Hospitalizations_By_Race GROUP BY Date
 
 /*State Population By Selected Racial Group*/
-SELECT State, (CASE WHEN '$Racial_Group' = 'Asian' THEN AsianTotalWHEN '$Racial_Group' = 'Black' THEN BlackTotalWHEN '$Racial_Group' = 'White' THEN WhiteTotalWHEN '$Racial_Group' = 'Latinx' THEN OtherTotalWHEN '$Racial_Group' = 'AIAN' THEN HawaiianTotalWHEN '$Racial_Group' = 'NHPI' THEN IndianTotalEND) as Population_PercentageFROM US_Population_Racial
+
+
+SELECT 
+State, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN AsianTotal
+WHEN '$Racial_Group' = 'Black' THEN BlackTotal
+WHEN '$Racial_Group' = 'White' THEN WhiteTotal
+WHEN '$Racial_Group' = 'Latinx' THEN OtherTotal
+WHEN '$Racial_Group' = 'AIAN' THEN HawaiianTotal
+WHEN '$Racial_Group' = 'NHPI' THEN IndianTotal
+END) as Population_Percentage
+FROM US_Population_Racial
 
 /*Cumulative  Hospitalizations By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Hosp_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Hosp_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Hosp_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Hosp_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Hosp_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Hosp_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Hosp_NHPI)END) AS Total_CasesFROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Hosp_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Hosp_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Hosp_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Hosp_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Hosp_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Hosp_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Hosp_NHPI)
+END) AS Total_Cases
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*Cumulative Tests By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Tests_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Tests_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Tests_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Tests_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Tests_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Tests_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Tests_NHPI)END) AS Total_TestsFROM COVID_Test_By_Race JOIN State_To_Code ONCOVID_Test_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Tests_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Tests_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Tests_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Tests_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Tests_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Tests_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Tests_NHPI)
+END) AS Total_Tests
+FROM COVID_Test_By_Race JOIN State_To_Code ON
+COVID_Test_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*Cumulative Cases By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Cases_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Cases_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Cases_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Cases_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Cases_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Cases_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Cases_NHPI)END) AS Total_CasesFROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Cases_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Cases_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Cases_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Cases_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Cases_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Cases_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Cases_NHPI)
+END) AS Total_Cases
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*Cumulative  Deaths By State Per Race*/
-SELECT State_To_Code.State_Name, (CASE WHEN '$Racial_Group' = 'Asian' THEN SUM(Deaths_Asian)WHEN '$Racial_Group' = 'Black' THEN SUM(Deaths_Black)WHEN '$Racial_Group' = 'White' THEN SUM(Deaths_White)WHEN '$Racial_Group' = 'Total' THEN SUM(Deaths_Total)WHEN '$Racial_Group' = 'Latinx' THEN SUM(Deaths_Latinx)WHEN '$Racial_Group' = 'AIAN' THEN SUM(Deaths_AIAN)WHEN '$Racial_Group' = 'NHPI' THEN SUM(Deaths_NHPI)END) AS Total_CasesFROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name;
+SELECT State_To_Code.State_Name, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN SUM(Deaths_Asian)
+WHEN '$Racial_Group' = 'Black' THEN SUM(Deaths_Black)
+WHEN '$Racial_Group' = 'White' THEN SUM(Deaths_White)
+WHEN '$Racial_Group' = 'Total' THEN SUM(Deaths_Total)
+WHEN '$Racial_Group' = 'Latinx' THEN SUM(Deaths_Latinx)
+WHEN '$Racial_Group' = 'AIAN' THEN SUM(Deaths_AIAN)
+WHEN '$Racial_Group' = 'NHPI' THEN SUM(Deaths_NHPI)
+END) AS Total_Cases
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name;
 
 /*State COVID And Patient Outcomes By Race-1669511167313.json*/
-/*No title found*/
-/*No targets found*/
-/*Cases, Tests, Hospitalizations, and Deaths Per Race Per State*/
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Tests_AsianWHEN '$Racial_Group' = 'Black' THEN Tests_BlackWHEN '$Racial_Group' = 'Total' THEN Tests_TotalWHEN '$Racial_Group' = 'White' THEN Tests_WhiteWHEN '$Racial_Group' = 'Latinx' THEN Tests_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIANWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPIEND) as Total_TestsFROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospitalizationsFROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
 
 /*Cases, Tests, Hospitalizations, and Deaths Per Race Per State*/
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+FROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
 
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Tests_AsianWHEN '$Racial_Group' = 'Black' THEN Tests_BlackWHEN '$Racial_Group' = 'Total' THEN Tests_TotalWHEN '$Racial_Group' = 'White' THEN Tests_WhiteWHEN '$Racial_Group' = 'Latinx' THEN Tests_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIANWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPIEND) as Total_TestsFROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Tests_Asian
+WHEN '$Racial_Group' = 'Black' THEN Tests_Black
+WHEN '$Racial_Group' = 'Total' THEN Tests_Total
+WHEN '$Racial_Group' = 'White' THEN Tests_White
+WHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
+END) as Total_Tests
+FROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
 
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
+FROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
 
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospitalizationsFROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hospitalizations
+FROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
+
+/*Cases, Tests, Hospitalizations, and Deaths Per Race Per State*/
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+FROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
+
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Tests_Asian
+WHEN '$Racial_Group' = 'Black' THEN Tests_Black
+WHEN '$Racial_Group' = 'Total' THEN Tests_Total
+WHEN '$Racial_Group' = 'White' THEN Tests_White
+WHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
+END) as Total_Tests
+FROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
+
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
+FROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
+
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hospitalizations
+FROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
 
 /*Demographic Percentage Breakdown*/
 SELECT * FROM  US_Population_Racial_Percentages WHERE '$States' = State
 
 /*WIld Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
 /*Alpha Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
 /*Racial Comparison of Cases Cumulative*/
-SELECT * FROM (SELECT State_Name,SUM(Cases_Asian) AS Asian_Total,SUM(Cases_Black) AS Black_Total,SUM(Cases_White) AS White_Total,SUM(Cases_Total) AS Total,SUM(Cases_Latinx) AS LatinX_Total,SUM(Cases_AIAN) AS AIAN_Total,SUM(Cases_NHPI) AS NHPI_TotalFROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
+SELECT * FROM (
+SELECT 
+State_Name,
+SUM(Cases_Asian) AS Asian_Total,
+SUM(Cases_Black) AS Black_Total,
+SUM(Cases_White) AS White_Total,
+SUM(Cases_Total) AS Total,
+SUM(Cases_Latinx) AS LatinX_Total,
+SUM(Cases_AIAN) AS AIAN_Total,
+SUM(Cases_NHPI) AS NHPI_Total
+
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
 
 /*Racial Comparison of Deaths Cumulative*/
-SELECT * FROM (SELECT State_Name,SUM(Deaths_Asian) AS Asian_Total,SUM(Deaths_Black) AS Black_Total,SUM(Deaths_White) AS White_Total,SUM(Deaths_Total) AS Total,SUM(Deaths_Latinx) AS LatinX_Total,SUM(Deaths_AIAN) AS AIAN_Total,SUM(Deaths_NHPI) AS NHPI_TotalFROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
+SELECT * FROM (
+SELECT 
+State_Name,
+SUM(Deaths_Asian) AS Asian_Total,
+SUM(Deaths_Black) AS Black_Total,
+SUM(Deaths_White) AS White_Total,
+SUM(Deaths_Total) AS Total,
+SUM(Deaths_Latinx) AS LatinX_Total,
+SUM(Deaths_AIAN) AS AIAN_Total,
+SUM(Deaths_NHPI) AS NHPI_Total
+
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
 
 /*WIld Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
 /*Alpha Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
 /*State COVID And Patient Outcomes By Race-1670103197040.json*/
-/*No title found*/
-/*No targets found*/
-/*Cases, Tests, Hospitalizations, and Deaths Per Race Per State*/
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Tests_AsianWHEN '$Racial_Group' = 'Black' THEN Tests_BlackWHEN '$Racial_Group' = 'Total' THEN Tests_TotalWHEN '$Racial_Group' = 'White' THEN Tests_WhiteWHEN '$Racial_Group' = 'Latinx' THEN Tests_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIANWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPIEND) as Total_TestsFROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospitalizationsFROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
 
 /*Cases, Tests, Hospitalizations, and Deaths Per Race Per State*/
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Total_CasesFROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+FROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
 
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Tests_AsianWHEN '$Racial_Group' = 'Black' THEN Tests_BlackWHEN '$Racial_Group' = 'Total' THEN Tests_TotalWHEN '$Racial_Group' = 'White' THEN Tests_WhiteWHEN '$Racial_Group' = 'Latinx' THEN Tests_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIANWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPIEND) as Total_TestsFROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Tests_Asian
+WHEN '$Racial_Group' = 'Black' THEN Tests_Black
+WHEN '$Racial_Group' = 'Total' THEN Tests_Total
+WHEN '$Racial_Group' = 'White' THEN Tests_White
+WHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
+END) as Total_Tests
+FROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
 
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as Total_DeathsFROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
+FROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
 
-SELECT Date, (CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Total_HospitalizationsFROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hospitalizations
+FROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
+
+/*Cases, Tests, Hospitalizations, and Deaths Per Race Per State*/
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Total_Cases
+FROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
+
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Tests_Asian
+WHEN '$Racial_Group' = 'Black' THEN Tests_Black
+WHEN '$Racial_Group' = 'Total' THEN Tests_Total
+WHEN '$Racial_Group' = 'White' THEN Tests_White
+WHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
+END) as Total_Tests
+FROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
+
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Total_Deaths
+FROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
+
+SELECT 
+Date, 
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Total_Hospitalizations
+FROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
 
 /*Demographic Percentage Breakdown*/
 SELECT * FROM  US_Population_Racial_Percentages WHERE '$States' = State
 
 /*WIld Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
 /*Alpha Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
 /*Racial Comparison of Cases Cumulative*/
-SELECT * FROM (SELECT State_Name,SUM(Cases_Asian) AS Asian_Total,SUM(Cases_Black) AS Black_Total,SUM(Cases_White) AS White_Total,SUM(Cases_Total) AS Total,SUM(Cases_Latinx) AS LatinX_Total,SUM(Cases_AIAN) AS AIAN_Total,SUM(Cases_NHPI) AS NHPI_TotalFROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
+SELECT * FROM (
+SELECT 
+State_Name,
+SUM(Cases_Asian) AS Asian_Total,
+SUM(Cases_Black) AS Black_Total,
+SUM(Cases_White) AS White_Total,
+SUM(Cases_Total) AS Total,
+SUM(Cases_Latinx) AS LatinX_Total,
+SUM(Cases_AIAN) AS AIAN_Total,
+SUM(Cases_NHPI) AS NHPI_Total
+
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
 
 /*Racial Comparison of Deaths Cumulative*/
-SELECT * FROM (SELECT State_Name,SUM(Deaths_Asian) AS Asian_Total,SUM(Deaths_Black) AS Black_Total,SUM(Deaths_White) AS White_Total,SUM(Deaths_Total) AS Total,SUM(Deaths_Latinx) AS LatinX_Total,SUM(Deaths_AIAN) AS AIAN_Total,SUM(Deaths_NHPI) AS NHPI_TotalFROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.codeGROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
+SELECT * FROM (
+SELECT 
+State_Name,
+SUM(Deaths_Asian) AS Asian_Total,
+SUM(Deaths_Black) AS Black_Total,
+SUM(Deaths_White) AS White_Total,
+SUM(Deaths_Total) AS Total,
+SUM(Deaths_Latinx) AS LatinX_Total,
+SUM(Deaths_AIAN) AS AIAN_Total,
+SUM(Deaths_NHPI) AS NHPI_Total
+
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code
+GROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
 
 /*WIld Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
 /*Alpha Variant Peak Statistics*/
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Deaths_AsianWHEN '$Racial_Group' = 'Black' THEN Deaths_BlackWHEN '$Racial_Group' = 'White' THEN Deaths_WhiteWHEN '$Racial_Group' = 'Total' THEN Deaths_TotalWHEN '$Racial_Group' = 'Latinx' THEN Deaths_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIANWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPIEND) as DeathsFROM (SELECT *FROM COVID_Deaths_By_Race JOIN State_To_Code ONCOVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY StateORDER BY Deaths_Total DESC LIMIT 1) as b 
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
+WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
+WHEN '$Racial_Group' = 'White' THEN Deaths_White
+WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
+END) as Deaths
+FROM (
+SELECT 
+*
+FROM COVID_Deaths_By_Race JOIN State_To_Code ON
+COVID_Deaths_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01'AND State_Name = '$States' GROUP BY State
+ORDER BY Deaths_Total DESC LIMIT 1
+) as b 
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Cases_AsianWHEN '$Racial_Group' = 'Black' THEN Cases_BlackWHEN '$Racial_Group' = 'White' THEN Cases_WhiteWHEN '$Racial_Group' = 'Total' THEN Cases_TotalWHEN '$Racial_Group' = 'Latinx' THEN Cases_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIANWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPIEND) as Cases FROM (SELECT *FROM COVID_Cases_By_Race JOIN State_To_Code ONCOVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Cases_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
+WHEN '$Racial_Group' = 'Black' THEN Cases_Black
+WHEN '$Racial_Group' = 'White' THEN Cases_White
+WHEN '$Racial_Group' = 'Total' THEN Cases_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
+END) as Cases 
+FROM (
+SELECT 
+*
+FROM COVID_Cases_By_Race JOIN State_To_Code ON
+COVID_Cases_By_Race.State = State_To_Code.code WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Cases_Total DESC LIMIT 1
+) as b
 
-SELECT Date,(CASE WHEN '$Racial_Group' = 'Asian' THEN Hosp_AsianWHEN '$Racial_Group' = 'Black' THEN Hosp_BlackWHEN '$Racial_Group' = 'White' THEN Hosp_WhiteWHEN '$Racial_Group' = 'Total' THEN Hosp_TotalWHEN '$Racial_Group' = 'Latinx' THEN Hosp_LatinxWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIANWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPIEND) as Hospitalizations FROM (SELECT *FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ONCOVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY StateORDER BY Hosp_Total DESC LIMIT 1) as b
+SELECT 
+Date,
+(CASE 
+WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
+WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
+WHEN '$Racial_Group' = 'White' THEN Hosp_White
+WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
+WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
+WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
+WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
+END) as Hospitalizations 
+FROM (
+SELECT 
+*
+FROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON
+COVID_Hospitalizations_By_Race.State = State_To_Code.code  WHERE Date >= '2020-11-01' and Date < '2021-06-01' AND State_Name = '$States' GROUP BY State
+ORDER BY Hosp_Total DESC LIMIT 1
+) as b
 
