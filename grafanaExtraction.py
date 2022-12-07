@@ -7,10 +7,13 @@ def main():
     """
         Iterates through all grafana json files and extracts the sql queries
     """
-    file = open("grafanaSql.sql", "w")
     for filename in os.listdir(DIRECTORY):
+
         f = os.path.join(DIRECTORY, filename)
-        commentedString = "/* DASHBOARD " + filename + "*/\n"
+        fileOutputName = "Grafana Dashboards/"+filename.split("-")[0] + ".sql"
+        file = open(fileOutputName, "w")
+
+        commentedString = "/* DASHBOARD " + fileOutputName + "*/\n"
         file.write(commentedString)
         print(filename)
         if(filename.__contains__("Landing Page")):
@@ -20,6 +23,7 @@ def main():
             data = getJsonData(f)
             getPanels(data,file)
     file.close()
+    
 
 def getPanels(data,file):
     """
