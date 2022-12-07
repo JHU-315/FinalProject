@@ -66,6 +66,21 @@ CREATE TABLE Nonfarm_Employment
     PRIMARY KEY(Date)
 );
 
+DROP TABLE IF EXISTS Total_Economic_Factors;
+CREATE TABLE Total_Economic_Factors (
+    Date DATE NOT NULL UNIQUE,
+    GDP FLOAT(8),
+    Unemployment_Rate FLOAT(4),
+    Personal_Income FLOAT(8),
+    Personal_Saving FLOAT(8),
+    Personal_Saving_Rate FLOAT(4),
+    PRIMARY KEY(Date),
+    FOREIGN KEY (GDP) REFERENCES GDP_National(Gross_Domestic_Product),
+    FOREIGN KEY (Unemployment_Rate) REFERENCES Unemployment_Rate(Total),
+    FOREIGN KEY (Personal_Income) REFERENCES Personal_Income_National(Personal_Income),
+    FOREIGN KEY (Personal_Saving) REFERENCES Personal_Income_National(Personal_Saving)
+);
+
 /* Real Gross Domestic Product, Billions of chained (2012) dollars */
 DROP TABLE GDP_National;
 CREATE TABLE GDP_National
@@ -110,7 +125,7 @@ CREATE TABLE GDP_By_State(
     Gross_Domestic_Product FLOAT(10) CHECK (Gross_Domestic_Product >= 0),
     PRIMARY KEY(Quarter, State)
     UNIQUE (Quarter, State),
-    FOREIGN KEY (State) REFERENCES State_Code(State_Name)
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
 
 /* Personal Income by Quarter per State in billions of dollars */
@@ -121,14 +136,14 @@ CREATE TABLE Personal_Income_By_State(
     Personal_Income FLOAT(4) CHECK (Personal_Income >= 0),
     PRIMARY KEY(Quarter, State)
     UNIQUE (Quarter, State),
-    FOREIGN KEY (State) REFERENCES State(State_Name)
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
 
 /* Personal Income by Month for Entire Nation in billions of dollars*/
 DROP TABLE Personal_Income_National;
 CREATE TABLE Personal_Income_National(
     Date DATE NOT NULL UNIQUE,
-    Personal_Income FLOAT(8) CHECK (Personal_Income >= 0),,  
+    Personal_Income FLOAT(8) CHECK (Personal_Income >= 0),
     Personal_Saving FLOAT(8) CHECK (Personal_Saving >= 0),
     PRIMARY KEY(Date)
 );
@@ -171,21 +186,6 @@ CREATE TABLE US_Population_Racial (
   OtherTotal int DEFAULT NULL,
   PRIMARY KEY (State)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- jhu_315_final_project.Total_Economic_Factors definition
-
-CREATE TABLE Total_Economic_Factors (
-  Date date NOT NULL,
-  GDP float DEFAULT NULL,
-  Unemployment_Rate float DEFAULT NULL,
-  Personal_Income float DEFAULT NULL,
-  Personal_Saving float DEFAULT NULL,
-  Personal_Saving_Rate float DEFAULT NULL,
-  PRIMARY KEY (Date),
-  UNIQUE KEY Date (Date)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 
 -- jhu_315_final_project.COVID_Vaccinations definition
 
@@ -460,13 +460,12 @@ CREATE TABLE Month_To_Quarter(
 );
 
 /*State Code to State Name*/
-CREATE TABLE `State_To_Code` (
-  State_Name varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  abbrev varchar(50) DEFAULT NULL,
-  code varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`State_Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+DROP TABLE State_To_Code;
+CREATE TABLE State_To_Code(
+    State_Code VARCHAR(2),
+    State_Name VARCHAR(20),
+    PRIMARY KEY(State)
+);
 
 /*State Name to Region*/
 DROP TABLE State_To_Region;
