@@ -429,6 +429,41 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
     FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
 
+/*Political Affiliations*/
+-- jhu_315_final_project.State_Political_Composition definition
+
+CREATE TABLE State_Political_Composition (
+  State varchar(100) DEFAULT NULL,
+  Republican/lean Rep. double DEFAULT NULL,
+  No lean double DEFAULT NULL,
+  Democrat/lean Dem. double DEFAULT NULL,
+  Sample size int DEFAULT NULL,
+  CHECK (Republican/lean Rep. >= 0),
+    CHECK (No lean >= 0),
+    CHECK (Democrat/lean Dem. >= 0),
+    CHECK (Sample size >= 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- jhu_315_final_project.State_Political_Composition_By_Race definition
+
+CREATE TABLE State_Political_Composition_By_Race (
+  State varchar(100) DEFAULT NULL,
+  White int DEFAULT NULL,
+  Black int DEFAULT NULL,
+  Asian int DEFAULT NULL,
+  Latino int DEFAULT NULL,
+  Other/Mixed int DEFAULT NULL,
+  Sample size int DEFAULT NULL,
+    CHECK (White >= 0),
+    CHECK (Black >= 0),
+    CHECK (Asian >= 0),
+    CHECK (Latino >= 0),
+    CHECK (Other/Mixed >= 0),
+    CHECK (Sample size >= 0)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /* INTERMEDIARY RELATIONS */
 
 /*DateToMonth*/
