@@ -506,7 +506,7 @@ GROUP BY u.Date, r.Region;
 
 /*GENDER*/
 
-/*Cases per variant*/
+/*Cases per variant - sum total by all dates over the course of the time period*/
 CREATE OR REPLACE VIEW COVID_Cases_By_Gender_WT AS
     SELECT State, SUM(Total_Count) AS Total_Count_WT,SUM(Male_Count) AS Male_Count_WT,SUM(Female_Count) AS Female_Count_WT FROM COVID_Cases_By_Gender
     WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY State;
@@ -528,6 +528,7 @@ CREATE OR REPLACE VIEW COVID_Cases_By_Gender_AllVariants AS
     SELECT * FROM COVID_Cases_By_Gender_Alpha NATURAL JOIN COVID_Cases_By_Gender_WT NATURAL JOIN COVID_Cases_By_Gender_Delta NATURAL JOIN COVID_Cases_By_Gender_Omicron
 
 /*Deaths Per Variant for each gender - data is structure differently than above, hence twice the amount of views*/
+/*sum total by all dates over the course of the time period*/
 CREATE OR REPLACE VIEW COVID_Deaths_M_By_Gender_WT AS
     SELECT Age_Group, SUM(Total_Deaths) as Total_Deaths_M_WT FROM COVID_Deaths_By_Age_Gender
     WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND Sex = "Male" GROUP BY Age_Group;

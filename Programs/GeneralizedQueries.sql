@@ -43,11 +43,12 @@ SELECT Date, SUM(Tests_Total) Tests_Total
 FROM COVID_Test_By_Race
 GROUP BY Date;
 
-/*Totals By State for Cases By Race*/
+/*Totals By State for Cases By Race - summed due to getting national total from states*/
 CREATE or REPLACE VIEW COVID_Cases_By_Race_Totals AS
 SELECT State, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White, SUM(Cases_Black) Cases_Black, SUM(Cases_Latinx) Cases_Latinx, SUM(Cases_Asian) Cases_Asian, SUM(Cases_AIAN) Cases_AIAN, SUM(Cases_NHPI) Cases_NHPI, SUM(Cases_Multiracial) Cases_Multiracial, SUM(Cases_Other) Cases_Other, SUM(Cases_Unknown) Cases_Unknown
 FROM COVID_Cases_By_Race
 
+/*Hospitalizations - summed due to getting national total from states*/
 CREATE OR REPLACE VIEW COVID_Hospitalizations_National AS
 SELECT Date, SUM(Hosp_Total) as Hosp_Total FROM COVID_Hospitalizations_By_Race GROUP BY State
 
@@ -75,7 +76,7 @@ CREATE OR REPLACE VIEW MaxDeathsWT AS
 SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
 FROM COVID_Deaths_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date;
 
-/*Hospitalizations*/
+/*Hospitalizations - summed due to getting national total from states*/
 CREATE OR REPLACE VIEW MaxHospWT AS
 SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
 FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11-01' GROUP BY Date;
@@ -118,7 +119,7 @@ CREATE OR REPLACE VIEW MaxDeathsAlpha AS
 SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
 FROM COVID_Deaths_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01' GROUP BY Date;
 
-/*Hospitalizations*/
+/*Hospitalizations - summed due to getting national total from states*/
 CREATE OR REPLACE VIEW MaxHospAlpha AS
 SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
 FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01' GROUP BY Date;
@@ -170,7 +171,7 @@ CREATE OR REPLACE VIEW MaxDeathsDelta AS
 SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
 FROM COVID_Deaths_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' GROUP BY Date;
 
-/*Hospitalizations*/
+/*Hospitalizations - summed due to getting national total from states*/
 CREATE OR REPLACE VIEW MaxHospDelta AS
 SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
 FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' GROUP BY Date;
@@ -202,17 +203,17 @@ FROM COVID_Cases_Weekly c2, Date_To_MonthDate md,
 WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 
-/*Cases for Racial Group*/
+/*Cases for Racial Group - summed due to getting national total from states*/
 CREATE OR REPLACE VIEW MaxCasesOmicron AS 
 SELECT Date, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White, SUM(Cases_Black) Cases_Black, SUM(Cases_Latinx) Cases_Latinx, SUM(Cases_Asian) Cases_Asian, SUM(Cases_AIAN) Cases_AIAN, SUM(Cases_NHPI) Cases_NHPI, SUM(Cases_Multiracial) Cases_Multiracial, SUM(Cases_Other) Cases_Other, SUM(Cases_Unknown) Cases_Unknown
 FROM COVID_Cases_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
 
-/*Deaths*/
+/*Deaths- summed due to getting national total from states*/
 CREATE OR REPLACE VIEW MaxDeathsOmicron AS 
 SELECT Date, SUM(Deaths_Total) Deaths_Total, SUM(Deaths_White) Deaths_White, SUM(Deaths_Black) Deaths_Black, SUM(Deaths_Latinx) Deaths_Latinx, SUM(Deaths_Asian) Deaths_Asian, SUM(Deaths_AIAN) Deaths_AIAN, SUM(Deaths_NHPI) Deaths_NHPI, SUM(Deaths_Multiracial) Deaths_Multiracial, SUM(Deaths_Other) Deaths_Other, SUM(Deaths_Unknown) Deaths_Unknown
 FROM COVID_Deaths_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
 
-/*Hospitalizations*/
+/*Hospitalizations - summed due to getting national total from states*/
 CREATE OR REPLACE VIEW MaxHospOmicron AS
 SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
 FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
