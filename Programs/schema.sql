@@ -462,9 +462,10 @@ CREATE TABLE Month_To_Quarter(
 /*State Code to State Name*/
 DROP TABLE State_To_Code;
 CREATE TABLE State_To_Code(
-    State_Code VARCHAR(2),
-    State_Name VARCHAR(20),
-    PRIMARY KEY(State)
+    State_Name VARCHAR(20) NOT NULL UNIQUE,
+    abbrev varchar(10),
+    code varchar(2),
+    PRIMARY KEY (State_Name)
 );
 
 /*State Name to Region*/
