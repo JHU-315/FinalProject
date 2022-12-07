@@ -110,7 +110,7 @@ CREATE TABLE GDP_By_State(
     Gross_Domestic_Product FLOAT(10) CHECK (Gross_Domestic_Product >= 0),
     PRIMARY KEY(Quarter, State)
     UNIQUE (Quarter, State),
-    FOREIGN KEY (State) REFERENCES State(State_Name)
+    FOREIGN KEY (State) REFERENCES State_Code(State_Name)
 );
 
 /* Personal Income by Quarter per State in billions of dollars */
@@ -460,12 +460,13 @@ CREATE TABLE Month_To_Quarter(
 );
 
 /*State Code to State Name*/
-DROP TABLE State_To_Code;
-CREATE TABLE State_To_Code(
-    State_Code VARCHAR(2),
-    State VARCHAR(20),
-    PRIMARY KEY(State)
-);
+CREATE TABLE `State_To_Code` (
+  State_Name varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  abbrev varchar(50) DEFAULT NULL,
+  code varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`State_Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 /*State Name to Region*/
 DROP TABLE State_To_Region;
