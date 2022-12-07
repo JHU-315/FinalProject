@@ -8,7 +8,7 @@ def main():
         Iterates through all grafana json files and extracts the sql queries
     """
     for filename in os.listdir(DIRECTORY):
-
+        filename = "National COVID Trends by Gender and Age-1670379900956.json"
         f = os.path.join(DIRECTORY, filename)
         fileOutputName = "Grafana Dashboards/"+filename.split("-")[0] + ".sql"
         file = open(fileOutputName, "w")
