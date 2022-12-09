@@ -433,7 +433,7 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
 -- jhu_315_final_project.State_Political_Composition definition
 
 CREATE TABLE State_Political_Composition (
-  State varchar(100) DEFAULT NULL,
+  State_Name varchar(100) DEFAULT NULL,
   Republican/lean Rep. double DEFAULT NULL,
   No lean double DEFAULT NULL,
   Democrat/lean Dem. double DEFAULT NULL,
@@ -448,7 +448,7 @@ CREATE TABLE State_Political_Composition (
 -- jhu_315_final_project.State_Political_Composition_By_Race definition
 
 CREATE TABLE State_Political_Composition_By_Race (
-  State varchar(100) DEFAULT NULL,
+  State_Name varchar(100) DEFAULT NULL,
   White int DEFAULT NULL,
   Black int DEFAULT NULL,
   Asian int DEFAULT NULL,

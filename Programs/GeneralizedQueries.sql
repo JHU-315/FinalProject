@@ -157,14 +157,7 @@ FROM COVID_Cases_Weekly c2, Date_To_MonthDate md,
      WHERE Date >= '2021-06-01' and Date < '2021-11-01') c1
 WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
-/*Deaths for racial group General*/
-CREATE OR REPLACE View MaxDeathsDeltaGeneral AS
-SELECT * FROM COVID_Deaths WHERE Date >= '2021-06-01' and Date < '2021-11-01' ORDER BY Deaths_Total DESC LIMIT 1;
 
-/*Cases for Racial Group*/
-CREATE OR REPLACE VIEW MaxCasesDelta AS 
-SELECT Date, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White, SUM(Cases_Black) Cases_Black, SUM(Cases_Latinx) Cases_Latinx, SUM(Cases_Asian) Cases_Asian, SUM(Cases_AIAN) Cases_AIAN, SUM(Cases_NHPI) Cases_NHPI, SUM(Cases_Multiracial) Cases_Multiracial, SUM(Cases_Other) Cases_Other, SUM(Cases_Unknown) Cases_Unknown
-FROM COVID_Cases_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' GROUP BY Date;
 
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsDelta AS 
@@ -176,9 +169,18 @@ CREATE OR REPLACE VIEW MaxHospDelta AS
 SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
 FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01' GROUP BY Date;
 
-/*Deaths Over time*/
+
+/*Deaths for  group General*/
 CREATE OR REPLACE VIEW DeathsDelta AS 
-SELECT * FROM COVID_Deaths_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01';
+SELECT Date, SUM(Total_Deaths) as Total_Deaths  FROM COVID_Deaths_By_Age_Gender 
+WHERE Date >= '2021-06-01' and Date < '2021-11-01'
+GROUP BY DATE ORDER BY Total_Deaths DESC;
+
+/*Cases for group general */
+CREATE OR REPLACE VIEW CasesDelta AS 
+SELECT Date, SUM(Total_Count) as Total_Count  FROM COVID_Cases_By_Gender   
+WHERE Date >= '2021-06-01' and Date < '2021-11-01'
+GROUP BY DATE ORDER BY Total_Count DESC;
 
 /*Hospitalizations Over Time*/
 CREATE OR REPLACE VIEW HospDelta AS
@@ -217,6 +219,22 @@ FROM COVID_Deaths_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
 CREATE OR REPLACE VIEW MaxHospOmicron AS
 SELECT Date, SUM(Hosp_Total) Hosp_Total, SUM(Hosp_White) Hosp_White, SUM(Hosp_Black) Hosp_Black, SUM(Hosp_Latinx) Hosp_Latinx, SUM(Hosp_Asian) Hosp_Asian, SUM(Hosp_AIAN) Hosp_AIAN, SUM(Hosp_NHPI) Hosp_NHPI, SUM(Hosp_Multiracial) Hosp_Multiracial, SUM(Hosp_Other) Hosp_Other, SUM(Hosp_Unknown) Hosp_Unknown
 FROM COVID_Hospitalizations_By_Race WHERE Date >= '2021-11-01' GROUP BY Date;
+
+
+/*Deaths for  group General*/
+CREATE OR REPLACE VIEW DeathsOmicron AS 
+SELECT Date, SUM(Total_Deaths) as Total_Deaths  FROM COVID_Deaths_By_Age_Gender 
+ WHERE Date >= '2021-11-01'
+GROUP BY DATE ORDER BY Total_Deaths DESC;
+
+/*Cases for group general */
+CREATE OR REPLACE VIEW CasesOmicron AS 
+SELECT Date, SUM(Total_Count) as Total_Count  FROM COVID_Cases_By_Gender   
+ WHERE Date >= '2021-11-01'
+GROUP BY DATE ORDER BY Total_Count DESC;
+
+CREATE OR REPLACE VIEW HospOmicron AS
+SELECT * FROM COVID_Hospitalizations_By_Race  WHERE Date >= '2021-11-01';
 
 /*END OF VARIANTS*/
 
@@ -268,3 +286,14 @@ SELECT State, SUM(Admin_Daily)/Total FROM (
 SELECT * FROM  COVID_Vaccinations JOIN State_To_Code ON COVID_Vaccinations.Location = State_To_Code.Code
 ) as b JOIN US_Population_Racial upr ON b.State_Name = upr.State GROUP BY State 
 
+/*Political Affilation ------------------------------------------------*/
+
+/*republican states*/
+CREATE OR REPLACE VIEW State_Political_ID AS
+SELECT State_Name, IF(Republican_lean_rep < Democrat_lean_Dem,"Democratic","Republican") as Affiliations FROM State_Political_Composition;
+
+
+CREATE OR REPLACE VIEW Republican_States AS
+SELECT State_Name FROM State_Political_ID WHERE Affiliations = "Republican";
+CREATE OR REPLACE VIEW Democratic_State AS
+SELECT State_Name FROM State_Political_ID WHERE Affiliations = "Democratic";

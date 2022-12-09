@@ -1,0 +1,218 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 50,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "Race",
+        "National"
+      ],
+      "targetBlank": false,
+      "title": "New link",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# Race Populations For States",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.3.2-45041",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Racial Populations for $Racial_Group",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 2,
+      "options": {
+        "tiling": "treemapSquarify"
+      },
+      "pluginVersion": "9.3.2-45041",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT State_To_Code.State_Name, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN SUM(Cases_Asian)\r\nWHEN '$Racial_Group' = 'Black' THEN SUM(Cases_Black)\r\nWHEN '$Racial_Group' = 'White' THEN SUM(Cases_White)\r\nWHEN '$Racial_Group' = 'Total' THEN SUM(Cases_Total)\r\nWHEN '$Racial_Group' = 'Latinx' THEN SUM(Cases_Latinx)\r\nWHEN '$Racial_Group' = 'AIAN' THEN SUM(Cases_AIAN)\r\nWHEN '$Racial_Group' = 'NHPI' THEN SUM(Cases_NHPI)\r\nEND) AS Total_Cases\r\nFROM COVID_Cases_By_Race JOIN State_To_Code ON\r\nCOVID_Cases_By_Race.State = State_To_Code.code\r\nGROUP BY State_To_Code.State_Name;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "type": "marcusolsson-treemap-panel"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [
+    "National",
+    "Map"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "Latinx",
+          "value": "Latinx"
+        },
+        "description": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Racial_Group",
+        "options": [
+          {
+            "selected": false,
+            "text": "Total",
+            "value": "Total"
+          },
+          {
+            "selected": false,
+            "text": "White",
+            "value": "White"
+          },
+          {
+            "selected": false,
+            "text": "Black",
+            "value": "Black"
+          },
+          {
+            "selected": true,
+            "text": "Latinx",
+            "value": "Latinx"
+          },
+          {
+            "selected": false,
+            "text": "Asian",
+            "value": "Asian"
+          },
+          {
+            "selected": false,
+            "text": "AIAN",
+            "value": "AIAN"
+          },
+          {
+            "selected": false,
+            "text": "NHPI",
+            "value": "NHPI"
+          }
+        ],
+        "query": "Total,White,Black,Latinx,Asian,AIAN,NHPI",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "National Cases For Given Race",
+  "uid": "RMKTIjKVz",
+  "version": 9,
+  "weekStart": ""
+}
