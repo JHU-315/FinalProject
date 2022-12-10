@@ -1,0 +1,1225 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Presentation of COVID19 and its Effects on Outcomes",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 33,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "Parent",
+        "Health"
+      ],
+      "targetBlank": false,
+      "title": "",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "\n<h1 style=\"text-align: center;\">National COVID Statistics And Patient Outcomes By Race and Political Affiliation </h1>\n<div style=\"text-align: center;\">For more information for a particular state, please visit the parent page and select state dashboards.</div>\n\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.3.2-45041",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Peak statistics, the most of any quantity on a day for a given race and variant. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "N/A",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {
+          "valueSize": 25
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2-45041",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Deaths_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Deaths_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Deaths_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI\r\n    END\r\n  ) as Deaths\r\nFROM\r\n  COVID_Deaths_By_Race\r\nWHERE\r\n  (\r\n    CASE\r\n      WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n      and Date < '2020-11-01'\r\n      WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n      and Date < '2021-06-01'\r\n      WHEn '$Variant' = 'Delta' THEN Date >= '2021-06-01'\r\n      and Date < '2021-11-01'\r\n    END\r\n  )\r\nORDER BY\r\n  Deaths DESC\r\nLIMIT\r\n  1",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  SUM(\r\n    (\r\n      CASE\r\n        WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian\r\n        WHEN '$Racial_Group' = 'Black' THEN Cases_Black\r\n        WHEN '$Racial_Group' = 'White' THEN Cases_White\r\n        WHEN '$Racial_Group' = 'Total' THEN Cases_Total\r\n        WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx\r\n        WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN\r\n        WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI\r\n      END\r\n    )\r\n  ) as Cases\r\nFROM\r\n  COVID_Cases_By_Race\r\nWHERE\r\n(\r\n    CASE\r\n      WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n      and Date < '2020-11-01'\r\n      WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n      and Date < '2021-06-01'\r\n      WHEn '$Variant' = 'Delta' THEN Date >= '2021-06-01'\r\n      and Date < '2021-11-01'\r\n    END\r\n  ) ORDER BY Cases DESC LIMIT 1",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  SUM(\r\n    (\r\n      CASE\r\n        WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian\r\n        WHEN '$Racial_Group' = 'Black' THEN Hosp_Black\r\n        WHEN '$Racial_Group' = 'White' THEN Hosp_White\r\n        WHEN '$Racial_Group' = 'Total' THEN Hosp_Total\r\n        WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx\r\n        WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN\r\n        WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI\r\n      END\r\n    )\r\n  ) as Hospitalizations\r\nFROM\r\n  COVID_Hospitalizations_By_Race\r\nWHERE\r\n(\r\n    CASE\r\n      WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n      and Date < '2020-11-01'\r\n      WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n      and Date < '2021-06-01'      \r\n      WHEn '$Variant' = 'Delta' THEN Date >= '2021-06-01'\r\n      and Date < '2021-11-01'\r\n    END\r\n  ) ORDER BY Hospitalizations DESC LIMIT 1",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "$Variant Variant Peak Statistics ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Peak statistics, the most of any quantity on a day. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "max": 600000,
+          "min": 10000,
+          "noValue": "N/A",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 3
+      },
+      "id": 36,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2-45041",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT Total_Deaths as Peak_Deaths FROM DeathsDelta LIMIT 1",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT mx as Peak_Cases FROM MaxCaseDelta LIMIT 1",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT Date,Hosp_Total as Peak_Hospitalizations FROM HospDelta LIMIT 1",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "General Delta Type Variant Peak Statistics ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Peak statistics, the most of any quantity on a day. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "max": 600000,
+          "min": 10000,
+          "noValue": "N/A",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 3
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.2-45041",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT Total_Deaths as Peak_Deaths FROM DeathsOmicron LIMIT 1",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT mx as Peak_Cases FROM MaxCaseOmicron LIMIT 1",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT Date,Hosp_Total as Peak_Hospitalizations FROM HospOmicron LIMIT 1",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "General Omicron Type Variant Peak Statistics ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Peak statistics, the most of any quantity on a day for a given race and variant. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Total",
+            "axisPlacement": "auto",
+            "barAlignment": 1,
+            "drawStyle": "line",
+            "fillOpacity": 44,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.2.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Deaths_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Deaths_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Deaths_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI\r\n    END\r\n  ) as Total_Deaths\r\nFROM\r\n  COVID_Deaths_By_Race\r\nWHERE\r\n  (\r\n    CASE\r\n      WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n      and Date < '2020-11-01'\r\n      WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n      and Date < '2021-06-01'\r\n      WHEn '$Variant' = 'Delta' THEN Date >= '2021-06-01'\r\n      and Date < '2021-11-01'\r\n    END\r\n  )",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Cases_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Cases_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Cases_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI\r\n    END\r\n  ) as Total_Cases\r\nFROM\r\n  COVID_Cases_By_Race\r\nWHERE\r\n  (\r\n    CASE\r\n      WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n      and Date < '2020-11-01'\r\n      WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n      and Date < '2021-06-01'\r\n      WHEn '$Variant' = 'Delta' THEN Date >= '2021-06-01'\r\n      and Date < '2021-11-01'\r\n    END\r\n  )",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Hosp_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Hosp_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Hosp_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI\r\n    END\r\n  ) as Total_Hosp\r\nFROM\r\n  COVID_Hospitalizations_By_Race\r\nWHERE\r\n  (\r\n    CASE\r\n      WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n      and Date < '2020-11-01'\r\n      WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n      and Date < '2021-06-01'\r\n      WHEn '$Variant' = 'Delta' THEN Date >= '2021-06-01'\r\n      and Date < '2021-11-01'\r\n    END\r\n  )",
+          "refId": "Hospitality",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Statistics for $Variant Variant for $Racial_Group Populations ",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "National Trends of Cases, Deaths, and Tests",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Totals",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 45,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.2.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\nSUM((CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Cases_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Cases_Black\r\nWHEN '$Racial_Group' = 'White' THEN Cases_White\r\nWHEN '$Racial_Group' = 'Total' THEN Cases_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI\r\nEND)) as Total_Cases\r\nFROM COVID_Cases_By_Race GROUP BY Date",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\nSUM((CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Tests_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Tests_Black\r\nWHEN '$Racial_Group' = 'White' THEN Tests_White\r\nWHEN '$Racial_Group' = 'Total' THEN Tests_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI\r\nEND)) as Total_Tests\r\nFROM COVID_Test_By_Race GROUP BY Date",
+          "refId": "Tests",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\nSUM((CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Deaths_Black\r\nWHEN '$Racial_Group' = 'White' THEN Deaths_White\r\nWHEN '$Racial_Group' = 'Total' THEN Deaths_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI\r\nEND)) as Total_Deaths\r\nFROM COVID_Deaths_By_Race GROUP BY Date",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\nSUM((CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Hosp_Black\r\nWHEN '$Racial_Group' = 'White' THEN Hosp_White\r\nWHEN '$Racial_Group' = 'Total' THEN Hosp_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI\r\nEND)) as Total_Hospitalizations\r\nFROM COVID_Hospitalizations_By_Race GROUP BY Date",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Cases, Tests, and Deaths For $Racial_Group Populations Nationally",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 0,
+        "y": 15
+      },
+      "id": 18,
+      "options": {
+        "tiling": "treemapSquarify"
+      },
+      "pluginVersion": "9.2.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "\r\n\r\nSELECT \r\nState, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN AsianTotal\r\nWHEN '$Racial_Group' = 'Black' THEN BlackTotal\r\nWHEN '$Racial_Group' = 'White' THEN WhiteTotal\r\nWHEN '$Racial_Group' = 'Latinx' THEN OtherTotal\r\nWHEN '$Racial_Group' = 'AIAN' THEN HawaiianTotal\r\nWHEN '$Racial_Group' = 'NHPI' THEN IndianTotal\r\nEND) as Population_Percentage\r\nFROM US_Population_Racial",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "State Population By Selected Racial Group",
+      "type": "marcusolsson-treemap-panel"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Numerical Values Represent Republicans, Democrats, and Independents in that order. Units are in percentages. \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "dark-blue"
+              },
+              {
+                "color": "purple",
+                "value": 30
+              },
+              {
+                "color": "dark-red",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 6,
+        "y": 15
+      },
+      "id": 24,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "Republican_lean_rep",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "Republican_lean_rep",
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Percentage of lean-Republican for Given State Population",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "north-america",
+          "lat": 40,
+          "lon": -100,
+          "zoom": 4
+        }
+      },
+      "pluginVersion": "9.3.2-45041",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT State_Name, Republican_lean_rep,No_Lean, Democrat_Lean_Dem,longitude,latitude FROM \r\nState_Political_Composition NATURAL JOIN State_Locations",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Political Composition Per State",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 18,
+        "y": 15
+      },
+      "id": 41,
+      "options": {
+        "maxItems": 10,
+        "query": "",
+        "showHeadings": true,
+        "showRecentlyViewed": false,
+        "showSearch": true,
+        "showStarred": false,
+        "tags": [
+          "National",
+          "Map"
+        ]
+      },
+      "pluginVersion": "9.3.2-45041",
+      "title": "Maps",
+      "type": "dashlist"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [
+    "Race",
+    "National"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "NHPI",
+          "value": "NHPI"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Racial_Group",
+        "options": [
+          {
+            "selected": false,
+            "text": "Total",
+            "value": "Total"
+          },
+          {
+            "selected": false,
+            "text": "White",
+            "value": "White"
+          },
+          {
+            "selected": false,
+            "text": "Black",
+            "value": "Black"
+          },
+          {
+            "selected": false,
+            "text": "Latinx",
+            "value": "Latinx"
+          },
+          {
+            "selected": false,
+            "text": "Asian",
+            "value": "Asian"
+          },
+          {
+            "selected": false,
+            "text": "AIAN",
+            "value": "AIAN"
+          },
+          {
+            "selected": true,
+            "text": "NHPI",
+            "value": "NHPI"
+          }
+        ],
+        "query": "Total,White,Black,Latinx,Asian,AIAN,NHPI",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Wild Type",
+          "value": "Wild Type"
+        },
+        "description": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Variant",
+        "options": [
+          {
+            "selected": true,
+            "text": "Wild Type",
+            "value": "Wild Type"
+          },
+          {
+            "selected": false,
+            "text": "Alpha",
+            "value": "Alpha"
+          }
+        ],
+        "query": "Wild Type, Alpha\n",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "2021-02-06T16:41:41.217Z",
+    "to": "2021-02-11T06:06:47.061Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "National COVID Statistics And Patient Outcomes By Race",
+  "uid": "rX3mZwO4k",
+  "version": 45,
+  "weekStart": ""
+}

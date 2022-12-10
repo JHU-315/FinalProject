@@ -27,12 +27,12 @@
   "id": 31,
   "links": [
     {
-      "asDropdown": true,
+      "asDropdown": false,
       "icon": "external link",
       "includeVars": false,
       "keepTime": false,
       "tags": [
-        "JHU-315"
+        "Landing-Page"
       ],
       "targetBlank": false,
       "title": "Main Menu",
@@ -49,7 +49,7 @@
         "uid": "grafana"
       },
       "gridPos": {
-        "h": 3,
+        "h": 2,
         "w": 24,
         "x": 0,
         "y": 0
@@ -61,10 +61,11 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "\n<h1 style=\"text-align: center;\">National COVID Health Outcomes for Gender and Age</h1>\n\n<div style=\"text-align: center;\">Note: Due to a grafana bug, to view the data toggle the \"Sex\" button</div>\n",
+        "content": "\n<h1 style=\"text-align: center;\">National COVID Health Outcomes for Gender and Age</h1>\n\n\n<!--\n<div style=\"text-align: center;\">💡Note: Due to a grafana bug, to view the data toggle the \"Sex\" button</div>\n-->",
         "mode": "html"
       },
-      "pluginVersion": "9.2.7-8da65d62",
+      "pluginVersion": "9.3.2-45041",
+      "transparent": true,
       "type": "text"
     },
     {
@@ -128,7 +129,7 @@
         "h": 7,
         "w": 16,
         "x": 0,
-        "y": 3
+        "y": 2
       },
       "id": 2,
       "options": {
@@ -233,7 +234,7 @@
           }
         }
       ],
-      "title": "Deaths and Vaccinations Over time - National",
+      "title": "Deaths and Vaccinations Over time for $Sex Populations - National",
       "type": "timeseries"
     },
     {
@@ -244,12 +245,12 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "Cases",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
@@ -293,7 +294,7 @@
         "h": 9,
         "w": 8,
         "x": 16,
-        "y": 3
+        "y": 2
       },
       "id": 13,
       "options": {
@@ -317,8 +318,66 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Sex' = 'Male' THEN SUM(Male_Count)\r\n      WHEN '$Sex' = 'Female' THEN SUM(Female_Count)\r\n      WHEN '$Sex' = 'All Sex' THEN SUM(Total_Count)\r\n    END\r\n  ) AS Total_Cases\r\nFROM\r\n  COVID_Cases_By_Gender\r\nGROUP BY\r\n  Date",
-          "refId": "A",
+          "rawSql": "SELECT\r\n  Date,\r\n\r\n   SUM(Male_Count)\r\n\r\n AS Total_Male_Cases\r\nFROM\r\n  COVID_Cases_By_Gender\r\nGROUP BY\r\n  Date",
+          "refId": "Male",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  SUM(Female_Count) AS Total_Female_Cases\r\nFROM\r\n  COVID_Cases_By_Gender\r\nGROUP BY\r\n  Date",
+          "refId": "Female",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  SUM(Total_Count) AS Total_Cases\r\nFROM\r\n  COVID_Cases_By_Gender\r\nGROUP BY\r\n  Date",
+          "refId": "Total",
           "sql": {
             "columns": [
               {
@@ -350,7 +409,7 @@
         "h": 2,
         "w": 16,
         "x": 0,
-        "y": 10
+        "y": 9
       },
       "id": 16,
       "options": {
@@ -362,7 +421,8 @@
         "content": "Note, Administered_Daily is for all sexes for above graph.",
         "mode": "markdown"
       },
-      "pluginVersion": "9.2.7-8da65d62",
+      "pluginVersion": "9.3.2-45041",
+      "transparent": true,
       "type": "text"
     },
     {
@@ -374,7 +434,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 11
       },
       "id": 14,
       "options": {
@@ -383,10 +443,10 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "\n<h1 style=\"text-align: center;\"> $Variant\n</h1>\n<div style=\"text-align: center;\"> Variant Selection\n</div>\n\n\n\n",
+        "content": "\n<h1 style=\"text-align: center;\"> Analysis of $Variant Variant Statistics\n</h1>\n<div style=\"text-align: center;\"> Variant Selection\n</div>\n\n\n\n",
         "mode": "html"
       },
-      "pluginVersion": "9.2.7-8da65d62",
+      "pluginVersion": "9.3.2-45041",
       "targets": [
         {
           "datasource": {
@@ -424,6 +484,7 @@
         "type": "mysql",
         "uid": "HFk2lad4k"
       },
+      "description": "Hover description includes total cases numerically",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -442,10 +503,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
+        "h": 7,
+        "w": 12,
         "x": 0,
-        "y": 15
+        "y": 14
       },
       "id": 6,
       "options": {
@@ -481,7 +542,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\nAge_Group,\r\n(CASE \r\nWHEN  '$Variant' = 'Wild Type' THEN (Total_Deaths_M_WT) \r\nWHEN  '$Variant' = 'Alpha' THEN (Total_Deaths_M_Alpha) \r\nWHEN  '$Variant' = 'Delta' THEN (Total_Deaths_M_Delta) \r\nWHEN  '$Variant' = 'Omicron' THEN (Total_Deaths_M_Omicron)\r\nEND) as Total_Cases\r\nFROM COVID_Deaths_Age_M_Breakdown  ",
+          "rawSql": "SELECT \r\nAge_Group,\r\n(CASE \r\nWHEN  '$Sex' = 'Female' AND '$Variant' = 'Wild Type' THEN (Total_Deaths_M_WT) \r\nWHEN  '$Sex' = 'Female' AND '$Variant' = 'Alpha' THEN (Total_Deaths_M_Alpha) \r\nWHEN  '$Sex' = 'Female' AND '$Variant' = 'Delta' THEN (Total_Deaths_M_Delta) \r\nWHEN  '$Sex' = 'Female' AND '$Variant' = 'Omicron' THEN (Total_Deaths_M_Omicron)\r\nWHEN  '$Sex' = 'Male' AND '$Variant' = 'Wild Type' THEN (Total_Deaths_M_WT) \r\nWHEN  '$Sex' = 'Male' AND '$Variant' = 'Alpha' THEN (Total_Deaths_M_Alpha) \r\nWHEN  '$Sex' = 'Male' AND '$Variant' = 'Delta' THEN (Total_Deaths_M_Delta) \r\nWHEN  '$Sex' = 'Male' AND '$Variant' = 'Omicron' THEN (Total_Deaths_M_Omicron)\r\nEND) as Total_Cases\r\nFROM COVID_Deaths_Age_M_Breakdown  ",
           "refId": "A",
           "sql": {
             "columns": [
@@ -502,7 +563,7 @@
           }
         }
       ],
-      "title": "Deaths Breakdown for Males Per Variant",
+      "title": "Deaths Age  Breakdown for $Sex for $Variant Variant",
       "type": "piechart"
     },
     {
@@ -510,6 +571,7 @@
         "type": "mysql",
         "uid": "HFk2lad4k"
       },
+      "description": "Hover description includes total cases numerically",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -528,96 +590,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 15
-      },
-      "id": 7,
-      "options": {
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true,
-          "values": []
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.2.7-8da65d62",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT \r\nAge_Group,\r\n(CASE \r\nWHEN  '$Variant' = 'Wild Type' THEN (Total_Deaths_F_WT) \r\nWHEN  '$Variant' = 'Alpha' THEN (Total_Deaths_F_Alpha) \r\nWHEN  '$Variant' = 'Delta' THEN (Total_Deaths_F_Delta) \r\nWHEN  '$Variant' = 'Omicron' THEN (Total_Deaths_F_Omicron)\r\nEND) as Total_Cases\r\nFROM COVID_Deaths_Age_F_Breakdown  ",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Deaths Breakdown for Females Per Variant",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 15
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 14
       },
       "id": 8,
       "options": {
@@ -674,7 +650,7 @@
           }
         }
       ],
-      "title": "Deaths Breakdown for Totals Per Variant",
+      "title": "Deaths Age  Breakdown for All Sexes For $Variant Variant",
       "type": "piechart"
     },
     {
@@ -682,26 +658,29 @@
         "type": "mysql",
         "uid": "HFk2lad4k"
       },
+      "description": "Sum of all cases in a given state for $Sex divided by the total number of cases. ",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "rgba(245, 54, 54, 0.9)",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          },
-          "unit": "percentunit"
+          }
         },
         "overrides": []
       },
@@ -709,14 +688,84 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 21
       },
       "id": 4,
+      "maxDataPoints": 1,
       "options": {
-        "colorByField": "Total_Cases",
-        "tiling": "treemapSquarify"
+        "basemap": {
+          "name": "Basemap",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": false,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "Cases_Per_Population",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "Cases_Per_Population",
+                  "fixed": 5,
+                  "max": 1,
+                  "min": 1
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "text": {
+                  "field": "State_Name",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Ratio Value",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "north-america",
+          "lat": 40,
+          "lon": -100,
+          "shared": true,
+          "zoom": 4
+        }
       },
-      "pluginVersion": "9.2.7-8da65d62",
+      "pluginVersion": "9.3.2-45041",
       "targets": [
         {
           "datasource": {
@@ -726,7 +775,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\n State,\r\n(CASE \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Wild Type' THEN SUM(Male_Count_WT) \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Alpha' THEN SUM(Male_Count_Alpha) \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Delta' THEN SUM(Male_Count_Delta) \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Omicron' THEN SUM(Male_Count_Omicron) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Wild Type' THEN SUM(Female_Count_WT) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Alpha' THEN SUM(Female_Count_Alpha) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Delta' THEN SUM(Female_Count_Delta) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Omicron' THEN SUM(Female_Count_Omicron) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Wild Type' THEN SUM(Total_Count_WT) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Alpha' THEN SUM(Total_Count_Alpha) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Delta' THEN SUM(Total_Count_Delta) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Omicron' THEN SUM(Total_Count_Omicron) \r\nEND)/Total as Total_Cases\r\nFROM COVID_Cases_By_Gender_AllVariants NATURAL JOIN US_Population_Racial GROUP BY State",
+          "rawSql": "SELECT State_Name,Total_Cases as Cases_Per_Population,Latitude,Longitude FROM (SELECT \r\n State as State_Name,\r\n(CASE \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Wild Type' THEN SUM(Male_Count_WT) \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Alpha' THEN SUM(Male_Count_Alpha) \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Delta' THEN SUM(Male_Count_Delta) \r\nWHEN '$Sex' = 'Male' AND '$Variant' = 'Omicron' THEN SUM(Male_Count_Omicron) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Wild Type' THEN SUM(Female_Count_WT) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Alpha' THEN SUM(Female_Count_Alpha) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Delta' THEN SUM(Female_Count_Delta) \r\nWHEN '$Sex' = 'Female' AND '$Variant' = 'Omicron' THEN SUM(Female_Count_Omicron) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Wild Type' THEN SUM(Total_Count_WT) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Alpha' THEN SUM(Total_Count_Alpha) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Delta' THEN SUM(Total_Count_Delta) \r\nWHEN '$Sex' = 'All Sex' AND '$Variant' = 'Omicron' THEN SUM(Total_Count_Omicron) \r\nEND)/Total as Total_Cases\r\nFROM COVID_Cases_By_Gender_AllVariants NATURAL JOIN US_Population_Racial GROUP BY State) as A\r\nNATURAL JOIN State_Locations",
           "refId": "A",
           "sql": {
             "columns": [
@@ -776,18 +825,26 @@
           }
         }
       ],
-      "title": "COVID Cases By Gender as a Percentage of Total Population",
-      "type": "marcusolsson-treemap-panel"
+      "title": "COVID Cases for $Sex as a Ratio to Total Population for $Variant Variant ",
+      "type": "geomap"
     },
     {
       "datasource": {
         "type": "mysql",
         "uid": "HFk2lad4k"
       },
+      "description": "COVID Vaccination for Population Divided by Total Population in that State",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "continuous-RdYlGr"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -810,13 +867,87 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 23
+        "y": 21
       },
       "id": 11,
       "options": {
-        "tiling": "treemapSquarify"
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "JabPerPop",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "JabPerPop",
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "text": {
+                  "field": "State_Name",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Vaccine Doses Per Population",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "north-america",
+          "lat": 40,
+          "lon": -100,
+          "zoom": 4
+        }
       },
-      "pluginVersion": "9.2.7-8da65d62",
+      "pluginVersion": "9.3.2-45041",
       "targets": [
         {
           "datasource": {
@@ -826,7 +957,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \r\nState,JabPerPop\r\nFROM Jabs_Per_Population_State",
+          "rawSql": "SELECT\r\n  State_Name, JabPerPop,latitude,longitude\r\nFROM\r\n  (\r\n    SELECT\r\n      State as State_Name,\r\n      JabPerPop\r\n    FROM\r\n      Jabs_Per_Population_State\r\n  ) as b NATURAL JOIN State_Locations",
           "refId": "A",
           "sql": {
             "columns": [
@@ -848,7 +979,7 @@
         }
       ],
       "title": "COVID Vaccinations Doses Per Population",
-      "type": "marcusolsson-treemap-panel"
+      "type": "geomap"
     }
   ],
   "refresh": false,
@@ -856,7 +987,7 @@
   "style": "dark",
   "tags": [
     "JHU-315",
-    "Health"
+    "Parent"
   ],
   "templating": {
     "list": [
@@ -933,13 +1064,13 @@
     ]
   },
   "time": {
-    "from": "2020-12-13T00:00:00.000Z",
+    "from": "2020-01-04T00:00:00.000Z",
     "to": "2022-11-16T00:00:00.000Z"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "National COVID Trends by Gender and Age",
+  "title": "National COVID-Gender-Age Trends",
   "uid": "Bp1G2fF4k",
-  "version": 45,
+  "version": 85,
   "weekStart": ""
 }

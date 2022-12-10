@@ -21,19 +21,20 @@
       }
     ]
   },
-  "description": "Presentation of COVID19 and its Effects on Outcomes - Democrat",
+  "description": "Presentation of COVID19 and its Effects on Outcomes ",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 32,
+  "id": 47,
   "links": [
     {
-      "asDropdown": true,
+      "asDropdown": false,
       "icon": "external link",
       "includeVars": false,
       "keepTime": false,
       "tags": [
-        "JHU-315"
+        "Parent",
+        "Health"
       ],
       "targetBlank": false,
       "title": "Main Menu",
@@ -65,7 +66,7 @@
         "content": "\n<h1 style=\"text-align: center;\">COVID Racial Analysis For $States </h1>\n<div style=\"text-align: center;\">With Focus On ${Racial_Group} Populations</div>\n",
         "mode": "markdown"
       },
-      "pluginVersion": "9.3.1-634af4ccb3",
+      "pluginVersion": "9.3.2-45041",
       "type": "text"
     },
     {
@@ -322,8 +323,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -589,8 +589,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -623,7 +622,7 @@
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "9.3.1-634af4ccb3",
+      "pluginVersion": "9.3.2-45041",
       "targets": [
         {
           "datasource": {
@@ -672,8 +671,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -706,7 +704,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.1-634af4ccb3",
+      "pluginVersion": "9.3.2-45041",
       "targets": [
         {
           "datasource": {
@@ -755,8 +753,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -894,8 +891,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -972,8 +968,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1053,8 +1048,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1187,7 +1181,8 @@
     "JHU-315",
     "Health",
     "Politics",
-    "Race"
+    "Race",
+    "State"
   ],
   "templating": {
     "list": [
@@ -1246,21 +1241,21 @@
       {
         "current": {
           "selected": false,
-          "text": "California",
-          "value": "California"
+          "text": "Alabama",
+          "value": "Alabama"
         },
         "datasource": {
           "type": "mysql",
           "uid": "HFk2lad4k"
         },
-        "definition": "SELECT State_Name FROM Democratic_State\n",
+        "definition": "SELECT State_Name FROM Republican_States\n",
         "description": "List of states and the entirety of USA",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "States",
         "options": [],
-        "query": "SELECT State_Name FROM Democratic_State\n",
+        "query": "SELECT State_Name FROM Republican_States\n",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1302,8 +1297,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "State COVID And Patient Outcomes By Race",
-  "uid": "qo6TQjO4z",
-  "version": 27,
+  "title": "State COVID And Patient Outcomes By Race - Republican Learning",
+  "uid": "qo6TQjO4a",
+  "version": 10,
   "weekStart": ""
 }

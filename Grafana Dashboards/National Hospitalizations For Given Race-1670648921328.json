@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 50,
+  "id": 51,
   "links": [
     {
       "asDropdown": false,
@@ -62,7 +62,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "# Race Populations For States",
+        "content": "# Race Hospitalization Cases For States",
         "mode": "markdown"
       },
       "pluginVersion": "9.3.2-45041",
@@ -74,11 +74,18 @@
         "type": "mysql",
         "uid": "HFk2lad4k"
       },
-      "description": "Racial Populations for $Racial_Group",
+      "description": "Racial Hospitalization for $Racial_Group",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -98,14 +105,88 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 14,
+        "h": 11,
         "w": 24,
         "x": 0,
         "y": 2
       },
       "id": 2,
       "options": {
-        "tiling": "treemapSquarify"
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "Total_Cases",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "Total_Cases",
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "text": {
+                  "field": "State_Name",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Hospitalizations",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "north-america",
+          "lat": 40,
+          "lon": -100,
+          "zoom": 4
+        }
       },
       "pluginVersion": "9.3.2-45041",
       "targets": [
@@ -117,7 +198,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT State_To_Code.State_Name, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN SUM(Cases_Asian)\r\nWHEN '$Racial_Group' = 'Black' THEN SUM(Cases_Black)\r\nWHEN '$Racial_Group' = 'White' THEN SUM(Cases_White)\r\nWHEN '$Racial_Group' = 'Total' THEN SUM(Cases_Total)\r\nWHEN '$Racial_Group' = 'Latinx' THEN SUM(Cases_Latinx)\r\nWHEN '$Racial_Group' = 'AIAN' THEN SUM(Cases_AIAN)\r\nWHEN '$Racial_Group' = 'NHPI' THEN SUM(Cases_NHPI)\r\nEND) AS Total_Cases\r\nFROM COVID_Cases_By_Race JOIN State_To_Code ON\r\nCOVID_Cases_By_Race.State = State_To_Code.code\r\nGROUP BY State_To_Code.State_Name;",
+          "rawSql": "\r\nSELECT * FROM (\r\nSELECT\r\n  State_To_Code.State_Name,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN SUM(Hosp_Asian)\r\n      WHEN '$Racial_Group' = 'Black' THEN SUM(Hosp_Black)\r\n      WHEN '$Racial_Group' = 'White' THEN SUM(Hosp_White)\r\n      WHEN '$Racial_Group' = 'Total' THEN SUM(Hosp_Total)\r\n      WHEN '$Racial_Group' = 'Latinx' THEN SUM(Hosp_Latinx)\r\n      WHEN '$Racial_Group' = 'AIAN' THEN SUM(Hosp_AIAN)\r\n      WHEN '$Racial_Group' = 'NHPI' THEN SUM(Hosp_NHPI)\r\n    END\r\n  ) AS Total_Cases\r\nFROM\r\n  COVID_Hospitalizations_By_Race\r\n  JOIN State_To_Code ON COVID_Hospitalizations_By_Race.State = State_To_Code.code\r\nGROUP BY\r\n  State_To_Code.State_Name) AS b NATURAL JOIN State_Locations",
           "refId": "A",
           "sql": {
             "columns": [
@@ -138,7 +219,7 @@
           }
         }
       ],
-      "type": "marcusolsson-treemap-panel"
+      "type": "geomap"
     }
   ],
   "refresh": false,
@@ -211,8 +292,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "National Cases For Given Race",
-  "uid": "RMKTIjKVz",
+  "title": "National Hospitalizations For Given Race",
+  "uid": "RMKTIjKVo",
   "version": 9,
   "weekStart": ""
 }

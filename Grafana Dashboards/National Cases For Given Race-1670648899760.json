@@ -1,0 +1,300 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 50,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "Race",
+        "National"
+      ],
+      "targetBlank": false,
+      "title": "New link",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# Race COVID Cases For States",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.3.2-45041",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Racial Cases for $Racial_Group",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 2,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "Total_Cases",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "Total_Cases",
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "text": {
+                  "field": "State_Name",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Total Cases",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "north-america",
+          "lat": 40,
+          "lon": -100,
+          "zoom": 4
+        }
+      },
+      "pluginVersion": "9.3.2-45041",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  *\r\nFROM\r\n(\r\n    SELECT\r\n      State_To_Code.State_Name,\r\n      (\r\n        CASE\r\n          WHEN '$Racial_Group' = 'Asian' THEN SUM(Cases_Asian)\r\n          WHEN '$Racial_Group' = 'Black' THEN SUM(Cases_Black)\r\n          WHEN '$Racial_Group' = 'White' THEN SUM(Cases_White)\r\n          WHEN '$Racial_Group' = 'Total' THEN SUM(Cases_Total)\r\n          WHEN '$Racial_Group' = 'Latinx' THEN SUM(Cases_Latinx)\r\n          WHEN '$Racial_Group' = 'AIAN' THEN SUM(Cases_AIAN)\r\n          WHEN '$Racial_Group' = 'NHPI' THEN SUM(Cases_NHPI)\r\n        END\r\n      ) AS Total_Cases\r\n    FROM\r\n      COVID_Cases_By_Race\r\n      JOIN State_To_Code ON COVID_Cases_By_Race.State = State_To_Code.code\r\n    GROUP BY\r\n      State_To_Code.State_Name\r\n  ) as b NATURAL\r\n  JOIN State_Locations",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "type": "geomap"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [
+    "National",
+    "Map"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "Latinx",
+          "value": "Latinx"
+        },
+        "description": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Racial_Group",
+        "options": [
+          {
+            "selected": false,
+            "text": "Total",
+            "value": "Total"
+          },
+          {
+            "selected": false,
+            "text": "White",
+            "value": "White"
+          },
+          {
+            "selected": false,
+            "text": "Black",
+            "value": "Black"
+          },
+          {
+            "selected": true,
+            "text": "Latinx",
+            "value": "Latinx"
+          },
+          {
+            "selected": false,
+            "text": "Asian",
+            "value": "Asian"
+          },
+          {
+            "selected": false,
+            "text": "AIAN",
+            "value": "AIAN"
+          },
+          {
+            "selected": false,
+            "text": "NHPI",
+            "value": "NHPI"
+          }
+        ],
+        "query": "Total,White,Black,Latinx,Asian,AIAN,NHPI",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "National Cases For Given Race",
+  "uid": "RMKTIjKVz",
+  "version": 20,
+  "weekStart": ""
+}

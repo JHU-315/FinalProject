@@ -21,67 +21,52 @@
       }
     ]
   },
-  "description": "Presentation of COVID19 and its Effects on US Unemployment Rate",
+  "description": "Presentation of COVID19 and its Effects on Outcomes ",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 29,
-  "links": [],
+  "id": 32,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "dashboard",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [
+        "Parent",
+        "Health"
+      ],
+      "targetBlank": false,
+      "title": "Go to Parent Dashboard",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
+        "type": "datasource",
+        "uid": "grafana"
       },
       "gridPos": {
-        "h": 2,
+        "h": 3,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 17,
-      "maxDataPoints": 10,
+      "id": 23,
       "options": {
         "code": {
           "language": "plaintext",
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "<h1 style=\"text-align: center;\">COVID-19 and Unemployment Rate By Region </h1>\r\n",
-        "mode": "html"
+        "content": "\n<h1 style=\"text-align: center;\">COVID Racial Analysis For $States </h1>\n<div style=\"text-align: center;\">With Focus On ${Racial_Group} Populations</div>\n",
+        "mode": "markdown"
       },
-      "pluginVersion": "9.2.7-8da65d62",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT * FROM (\r\nSELECT Date,Cases_Asian,Cases_White,Cases_Black,Cases_Latinx FROM jhu_315_final_project.COVID_Cases_By_Race ORDER BY Cases_Total DESC\r\n) as b LIMIT 1",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
+      "pluginVersion": "9.3.2-45041",
       "type": "text"
     },
     {
@@ -89,88 +74,7 @@
         "type": "mysql",
         "uid": "HFk2lad4k"
       },
-      "description": "Analyze the trend in unemployment rate for different regions of the US at the peak periods of different COVID variants in comparison to the pre-COVID rate. Has COVID disproportionately affected a certain region in terms of employment?",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 9,
-        "x": 0,
-        "y": 2
-      },
-      "id": 20,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.7-8da65d62",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT urate.WUR1 AS Pre_COVID,\n       urate.WUR2 AS WildType_Peak, \n \t   urate.WUR3 AS Alpha_Peak, \n \t   urate.WUR4 AS Delta_Peak,\n \t   urate.WUR5 AS Omicron_Peak\nFROM\n    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.West ELSE 0 END) WUR1,\n           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.West ELSE 0 END) WUR2,\n           SUM(CASE WHEN u.Date=a.MonthDate THEN u.West ELSE 0 END) WUR3,\n           SUM(CASE WHEN u.Date=d.MonthDate THEN u.West ELSE 0 END) WUR4,\n           SUM(CASE WHEN u.Date=o.MonthDate THEN u.West ELSE 0 END) WUR5\n    FROM UnempRateRegionCol u, MinWestUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o\n    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Trends in Unemployment Rate For Western Region",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Compare trends in unemployment rate by region to trends in COVID cases by region over all relevant dates",
+      "description": "Analysis between the number of cases, number of tests, and number of deaths for a given state and race. \n",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -179,11 +83,11 @@
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "Cases",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 33,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -191,1368 +95,12 @@
               "viz": false
             },
             "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Cases_West"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "left"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Western COVID Cases"
-              },
-              {
-                "id": "custom.scaleDistribution",
-                "value": {
-                  "type": "linear"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "West"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Western Unemployment Rate"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 15,
-        "x": 9,
-        "y": 2
-      },
-      "hideTimeOverride": true,
-      "id": 8,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "query": "select from where and $timeFilter",
-      "targets": [
-        {
-          "dataset": "jhu_315_final_project",
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT Date, West\nFROM UnempRateRegionCol",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "Cases_Total",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "COVID_Cases_Monthly"
-        },
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT MonthDate, Cases_West\nFROM COVIDCasesMonthlyRegionCol",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "timefrom": "2020-04-01",
-      "timeto": "2021-11-01",
-      "title": "Unemployment Rate vs COVID Cases For Western Region",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Compare trends in unemployment rate by region to trends in COVID cases by region over all relevant dates",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Cases_South"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "left"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Southern COVID Cases"
-              },
-              {
-                "id": "custom.scaleDistribution",
-                "value": {
-                  "type": "linear"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "South"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Southern Unemployment Rate"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 15,
-        "x": 0,
-        "y": 13
-      },
-      "hideTimeOverride": true,
-      "id": 28,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "query": "select from where and $timeFilter",
-      "targets": [
-        {
-          "dataset": "jhu_315_final_project",
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT Date, South\nFROM UnempRateRegionCol",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "Cases_Total",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "COVID_Cases_Monthly"
-        },
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT MonthDate, Cases_South\nFROM COVIDCasesMonthlyRegionCol",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "timefrom": "2020-04-01",
-      "timeto": "2021-11-01",
-      "title": "Unemployment Rate vs COVID Cases For Southern Region",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Analyze the trend in unemployment rate for the Southern region of the US at the peak periods of different COVID variants in comparison to the pre-COVID rate.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 9,
-        "x": 15,
-        "y": 13
-      },
-      "id": 22,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.7-0f96ed148c",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT urate.SUR1 AS Pre_COVID,\n       urate.SUR2 AS WildType_Peak, \n \t   urate.SUR3 AS Alpha_Peak, \n \t   urate.SUR4 AS Delta_Peak,\n \t   urate.SUR5 AS Omicron_Peak\nFROM\n    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.South ELSE 0 END) SUR1,\n           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.South ELSE 0 END) SUR2,\n           SUM(CASE WHEN u.Date=a.MonthDate THEN u.South ELSE 0 END) SUR3,\n           SUM(CASE WHEN u.Date=d.MonthDate THEN u.South ELSE 0 END) SUR4,\n           SUM(CASE WHEN u.Date=o.MonthDate THEN u.South ELSE 0 END) SUR5\n    FROM UnempRateRegionCol u, MinSouthUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o\n    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Trends in Unemployment Rate For Southern Region",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Analyze the trend in unemployment rate for the Northeastern region of the US at the peak periods of different COVID variants in comparison to the pre-COVID rate.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 9,
-        "x": 0,
-        "y": 24
-      },
-      "id": 21,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.7-0f96ed148c",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT urate.NEUR1 AS Pre_COVID,\n       urate.NEUR2 AS WildType_Peak, \n \t   urate.NEUR3 AS Alpha_Peak, \n \t   urate.NEUR4 AS Delta_Peak,\n \t   urate.NEUR5 AS Omicron_Peak\nFROM\n    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.Northeast ELSE 0 END) NEUR1,\n           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.Northeast ELSE 0 END) NEUR2,\n           SUM(CASE WHEN u.Date=a.MonthDate THEN u.Northeast ELSE 0 END) NEUR3,\n           SUM(CASE WHEN u.Date=d.MonthDate THEN u.Northeast ELSE 0 END) NEUR4,\n           SUM(CASE WHEN u.Date=o.MonthDate THEN u.Northeast ELSE 0 END) NEUR5\n    FROM UnempRateRegionCol u, MinNortheastUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o\n    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Trends in Unemployment Rate For Northeast Region",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Compare trends in unemployment rate by region to trends in COVID cases by region over all relevant dates",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Cases_Northeast"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "left"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Northeastern COVID Cases"
-              },
-              {
-                "id": "custom.scaleDistribution",
-                "value": {
-                  "type": "linear"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Northeast"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Northeastern Unemployment Rate"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 15,
-        "x": 9,
-        "y": 24
-      },
-      "hideTimeOverride": true,
-      "id": 29,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "query": "select from where and $timeFilter",
-      "targets": [
-        {
-          "dataset": "jhu_315_final_project",
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT Date, Northeast\nFROM UnempRateRegionCol",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "Cases_Total",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "COVID_Cases_Monthly"
-        },
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT MonthDate, Cases_Northeast\nFROM COVIDCasesMonthlyRegionCol",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "timefrom": "2020-04-01",
-      "timeto": "2021-11-01",
-      "title": "Unemployment Rate vs COVID Cases For Northeastern Region",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Compare trends in unemployment rate by region to trends in COVID cases by region over all relevant dates",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Cases_Midwest"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "left"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Midwestern COVID Cases"
-              },
-              {
-                "id": "custom.scaleDistribution",
-                "value": {
-                  "type": "linear"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Midwest"
-            },
-            "properties": [
-              {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "custom.axisLabel",
-                "value": "Midwestern Unemployment Rate"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 15,
-        "x": 0,
-        "y": 35
-      },
-      "hideTimeOverride": true,
-      "id": 30,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "query": "select from where and $timeFilter",
-      "targets": [
-        {
-          "dataset": "jhu_315_final_project",
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT Date, Midwest\nFROM UnempRateRegionCol",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "Cases_Total",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "COVID_Cases_Monthly"
-        },
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "hide": false,
-          "rawQuery": true,
-          "rawSql": "SELECT MonthDate, Cases_Midwest\nFROM COVIDCasesMonthlyRegionCol",
-          "refId": "B",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "timefrom": "2020-04-01",
-      "timeto": "2021-11-01",
-      "title": "Unemployment Rate vs COVID Cases For Midwestern Region",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Analyze the trend in unemployment rate for the Midwestern region of the US at the peak periods of different COVID variants in comparison to the pre-COVID rate.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 9,
-        "x": 15,
-        "y": 35
-      },
-      "id": 11,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.7-0f96ed148c",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT urate.MWUR1 AS Pre_COVID,\n       urate.MWUR2 AS WildType_Peak, \n \t   urate.MWUR3 AS Alpha_Peak, \n \t   urate.MWUR4 AS Delta_Peak,\n \t   urate.MWUR5 AS Omicron_Peak\nFROM\n    (SELECT SUM(CASE WHEN u.Date=m.Date THEN u.Midwest ELSE 0 END) MWUR1,\n           SUM(CASE WHEN u.Date=wt.MonthDate THEN u.Midwest ELSE 0 END) MWUR2,\n           SUM(CASE WHEN u.Date=a.MonthDate THEN u.Midwest ELSE 0 END) MWUR3,\n           SUM(CASE WHEN u.Date=d.MonthDate THEN u.Midwest ELSE 0 END) MWUR4,\n           SUM(CASE WHEN u.Date=o.MonthDate THEN u.Midwest ELSE 0 END) MWUR5\n    FROM UnempRateRegionCol u, MinMidwestUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o\n    WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Trends in Unemployment Rate For Midwest",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Compare trends in unemployment rate by region over all relevant dates",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "#808080",
-            "mode": "palette-classic",
-            "seriesBy": "last"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "axisSoftMin": 5,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 2.5,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Men_20_plus"
-            },
-            "properties": [
-              {
-                "id": "custom.axisColorMode",
-                "value": "text"
-              },
-              {
-                "id": "custom.drawStyle",
-                "value": "line"
-              },
-              {
-                "id": "custom.axisColorMode",
-                "value": "text"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Women_20_plus"
-            },
-            "properties": [
-              {
-                "id": "custom.axisColorMode",
-                "value": "text"
-              },
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 21,
-        "x": 1,
-        "y": 46
-      },
-      "hideTimeOverride": true,
-      "id": 14,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "query": "select from where and $timeFilter",
-      "targets": [
-        {
-          "dataset": "jhu_315_final_project",
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT Date, West, South, Northeast, Midwest\nFROM UnempRateRegionCol",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "Cases_Total",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "COVID_Cases_Monthly"
-        }
-      ],
-      "timefrom": "2020-04-01",
-      "timeto": "2021-11-01",
-      "title": "Unemployment Rate By Region",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Compare trends in COVID cases by region over all relevant dates",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "fillOpacity": 80,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
             "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 13,
-        "w": 21,
-        "x": 1,
-        "y": 57
-      },
-      "hideTimeOverride": true,
-      "id": 25,
-      "options": {
-        "barRadius": 0,
-        "barWidth": 0.95,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "orientation": "auto",
-        "showValue": "never",
-        "stacking": "percent",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        },
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 100
-      },
-      "pluginVersion": "9.2.5",
-      "targets": [
-        {
-          "dataset": "jhu_315_final_project",
-          "datasource": {
-            "type": "mysql",
-            "uid": "HFk2lad4k"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT r.MonthDate, r.Cases_West, r.Cases_South, r.Cases_Northeast, r.Cases_Midwest\nFROM COVIDCasesMonthlyRegionCol r",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "Cases_Total",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "COVID_Cases_Monthly"
-        }
-      ],
-      "title": "COVID Cases By Region",
-      "type": "barchart"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "HFk2lad4k"
-      },
-      "description": "Compare trends in COVID cases by region over all relevant dates",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "never",
+            "showPoints": "auto",
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1567,26 +115,51 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
                 "value": 80
               }
             ]
-          },
-          "unit": "short"
+          }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Total_Cases"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
-        "w": 21,
-        "x": 1,
-        "y": 70
+        "w": 24,
+        "x": 0,
+        "y": 3
       },
-      "hideTimeOverride": true,
-      "id": 27,
+      "id": 30,
+      "maxDataPoints": 1,
       "options": {
         "legend": {
           "calcs": [],
@@ -1609,20 +182,49 @@
           },
           "editorMode": "code",
           "format": "table",
+          "hide": false,
           "rawQuery": true,
-          "rawSql": "SELECT MonthDate, Cases_West, Cases_South, Cases_Northeast, Cases_Midwest\nFROM COVIDCasesMonthlyRegionCol",
-          "refId": "A",
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Cases_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Cases_Black\r\nWHEN '$Racial_Group' = 'White' THEN Cases_White\r\nWHEN '$Racial_Group' = 'Total' THEN Cases_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI\r\nEND) as Total_Cases\r\nFROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Cases",
           "sql": {
             "columns": [
               {
+                "name": "SUM",
                 "parameters": [
                   {
-                    "name": "Cases_Total",
+                    "name": "Tests_Asian",
                     "type": "functionParameter"
                   }
                 ],
                 "type": "function"
-              },
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "Date",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "COVID_Test_By_Race"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Tests_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Tests_Black\r\nWHEN '$Racial_Group' = 'Total' THEN Tests_Total\r\nWHEN '$Racial_Group' = 'White' THEN Tests_White\r\nWHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI\r\nEND) as Total_Tests\r\nFROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Tests",
+          "sql": {
+            "columns": [
               {
                 "parameters": [],
                 "type": "function"
@@ -1637,43 +239,1052 @@
               }
             ],
             "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
           },
-          "table": "COVID_Cases_Monthly"
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Deaths_Black\r\nWHEN '$Racial_Group' = 'White' THEN Deaths_White\r\nWHEN '$Racial_Group' = 'Total' THEN Deaths_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI\r\nEND) as Total_Deaths\r\nFROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Hosp_Black\r\nWHEN '$Racial_Group' = 'White' THEN Hosp_White\r\nWHEN '$Racial_Group' = 'Total' THEN Hosp_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI\r\nEND) as Total_Hospitalizations\r\nFROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
         }
       ],
-      "title": "COVID Cases By Region",
+      "title": "Cases, Tests, Hospitalizations, and Deaths For $Racial_Group Populations",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Analysis between the number of cases, number of tests, and number of deaths for a given state and race. \n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 1
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 15
+      },
+      "id": 2,
+      "maxDataPoints": 1,
+      "options": {
+        "colWidth": 0.9,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.2.5",
+      "targets": [
+        {
+          "dataset": "jhu_315_final_project",
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Cases_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Cases_Black\r\nWHEN '$Racial_Group' = 'White' THEN Cases_White\r\nWHEN '$Racial_Group' = 'Total' THEN Cases_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI\r\nEND) as Total_Cases\r\nFROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "name": "SUM",
+                "parameters": [
+                  {
+                    "name": "Tests_Asian",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "name": "Date",
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "COVID_Test_By_Race"
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Tests_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Tests_Black\r\nWHEN '$Racial_Group' = 'Total' THEN Tests_Total\r\nWHEN '$Racial_Group' = 'White' THEN Tests_White\r\nWHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI\r\nEND) as Total_Tests\r\nFROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Tests",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Deaths_Black\r\nWHEN '$Racial_Group' = 'White' THEN Deaths_White\r\nWHEN '$Racial_Group' = 'Total' THEN Deaths_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI\r\nEND) as Total_Deaths\r\nFROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate, \r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Hosp_Black\r\nWHEN '$Racial_Group' = 'White' THEN Hosp_White\r\nWHEN '$Racial_Group' = 'Total' THEN Hosp_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI\r\nEND) as Total_Hospitalizations\r\nFROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Cases, Tests, Hospitalizations, and Deaths for $Racial_Group",
+      "type": "status-history"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Percentage of each racial population within the given state.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 12,
+        "y": 15
+      },
+      "id": 14,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.2.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT * FROM  US_Population_Racial_Percentages WHERE '$States' = State",
+          "refId": "opuPo",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "$States Demographic Breakdown ",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No Data on Selected Population",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 15
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "9.3.1-634af4ccb3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT $Racial_Group/100 As 'Percentage of Democrats that Identify as $Racial_Group' FROM State_Political_Composition_By_Race WHERE '$States'  = State_Name",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "description": "Percentages of republicans and democrats in the state",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 21
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.1-634af4ccb3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Republican_lean_rep,\r\n  Democrat_lean_Dem\r\nFROM\r\n  State_Political_Composition\r\nWHERE\r\n  State_Name = \"$States\"",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Population Political Composition ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Date$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.1-634af4ccb3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Deaths_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Deaths_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Deaths_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI\r\n    END\r\n  ) as Deaths\r\nFROM\r\n  (\r\n    SELECT\r\n      *\r\n    FROM\r\n      COVID_Deaths_By_Race\r\n      JOIN State_To_Code ON COVID_Deaths_By_Race.State = State_To_Code.code\r\nWHERE\r\n      (\r\n        CASE\r\n          WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n          and Date < '2020-11-01'\r\n          WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n          and Date < '2021-06-01'\r\n        END\r\n      )\r\n      AND State_Name = '$States'\r\n    GROUP BY\r\n      State\r\n    ORDER BY\r\n      Deaths_Total DESC\r\n    LIMIT\r\n      1\r\n  ) as b",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Cases_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Cases_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Cases_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI\r\n    END\r\n  ) as Cases\r\nFROM\r\n  (\r\n    SELECT\r\n      *\r\n    FROM\r\n      COVID_Cases_By_Race\r\n      JOIN State_To_Code ON COVID_Cases_By_Race.State = State_To_Code.code\r\nWHERE\r\n      (\r\n        CASE\r\n          WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n          and Date < '2020-11-01'\r\n          WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n          and Date < '2021-06-01'\r\n        END\r\n      )\r\n      AND State_Name = '$States'\r\n    GROUP BY\r\n      State\r\n    ORDER BY\r\n      Cases_Total DESC\r\n    LIMIT\r\n      1\r\n  ) as b",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": true,
+          "rawQuery": true,
+          "rawSql": "SELECT \r\nDate,\r\n(CASE \r\nWHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian\r\nWHEN '$Racial_Group' = 'Black' THEN Hosp_Black\r\nWHEN '$Racial_Group' = 'White' THEN Hosp_White\r\nWHEN '$Racial_Group' = 'Total' THEN Hosp_Total\r\nWHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx\r\nWHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN\r\nWHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI\r\nEND) as Hospitalizations \r\nFROM (\r\nSELECT \r\n*\r\nFROM COVID_Hospitalizations_By_Race JOIN State_To_Code ON\r\nCOVID_Hospitalizations_By_Race.State = State_To_Code.code WHERE Date >= '2020-01-01' and Date < '2020-11-01' AND State_Name = '$States' GROUP BY State\r\nORDER BY Hosp_Total DESC LIMIT 1\r\n) as b",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "$Variant Peak Statistics - Date",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 6,
+        "x": 12,
+        "y": 26
+      },
+      "id": 35,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.1-634af4ccb3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT * FROM (\r\nSELECT \r\nState_Name,\r\nSUM(Cases_Asian) AS Asian_Total,\r\nSUM(Cases_Black) AS Black_Total,\r\nSUM(Cases_White) AS White_Total,\r\nSUM(Cases_Total) AS Total,\r\nSUM(Cases_Latinx) AS LatinX_Total,\r\nSUM(Cases_AIAN) AS AIAN_Total,\r\nSUM(Cases_NHPI) AS NHPI_Total\r\n\r\nFROM COVID_Cases_By_Race JOIN State_To_Code ON\r\nCOVID_Cases_By_Race.State = State_To_Code.code\r\nGROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Racial Comparison of Cases Cumulative",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 6,
+        "x": 18,
+        "y": 26
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.1-634af4ccb3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT * FROM (\r\nSELECT \r\nState_Name,\r\nSUM(Deaths_Asian) AS Asian_Total,\r\nSUM(Deaths_Black) AS Black_Total,\r\nSUM(Deaths_White) AS White_Total,\r\nSUM(Deaths_Total) AS Total,\r\nSUM(Deaths_Latinx) AS LatinX_Total,\r\nSUM(Deaths_AIAN) AS AIAN_Total,\r\nSUM(Deaths_NHPI) AS NHPI_Total\r\n\r\nFROM COVID_Deaths_By_Race JOIN State_To_Code ON\r\nCOVID_Deaths_By_Race.State = State_To_Code.code\r\nGROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Racial Comparison of Deaths Cumulative",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "HFk2lad4k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 12,
+        "x": 0,
+        "y": 29
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.1-634af4ccb3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Deaths_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Deaths_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Deaths_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI\r\n    END\r\n  ) as Deaths\r\nFROM\r\n  (\r\n    SELECT\r\n      *\r\n    FROM\r\n      COVID_Deaths_By_Race\r\n      JOIN State_To_Code ON COVID_Deaths_By_Race.State = State_To_Code.code\r\n    WHERE\r\n      (\r\n        CASE\r\n          WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n          and Date < '2020-11-01'\r\n          WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n          and Date < '2021-06-01'\r\n        END\r\n      )\r\n      AND State_Name = '$States'\r\n    GROUP BY\r\n      State\r\n    ORDER BY\r\n      Deaths_Total DESC\r\n    LIMIT\r\n      1\r\n  ) as b",
+          "refId": "Deaths",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Cases_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Cases_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Cases_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI\r\n    END\r\n  ) as Cases\r\nFROM\r\n  (\r\n    SELECT\r\n      *\r\n    FROM\r\n      COVID_Cases_By_Race\r\n      JOIN State_To_Code ON COVID_Cases_By_Race.State = State_To_Code.code\r\n    WHERE\r\n      (\r\n        CASE\r\n          WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n          and Date < '2020-11-01'\r\n          WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n          and Date < '2021-06-01'\r\n        END\r\n      )\r\n    GROUP BY\r\n      State\r\n    ORDER BY\r\n      Cases_Total DESC\r\n    LIMIT\r\n      1\r\n  ) as b",
+          "refId": "Cases",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "HFk2lad4k"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Date,\r\n  (\r\n    CASE\r\n      WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian\r\n      WHEN '$Racial_Group' = 'Black' THEN Hosp_Black\r\n      WHEN '$Racial_Group' = 'White' THEN Hosp_White\r\n      WHEN '$Racial_Group' = 'Total' THEN Hosp_Total\r\n      WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx\r\n      WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN\r\n      WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI\r\n    END\r\n  ) as Hospitalizations\r\nFROM\r\n  (\r\n    SELECT\r\n      *\r\n    FROM\r\n      COVID_Hospitalizations_By_Race\r\n      JOIN State_To_Code ON COVID_Hospitalizations_By_Race.State = State_To_Code.code\r\nWHERE\r\n      (\r\n        CASE\r\n          WHEN '$Variant' = 'Wild Type' THEN Date >= '2020-01-01'\r\n          and Date < '2020-11-01'\r\n          WHEN '$Variant' = 'Alpha' THEN Date >= '2020-11-01'\r\n          and Date < '2021-06-01'\r\n        END\r\n      )\r\n    GROUP BY\r\n      State\r\n    ORDER BY\r\n      Hosp_Total DESC\r\n    LIMIT\r\n      1\r\n  ) as b",
+          "refId": "Hospitalizations",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "$Variant Type Peak Statistics for $Racial_Group",
+      "type": "stat"
     }
   ],
   "refresh": false,
   "schemaVersion": 37,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "JHU-315",
+    "Health",
+    "Politics",
+    "Race",
+    "State"
+  ],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "Men",
-          "value": "Men"
+          "selected": true,
+          "text": "NHPI",
+          "value": "NHPI"
         },
         "hide": 0,
         "includeAll": false,
         "multi": false,
-        "name": "Gender",
+        "name": "Racial_Group",
         "options": [
           {
-            "selected": true,
-            "text": "Men",
-            "value": "Men"
+            "selected": false,
+            "text": "Total",
+            "value": "Total"
           },
           {
             "selected": false,
-            "text": "Women",
-            "value": "Women"
+            "text": "White",
+            "value": "White"
+          },
+          {
+            "selected": false,
+            "text": "Black",
+            "value": "Black"
+          },
+          {
+            "selected": false,
+            "text": "Latinx",
+            "value": "Latinx"
+          },
+          {
+            "selected": false,
+            "text": "Asian",
+            "value": "Asian"
+          },
+          {
+            "selected": false,
+            "text": "AIAN",
+            "value": "AIAN"
+          },
+          {
+            "selected": true,
+            "text": "NHPI",
+            "value": "NHPI"
           }
         ],
-        "query": "Men, Women",
+        "query": "Total,White,Black,Latinx,Asian,AIAN,NHPI",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "California",
+          "value": "California"
+        },
+        "datasource": {
+          "type": "mysql",
+          "uid": "HFk2lad4k"
+        },
+        "definition": "SELECT State_Name FROM Democratic_State\n",
+        "description": "List of states and the entirety of USA",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "States",
+        "options": [],
+        "query": "SELECT State_Name FROM Democratic_State\n",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "Wild Type",
+          "value": "Wild Type"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Variant",
+        "options": [
+          {
+            "selected": true,
+            "text": "Wild Type",
+            "value": "Wild Type"
+          },
+          {
+            "selected": false,
+            "text": "Alpha",
+            "value": "Alpha"
+          }
+        ],
+        "query": "Wild Type, Alpha",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
@@ -1681,13 +1292,13 @@
     ]
   },
   "time": {
-    "from": "2019-12-01",
-    "to": "2022-10-01"
+    "from": "2020-04-12T00:00:00.000Z",
+    "to": "2021-03-07T00:00:00.000Z"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "COVID and Unemployment Rate By Region",
-  "uid": "hbaGGOFVk",
-  "version": 30,
+  "title": "State COVID And Patient Outcomes By Race - Democrat Leaning",
+  "uid": "qo6TQjO4z",
+  "version": 37,
   "weekStart": ""
 }
