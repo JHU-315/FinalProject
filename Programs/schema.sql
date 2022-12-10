@@ -444,6 +444,43 @@ CREATE TABLE State_Political_Composition (
     CHECK (Sample size >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- jhu_315_final_project.State_Political_Composition definition
+
+CREATE TABLE State_Political_Composition (
+  State_Name varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL UNIQUE,
+  Republican_lean_rep double DEFAULT NULL,
+  No_lean double DEFAULT NULL,
+  Democrat_lean_Dem double DEFAULT NULL,
+  Sample_size int DEFAULT NULL,
+    CHECK (Republican_lean_rep >= 0),
+        CHECK (No_lean >= 0),
+        CHECK (Democrat_lean_Dem >= 0),
+        CHECK (Sample_size >= 0),
+        CHECK (Sample_Size >=0),
+            PRIMARY KEY (State_Name),
+    FOREIGN KEY (State_Name) REFERENCES State_To_Code(State_Name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- jhu_315_final_project.State_Political_Composition_By_Race definition
+
+CREATE TABLE `State_Political_Composition_By_Race` (
+  `State_Name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL UNIQUE,
+  `White` int DEFAULT NULL,
+  `Black` int DEFAULT NULL,
+  `Asian` int DEFAULT NULL,
+  `Latinx` int DEFAULT NULL,
+  `Other/Mixed` int DEFAULT NULL,
+  `Sample size` int DEFAULT NULL
+  CHECK (White >= 0),
+    CHECK (Black >= 0),
+    CHECK (Asian >= 0),
+    CHECK (Latinx >= 0),
+    CHECK (Other/Mixed >= 0),
+    CHECK (Sample size >= 0),
+    PRIMARY KEY (State_Name),
+    FOREIGN KEY (State_Name) REFERENCES State_To_Code(State_Name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 -- jhu_315_final_project.State_Political_Composition_By_Race definition
 
@@ -561,4 +598,19 @@ CREATE TABLE Natl_Econ_Peaks (
     CONSTRAINT 'Delta_Peak' CHECK (Delta_Peak >= 0),
     CONSTRAINT 'Omicron_Peak' CHECK (Omicron_Peak >= 0),
   PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- jhu_315_final_project.State_Locations definition
+
+CREATE TABLE State_Locations (
+  State_Name varchar(100) DEFAULT NULL UNIQUE,
+  Capital_Name varchar(50) DEFAULT NULL UNIQUE,
+  latitude double DEFAULT NULL,
+  longitude double DEFAULT NULL,
+  CHECK (latitude >= -90),
+    CHECK (latitude <= 90),
+    CHECK (longitude >= -180),
+    CHECK (longitude <= 180),
+    PRIMARY KEY (State_Name),
+    FOREIGN KEY (State_Name) REFERENCES State_To_Code(State_Name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
