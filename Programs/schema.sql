@@ -498,7 +498,32 @@ CREATE TABLE State_Political_Composition_By_Race (
     CHECK (Latino >= 0),
     CHECK (Other/Mixed >= 0),
     CHECK (Sample size >= 0)
+    PRIMARY KEY (State_Name),
+    FOREIGN KEY (State_Name) REFERENCES State_To_Code(State_Name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- jhu_315_final_project.Insurance definition
+
+CREATE TABLE `Insurance` (
+  `State_Name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL UNIQUE,
+  `Employer` double DEFAULT NULL,
+  `NonGroup` double DEFAULT NULL,
+  `Medicaid` double DEFAULT NULL,
+  `Medicare` double DEFAULT NULL,
+  `Military` double DEFAULT NULL,
+  `Uninsured` double DEFAULT NULL,
+  `Total` int DEFAULT NULL,
+  `Footnotes` int DEFAULT NULL
+  CHECK (Employer >= 0),
+    CHECK (NonGroup >= 0),
+    CHECK (Medicaid >= 0),
+    CHECK (Medicare >= 0),
+    CHECK (Military >= 0),
+    CHECK (Uninsured >= 0),
+    CHECK (Total >= 0),
+    CHECK (Footnotes >= 0),
+    PRIMARY KEY (State_Name),
+    FOREIGN KEY (State_Name) REFERENCES State_To_Code(State_Name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /* INTERMEDIARY RELATIONS */
