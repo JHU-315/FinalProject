@@ -288,12 +288,24 @@ SELECT * FROM  COVID_Vaccinations JOIN State_To_Code ON COVID_Vaccinations.Locat
 
 /*Political Affilation ------------------------------------------------*/
 
-/*republican states*/
+/*State Detereminer*/
 CREATE OR REPLACE VIEW State_Political_ID AS
 SELECT State_Name, IF(Republican_lean_rep < Democrat_lean_Dem,"Democratic","Republican") as Affiliations FROM State_Political_Composition;
 
-
+/*Republican States Lists*/
 CREATE OR REPLACE VIEW Republican_States AS
 SELECT State_Name FROM State_Political_ID WHERE Affiliations = "Republican";
+
+/*Democratic States List*/
 CREATE OR REPLACE VIEW Democratic_State AS
 SELECT State_Name FROM State_Political_ID WHERE Affiliations = "Democratic";
+
+/*Insurance*/
+
+CREATE OR REPLACE VIEW State_Loc_MeshedWithInsurance AS
+SELECT *FROM Insurance NATURAL JOIN State_Locations sl 
+
+/*Personal Income*/
+
+CREATE OR REPLACE VIEW Personal_Income_State AS 
+SELECT * FROM Personal_Income_By_State NATURAL JOIN MonthDate_To_Quarter
