@@ -1,5 +1,5 @@
 /* DASHBOARD Grafana Dashboards/National Cases For Given Race-1670648899760.sql*/
-/*Cases for given state and race*/
+/*Cases for given state and race in a cumulative sense*/
 SELECT
   *
 FROM

@@ -14,7 +14,7 @@ FROM COVID_Cases_By_Gender GROUP BY Date
 SELECT Date, SUM(Total_Deaths) AS Total_Deaths FROM COVID_Deaths_By_Age_Gender 
 WHERE Sex = '$Sex' GROUP BY Date
 
-/*Vaccinations*/
+/*Vaccinations, total*/
 SELECT Date, SUM(Admin_Dose_1_Daily) AS Administered_Daily FROM COVID_Vaccinations GROUP BY Date
 
 /*Cases By Sex	 PANEL */
@@ -37,6 +37,7 @@ FROM
 GROUP BY
   Date
 
+/*Select total cases*/
 SELECT
   Date,
   SUM(Total_Count) AS Total_Cases
@@ -48,7 +49,7 @@ GROUP BY
 
 
 
-/*Deaths Age  Breakdown for $Sex for $Variant Variant	 PANEL */
+/*Deaths Age  Breakdown for $Sex for $Variant 	 PANEL */
 SELECT 
 Age_Group,
 (CASE 
@@ -63,7 +64,7 @@ WHEN  '$Sex' = 'Male' AND '$Variant' = 'Omicron' THEN (Total_Deaths_M_Omicron)
 END) as Total_Cases
 FROM COVID_Deaths_Age_M_Breakdown  
 
-/*Deaths Age  Breakdown for All Sexes For $Variant Variant	 PANEL */
+/*Deaths Age  Breakdown for All Sexes For $Variant 	 PANEL */
 SELECT 
 Age_Group,
 (CASE 
@@ -97,7 +98,7 @@ NATURAL JOIN State_Locations
 /*All Gender Cases by for all variants*/
 SELECT * FROM COVID_Cases_By_Gender_AllVariants
 
-/*COVID Vaccinations Doses Per Population	 PANEL */
+/*COVID Vaccinations Doses Per Population for a given state	 PANEL */
 SELECT
   State_Name, JabPerPop,latitude,longitude
 FROM

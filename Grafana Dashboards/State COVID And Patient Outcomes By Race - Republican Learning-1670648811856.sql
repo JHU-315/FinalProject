@@ -120,7 +120,7 @@ FROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name =
 /*$States Demographic Breakdown 	 PANEL */
 SELECT * FROM  US_Population_Racial_Percentages WHERE '$States' = State
 
-/*No title found*/
+/*Percentage of Democrats that Identify as $Racial_Group*/
 SELECT $Racial_Group/100 As 'Percentage of Democrats that Identify as $Racial_Group' FROM State_Political_Composition_By_Race WHERE '$States'  = State_Name
 
 /*Population Political Composition 	 PANEL */
@@ -133,6 +133,7 @@ WHERE
   State_Name = "$States"
 
 /*$Variant Peak Statistics - Date	 PANEL */
+/*Done by acquiring the max of a specified parameters*/
 /*Deaths*/
 SELECT
   Date,
@@ -264,6 +265,7 @@ COVID_Deaths_By_Race.State = State_To_Code.code
 GROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
 
 /*$Variant Type Peak Statistics for $Racial_Group	 PANEL */
+/*Done by selecting the max value for a given parameter*/
 /*Deaths*/
 SELECT
   Date,

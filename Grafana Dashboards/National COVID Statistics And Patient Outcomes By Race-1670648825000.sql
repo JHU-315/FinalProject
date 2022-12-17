@@ -1,7 +1,7 @@
 /* DASHBOARD Grafana Dashboards/National COVID Statistics And Patient Outcomes By Race-1670648825000.sql*/
 
 /*$Variant eg a given variant, Variant Peak Statistics 	 PANEL */
-
+/*Peak given by maximum of a particular parameter*/
 /*Deaths*/
 SELECT
   Date,

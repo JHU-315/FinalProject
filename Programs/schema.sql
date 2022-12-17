@@ -24,7 +24,7 @@ CREATE TABLE Unemployment_Rate_By_State
     Date DATE NOT NULL,
     State VARCHAR(20) NOT NULL,
     Unemp_Rate FLOAT(4),
-    PRIMARY KEY(Date, State)
+    PRIMARY KEY(Date, State),
     UNIQUE (Date, State)
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE Employment_Level_By_Age (
     Date DATE NOT NULL,
     Age_Group VARCHAR(20) NOT NULL,
     Employment_Level INT CHECK(Employment_Level >= 0),
-    PRIMARY KEY(Date, Age_Group)
+    PRIMARY KEY(Date, Age_Group),
     UNIQUE (Date, Age_Group)
 );
 
@@ -168,7 +168,7 @@ CREATE TABLE GDP_By_State(
     Quarter VARCHAR(6) NOT NULL,
     State VARCHAR(20) NOT NULL,
     Gross_Domestic_Product FLOAT(10) CHECK (Gross_Domestic_Product >= 0),
-    PRIMARY KEY(Quarter, State)
+    PRIMARY KEY(Quarter, State),
     UNIQUE (Quarter, State),
     FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
@@ -179,7 +179,7 @@ CREATE TABLE Personal_Income_By_State(
     Quarter VARCHAR(6) NOT NULL,
     State VARCHAR(20) NOT NULL,
     Personal_Income FLOAT(4) CHECK (Personal_Income >= 0),
-    PRIMARY KEY(Quarter, State)
+    PRIMARY KEY(Quarter, State),
     UNIQUE (Quarter, State),
     FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
@@ -267,7 +267,7 @@ CREATE TABLE COVID_Cases_By_Race_Monthly (
     CONSTRAINT Cases_Black CHECK (Cases_Black >= 0),
     CONSTRAINT Cases_LatinX CHECK (Cases_LatinX >= 0),
     CONSTRAINT Cases_Asian CHECK (Cases_Asian >= 0),
-  PRIMARY KEY (MonthDate)
+  PRIMARY KEY (MonthDate),
   UNIQUE (MonthDate)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -281,8 +281,8 @@ CREATE TABLE COVID_Cases_By_State
     State_Code VARCHAR(2),
     tot_cases INT CHECK (tot_cases >= 0),
     new_cases INT CHECK (new_cases >= 0),
-    PRIMARY KEY(Date, State_Code)
-    UNIQUE (Date, State_Code)
+    PRIMARY KEY(Date, State_Code),
+    UNIQUE (Date, State_Code),
     FOREIGN KEY (State_Code) REFERENCES State_Code(code)
 );
 
@@ -304,7 +304,7 @@ CREATE TABLE COVID_Cases_By_Race(
     Cases_Ethnicity_Hispanic INT CHECK (Cases_Ethnicity_Hispanic >= 0),
     Cases_Ethnicity_Non_Hispanic INT CHECK (Cases_Ethnicity_Non_Hispanic >= 0),
     Cases_Ethnicity_Unknown INT CHECK (Cases_Ethnicity_Unknown >= 0),
-    PRIMARY KEY(Date, State)
+    PRIMARY KEY(Date, State),
     FOREIGN KEY (State) REFERENCES State_Code(State_name)
 
 );
@@ -480,11 +480,11 @@ CREATE TABLE COVID_Hospitalizations_By_Race(
 CREATE TABLE State_Political_Composition (
   State_Name varchar(100) DEFAULT NULL,
   Republican/lean Rep. double DEFAULT NULL,
-  No lean double DEFAULT NULL,
+  No_lean double DEFAULT NULL,
   Democrat/lean Dem. double DEFAULT NULL,
   Sample size int DEFAULT NULL,
   CHECK (Republican/lean Rep. >= 0),
-    CHECK (No lean >= 0),
+    CHECK (No_lean >= 0),
     CHECK (Democrat/lean Dem. >= 0),
     CHECK (Sample size >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

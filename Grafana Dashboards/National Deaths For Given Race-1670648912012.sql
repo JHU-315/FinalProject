@@ -1,5 +1,6 @@
 /* DASHBOARD Grafana Dashboards/National Deaths For Given Race-1670648912012.sql*/
 
+/*Summation of total deaths for a given state*/
 SELECT * FROM (
 SELECT State_To_Code.State_Name, 
 (CASE 

@@ -1,7 +1,8 @@
 /* DASHBOARD Grafana Dashboards/COVID and Unemployment Rate By Region-1670103250723.sql*/
-/*No title found*/
-/*No targets found*/
+
 /*Cases, Tests, Hospitalizations, and Deaths For $Racial_Group Populations	 PANEL */
+
+/*Cases*/
 SELECT 
 Date, 
 (CASE 
@@ -15,6 +16,7 @@ WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
 END) as Total_Cases
 FROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
 
+/*Tests*/
 SELECT 
 Date, 
 (CASE 
@@ -28,6 +30,7 @@ WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
 END) as Total_Tests
 FROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
 
+/*Deaths*/
 SELECT 
 Date, 
 (CASE 
@@ -41,6 +44,7 @@ WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
 END) as Total_Deaths
 FROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
 
+/*Hospitalizations*/
 SELECT 
 Date, 
 (CASE 
@@ -54,58 +58,6 @@ WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
 END) as Total_Hospitalizations
 FROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
 
-/*Cases, Tests, Hospitalizations, and Deaths for $Racial_Group	 PANEL */
-SELECT 
-Date, 
-(CASE 
-WHEN '$Racial_Group' = 'Asian' THEN Cases_Asian
-WHEN '$Racial_Group' = 'Black' THEN Cases_Black
-WHEN '$Racial_Group' = 'White' THEN Cases_White
-WHEN '$Racial_Group' = 'Total' THEN Cases_Total
-WHEN '$Racial_Group' = 'Latinx' THEN Cases_Latinx
-WHEN '$Racial_Group' = 'AIAN' THEN Cases_AIAN
-WHEN '$Racial_Group' = 'NHPI' THEN Cases_NHPI
-END) as Total_Cases
-FROM (SELECT * FROM COVID_Cases_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT 
-Date, 
-(CASE 
-WHEN '$Racial_Group' = 'Asian' THEN Tests_Asian
-WHEN '$Racial_Group' = 'Black' THEN Tests_Black
-WHEN '$Racial_Group' = 'Total' THEN Tests_Total
-WHEN '$Racial_Group' = 'White' THEN Tests_White
-WHEN '$Racial_Group' = 'Latinx' THEN Tests_Latinx
-WHEN '$Racial_Group' = 'AIAN' THEN Tests_AIAN
-WHEN '$Racial_Group' = 'NHPI' THEN Tests_NHPI
-END) as Total_Tests
-FROM (SELECT * FROM COVID_Test_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT 
-Date, 
-(CASE 
-WHEN '$Racial_Group' = 'Asian' THEN Deaths_Asian
-WHEN '$Racial_Group' = 'Black' THEN Deaths_Black
-WHEN '$Racial_Group' = 'White' THEN Deaths_White
-WHEN '$Racial_Group' = 'Total' THEN Deaths_Total
-WHEN '$Racial_Group' = 'Latinx' THEN Deaths_Latinx
-WHEN '$Racial_Group' = 'AIAN' THEN Deaths_AIAN
-WHEN '$Racial_Group' = 'NHPI' THEN Deaths_NHPI
-END) as Total_Deaths
-FROM (SELECT * FROM COVID_Deaths_By_With_State_Name WHERE State_Name = '$States') as b
-
-SELECT 
-Date, 
-(CASE 
-WHEN '$Racial_Group' = 'Asian' THEN Hosp_Asian
-WHEN '$Racial_Group' = 'Black' THEN Hosp_Black
-WHEN '$Racial_Group' = 'White' THEN Hosp_White
-WHEN '$Racial_Group' = 'Total' THEN Hosp_Total
-WHEN '$Racial_Group' = 'Latinx' THEN Hosp_Latinx
-WHEN '$Racial_Group' = 'AIAN' THEN Hosp_AIAN
-WHEN '$Racial_Group' = 'NHPI' THEN Hosp_NHPI
-END) as Total_Hospitalizations
-FROM (SELECT * FROM COVID_Hospitalizations_By_With_State_Name WHERE State_Name = '$States') as b
 
 /*$States Demographic Breakdown 	 PANEL */
 SELECT * FROM  US_Population_Racial_Percentages WHERE '$States' = State
@@ -123,7 +75,7 @@ WHERE
   State_Name = "$States"
 
 /*$Variant Peak Statistics,	 PANEL */
-
+/*Peak statistics is the maximum value for a given metric for a given state*/
 /*Deaths*/
 SELECT
   Date,
@@ -255,7 +207,7 @@ COVID_Deaths_By_Race.State = State_To_Code.code
 GROUP BY State_To_Code.State_Name ) as raw WHERE '$States' = State_Name
 
 /*$Variant Type Peak Statistics for $Racial_Group	 PANEL */
-
+/*Peak determined as the maximum value of selected parameter*/
 /*Deaths*/
 SELECT
   Date,

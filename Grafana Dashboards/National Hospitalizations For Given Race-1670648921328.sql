@@ -1,6 +1,6 @@
 /* DASHBOARD Grafana Dashboards/National Hospitalizations For Given Race-1670648921328.sql*/
 
-
+/*Summation of total hospitalizations for a given state*/
 SELECT * FROM (
 SELECT
   State_To_Code.State_Name,
