@@ -66,7 +66,7 @@ CREATE TABLE Nonfarm_Employment
     PRIMARY KEY(Date)
 );
 
-DROP TABLE IF EXISTS Total_Economic_Factors;
+DROP TABLE Total_Economic_Factors;
 CREATE TABLE Total_Economic_Factors (
     Date DATE NOT NULL UNIQUE,
     GDP FLOAT(8),
@@ -80,6 +80,51 @@ CREATE TABLE Total_Economic_Factors (
     FOREIGN KEY (Personal_Income) REFERENCES Personal_Income_National(Personal_Income),
     FOREIGN KEY (Personal_Saving) REFERENCES Personal_Income_National(Personal_Saving)
 );
+
+DROP TABLE Unemployed_Occupation_By_Gender;
+CREATE TABLE Unemployed_Occupation_By_Gender (
+    Occupation VARCHAR(40) NOT NULL,
+    Total_2019 FLOAT(4) CHECK (Total_2019 >= 0),
+    Total_2020 FLOAT(4) CHECK (Total_2020 >= 0),
+    Men_2019 FLOAT(4) CHECK (Men_2019 >= 0),
+    Men_2020 FLOAT(4) CHECK (Men_2020 >= 0),
+    Women_2019 FLOAT(4) CHECK (Women_2019 >= 0),
+    Women_2020 FLOAT(4) CHECK (Women_2020 >= 0),
+    PRIMARY KEY(Occupation)
+);
+
+#FIXME
+DROP TABLE Unemployed_Occupation_By_Race;
+CREATE TABLE Unemployed_Occupation_By_Race (
+    Occupation VARCHAR(40) NOT NULL,
+    Total_2019 FLOAT(4) CHECK (Total_2019 >= 0),
+    Total_2020 FLOAT(4) CHECK (Total_2020 >= 0),
+    Men_2019 FLOAT(4) CHECK (Men_2019 >= 0),
+    Men_2020 FLOAT(4) CHECK (Men_2020 >= 0),
+    Women_2019 FLOAT(4) CHECK (Women_2019 >= 0),
+    Women_2020 FLOAT(4) CHECK (Women_2020 >= 0),
+    PRIMARY KEY(Occupation)
+);
+
+DROP TABLE Education_By_Gender;
+CREATE TABLE Education_By_Gender (
+    Education VARCHAR(50),
+    Total INT CHECK (Total >= 0),
+    Men INT CHECK (Men >= 0),
+    Women INT CHECK (Women >= 0),
+    PRIMARY KEY(Education)
+);
+
+DROP TABLE Education_By_Race;
+CREATE TABLE Education_By_Race (
+    Education VARCHAR(50),
+    Asian_Total INT CHECK (Asian_Total >= 0),
+    Black_Total INT CHECK (Black_Total >= 0),
+    Hispanic_Total INT CHECK (Hispanic_Total >= 0),
+    White_Total INT CHECK (White_Total >= 0),
+    PRIMARY KEY(Education)
+);
+
 
 /* Real Gross Domestic Product, Billions of chained (2012) dollars */
 DROP TABLE GDP_National;
