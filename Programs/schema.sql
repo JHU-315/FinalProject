@@ -93,22 +93,18 @@ CREATE TABLE Unemployed_Occupation_By_Gender (
     PRIMARY KEY(Occupation)
 );
 
-#FIXME
-DROP TABLE Unemployed_Occupation_By_Race;
-CREATE TABLE Unemployed_Occupation_By_Race (
-    Occupation VARCHAR(40) NOT NULL,
+DROP TABLE Employed_Occupation_By_Race;
+CREATE TABLE Employed_Occupation_By_Race (
+    Occupation VARCHAR(50) NOT NULL,
+    Racial_Group VARCHAR(20) NOT NULL,
     Total_2019 FLOAT(4) CHECK (Total_2019 >= 0),
     Total_2020 FLOAT(4) CHECK (Total_2020 >= 0),
-    Men_2019 FLOAT(4) CHECK (Men_2019 >= 0),
-    Men_2020 FLOAT(4) CHECK (Men_2020 >= 0),
-    Women_2019 FLOAT(4) CHECK (Women_2019 >= 0),
-    Women_2020 FLOAT(4) CHECK (Women_2020 >= 0),
-    PRIMARY KEY(Occupation)
+    PRIMARY KEY(Occupation, Racial_Group)
 );
 
 DROP TABLE Education_By_Gender;
 CREATE TABLE Education_By_Gender (
-    Education VARCHAR(50),
+    Education VARCHAR(50) NOT NULL,
     Total INT CHECK (Total >= 0),
     Men INT CHECK (Men >= 0),
     Women INT CHECK (Women >= 0),
@@ -117,12 +113,63 @@ CREATE TABLE Education_By_Gender (
 
 DROP TABLE Education_By_Race;
 CREATE TABLE Education_By_Race (
-    Education VARCHAR(50),
+    Education VARCHAR(50) NOT NULL,
     Asian_Total INT CHECK (Asian_Total >= 0),
     Black_Total INT CHECK (Black_Total >= 0),
     Hispanic_Total INT CHECK (Hispanic_Total >= 0),
     White_Total INT CHECK (White_Total >= 0),
     PRIMARY KEY(Education)
+);
+
+DROP TABLE Multiple_Job_Holders_by_Age_Gender;
+CREATE TABLE Multiple_Job_Holders_by_Age_Gender (
+    Age_Group VARCHAR(50) NOT NULL,
+    Total_2019 INT CHECK (Total_2019 >= 0),
+    Total_2020 INT CHECK (Total_2020 >= 0),
+    Men_2019 INT CHECK (Men_2019 >= 0),
+    Men_2020 INT CHECK (Men_2020 >= 0),
+    Women_2019 INT CHECK (Women_2019 >= 0),
+    Women_2020 INT CHECK (Women_2020 >= 0),
+    PRIMARY KEY(Age_Group)
+);
+
+DROP TABLE Multiple_Job_Holders_by_Race;
+CREATE TABLE Multiple_Job_Holders_by_Race (
+    Racial_Group VARCHAR(20) NOT NULL,
+    Total_2019 INT CHECK (Total_2019 >= 0),
+    Total_2020 INT CHECK (Total_2020 >= 0),
+    PRIMARY KEY(Racial_Group)
+);
+
+DROP TABLE Remote_Work_By_Gender_Race;
+CREATE TABLE Remote_Work_By_Gender_Race (
+    MonthDate DATE NOT NULL UNIQUE,
+    Total_16to24_years INT CHECK (Total_16to24_years >= 0),
+    Total_25to54_years INT CHECK (Total_25to54_years >= 0),
+    Total_55Plus INT CHECK (Total_55Plus >= 0),
+    Men_16to24_years INT CHECK (Men_16to24_years >= 0),
+    Men_25to54_years INT CHECK (Men_25to54_years >= 0),
+    Men_55Plus INT CHECK (Men_55Plus >= 0),
+    Women_16to24_years INT CHECK (Women_16to24_years >= 0),
+    Women_25to54_years INT CHECK (Women_25to54_years >= 0),
+    Women_55Plus INT CHECK (Women_55Plus >= 0),
+    White INT CHECK (White >= 0),
+    Black INT CHECK (Black >= 0),
+    Asian INT CHECK (Asian >= 0),
+    Hispanic INT CHECK (Hispanic >= 0),
+    PRIMARY KEY(MonthDate)
+);
+
+DROP TABLE Unemployed_Marital_Status_By_Race_Gender;
+CREATE TABLE Unemployed_Marital_Status_By_Race_Gender (
+    Marital_Status VARCHAR(50) NOT NULL,
+    Total_2019 INT CHECK (Total_2019 >= 0),
+    Total_2020 INT CHECK (Total_2020 >= 0),
+    Men_2019 INT CHECK (Men_2019 >= 0),
+    Men_2020 INT CHECK (Men_2020 >= 0),
+    Women_2019 INT CHECK (Women_2019 >= 0),
+    Women_2020 INT CHECK (Women_2020 >= 0),
+    PRIMARY KEY(Marital_Status)
 );
 
 
@@ -171,6 +218,14 @@ CREATE TABLE GDP_By_State(
     PRIMARY KEY(Quarter, State),
     UNIQUE (Quarter, State),
     FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
+);
+
+DROP TABLE GDP_Factors_Pct_Change;
+CREATE TABLE GDP_Factors_Pct_Change (
+    GDP_Factor VARCHAR(60) NOT NULL,
+    Quarter VARCHAR(6) NOT NULL,
+    Pct_Change FLOAT(4),
+    PRIMARY KEY(GDP_Factor, Quarter)
 );
 
 /* Personal Income by Quarter per State in billions of dollars */
@@ -268,7 +323,8 @@ CREATE TABLE COVID_Cases_By_Race_Monthly (
     CONSTRAINT Cases_LatinX CHECK (Cases_LatinX >= 0),
     CONSTRAINT Cases_Asian CHECK (Cases_Asian >= 0),
   PRIMARY KEY (MonthDate),
-  UNIQUE (MonthDate)
+  UNIQUE (MonthDate),
+  FOREIGN KEY (MonthDate) REFERENCES Date_To_MonthDate(MonthDate)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -571,6 +627,7 @@ CREATE TABLE `Insurance` (
     FOREIGN KEY (State_Name) REFERENCES State_To_Code(State_Name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
 /* INTERMEDIARY RELATIONS */
 
 /*DateToMonth*/
@@ -619,7 +676,6 @@ CREATE TABLE State_To_Region(
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
-/*State Has Industry*/
 DROP TABLE State_Has_Industry;
 CREATE TABLE State_Has_Industry(
     State VARCHAR(20),
@@ -627,6 +683,14 @@ CREATE TABLE State_Has_Industry(
     PRIMARY KEY(State, Industry_Name),
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
+
+DROP TABLE State_Has_Personal_Income_Tax;
+CREATE TABLE State_Has_Personal_Income_Tax(
+    State_Name VARCHAR(20) NOT NULL UNIQUE,
+    Income_Tax VARCHAR(5),
+    PRIMARY KEY (State_Name)
+);
+
 
 /*Industry Category, Nonfarm divided into Private and Government*/
 DROP TABLE Industry_Category;
