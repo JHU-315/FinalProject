@@ -172,6 +172,19 @@ CREATE TABLE Unemployed_Marital_Status_By_Race_Gender (
     PRIMARY KEY(Marital_Status)
 );
 
+DROP TABLE Worktime_Status_By_Gender_Race;
+CREATE TABLE Worktime_Status_By_Gender_Race (
+    Worktime_Status VARCHAR(60) NOT NULL UNIQUE,
+    Total INT CHECK (Total >= 0),
+    Men_Total INT CHECK (Men_Total >= 0),
+    Women_Total INT CHECK (Women_Total >= 0),
+    White_Total INT CHECK (White_Total >= 0),
+    Black_Total INT CHECK (Black_Total >= 0),
+    Hispanic_Total INT CHECK (Hispanic_Total >= 0),
+    Asian_Total INT CHECK (Asian_Total >= 0),
+    PRIMARY KEY(Worktime_Status)
+);
+
 
 /* Real Gross Domestic Product, Billions of chained (2012) dollars */
 DROP TABLE GDP_National;
@@ -220,6 +233,7 @@ CREATE TABLE GDP_By_State(
     FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
 );
 
+/* Pct Change in Components that Affect GDP*/
 DROP TABLE GDP_Factors_Pct_Change;
 CREATE TABLE GDP_Factors_Pct_Change (
     GDP_Factor VARCHAR(60) NOT NULL,
@@ -228,7 +242,55 @@ CREATE TABLE GDP_Factors_Pct_Change (
     PRIMARY KEY(GDP_Factor, Quarter)
 );
 
-/* Personal Income by Quarter per State in billions of dollars */
+/*Real Gross Domestic Product By State Annually, Millions of chained (2012) dollars*/
+DROP TABLE Real_GDP_By_State;
+CREATE TABLE Real_GDP_By_State (
+    State VARCHAR(20) NOT NULL,
+    RGDP_2019 FLOAT(10) CHECK (RGDP_2019 >= 0),
+    RGDP_2020 FLOAT(10) CHECK (RGDP_2020 >= 0),
+    RGDP_2021 FLOAT(10) CHECK (RGDP_2021 >= 0),
+    PRIMARY KEY(State),
+    UNIQUE (State),
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
+);
+
+/*Real Personal Consumption Expendentures By State Annually, Millions of chained (2012) dollars*/
+DROP TABLE Real_Personal_Consumption_By_State;
+CREATE TABLE Real_Personal_Consumption_By_State (
+    State VARCHAR(20) NOT NULL,
+    RPC_2019 FLOAT(10) CHECK (RPC_2019 >= 0),
+    RPC_2020 FLOAT(10) CHECK (RPC_2020 >= 0),
+    RPC_2021 FLOAT(10) CHECK (RPC_2021 >= 0),
+    PRIMARY KEY(State),
+    UNIQUE (State),
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
+);
+
+/* Total Employment (Number of Jobs) */
+DROP TABLE Total_Employment_By_State;
+CREATE TABLE Total_Employment_By_State (
+    State VARCHAR(20) NOT NULL,
+    Employment_2019 INT CHECK (Employment_2019 >= 0),
+    Employment_2020 INT CHECK (Employment_2020 >= 0),
+    Employment_2021 INT CHECK (Employment_2021 >= 0),
+    PRIMARY KEY(State),
+    UNIQUE (State),
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
+);
+    
+/*Real Personal Income By State Annually, Millions of chained (2012) dollars*/
+DROP TABLE Real_Personal_Income_By_State;
+CREATE TABLE Real_Personal_Income_By_State (
+    State VARCHAR(20) NOT NULL,
+    RPI_2019 FLOAT(10) CHECK (RPI_2019 >= 0),
+    RPI_2020 FLOAT(10) CHECK (RPI_2020 >= 0),
+    RPI_2021 FLOAT(10) CHECK (RPI_2021 >= 0),
+    PRIMARY KEY(State),
+    UNIQUE (State),
+    FOREIGN KEY (State) REFERENCES State_To_Code(State_Name)
+);
+    
+/* Personal Income by State Quarterly in billions of dollars */
 DROP TABLE Personal_Income_By_State;
 CREATE TABLE Personal_Income_By_State(
     Quarter VARCHAR(6) NOT NULL,
@@ -676,29 +738,34 @@ CREATE TABLE State_To_Region(
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
-DROP TABLE State_Has_Industry;
-CREATE TABLE State_Has_Industry(
+DROP TABLE State_Has_Top_Industries;
+CREATE TABLE State_Has_Top_Industries(
     State VARCHAR(20),
-    Industry_Name VARCHAR(20),
-    PRIMARY KEY(State, Industry_Name),
+    Industry VARCHAR(60),
+    Employment INT CHECK (Employment >= 0),
+    PRIMARY KEY(State, Industry),
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
+/* FIX ME*/
 DROP TABLE State_Has_Personal_Income_Tax;
 CREATE TABLE State_Has_Personal_Income_Tax(
     State_Name VARCHAR(20) NOT NULL UNIQUE,
     Income_Tax VARCHAR(5),
-    PRIMARY KEY (State_Name)
+    PRIMARY KEY (State_Name),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
-
-/*Industry Category, Nonfarm divided into Private and Government*/
-DROP TABLE Industry_Category;
-CREATE TABLE Industry_Category(
-    Industry_Name VARCHAR(20),
-    Industry_Category VARCHAR(20),
-    PRIMARY KEY(Industry_Name)
+/* Wealthy States are those defined as having a Median Household Income > 70000 in 2021 */
+DROP TABLE State_Is_Wealthy;
+CREATE TABLE State_Is_Wealthy(
+    State VARCHAR(20) NOT NULL UNIQUE,
+    Wealth_Designator VARCHAR(20),
+    Median_Household_Income INT CHECK (Median_Household_Income >= 0)
+    PRIMARY KEY (State),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
+
 
 /*DISPLAY NAME - for the purposes of Grafana dropdowns*/
 -- jhu_315_final_project.GDP_Peaks definition
