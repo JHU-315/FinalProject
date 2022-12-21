@@ -1,4 +1,11 @@
 ## README 
+### Utilizing the COVID-19 Dashboard System
+Link: https://jonathanjymd.grafana.net/goto/0ceI0C5Vk?orgId=1
+
+Username: jyoun127
+
+Password: grafanajhu315
+
 ### File Structure
 `\Grafana_SQL_Queries` folder contains all the SQL queries used in the Grafana dashboard. They are organized by dashboard.
 
@@ -14,6 +21,6 @@
 - `generator.py` creates the `.sql` script to populate the AWS db instance.
 - `grafanaExtraction.py` extracts the sql code from dashboards on Grafana.
 
-`Jonathan_Young_Natalie_Vallejo.pdf` contains the report to our project and how to utilize our dashboard system.
+`Jonathan_Young_Natalie_Vallejo.pdf` contains the report to our project and instructions for how to utilize our dashboard system.
 
 `Cleaned_Data` folder contains the raw `.csv` files that are parsed for our use. The folder contains a folder for csv files called `CSV Files` which house our data
