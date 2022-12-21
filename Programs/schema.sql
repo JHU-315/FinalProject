@@ -310,29 +310,35 @@ CREATE TABLE Personal_Income_National(
     PRIMARY KEY(Date)
 );
 
-/*Consumer Prices*/
-/*12 month percent change*/
-DROP TABLE Consumer_Prices;
-CREATE TABLE Consumer_Prices(
-    Date DATE NOT NULL,
-    All_Items FLOAT(4) CHECK (All_Items >= 0),
-    Food FLOAT(4) CHECK (Food >= 0),
-    Food_At_Home FLOAT(4) CHECK (Food_At_Home >= 0),
-    Food_Away_From_Home FLOAT(4) CHECK (Food_Away_From_Home >= 0),
-    Energy FLOAT(4) CHECK (Energy >= 0),
-    Gasoline FLOAT(4) CHECK (Gasoline >= 0),
-    Electricity FLOAT(4) CHECK (Electricity >= 0),
-    Natural_Gas FLOAT(4) CHECK (Natural_Gas >= 0),
-    All_Items_Less_Food_And_Energy FLOAT(4) CHECK (All_Items_Less_Food_And_Energy >= 0),
-    Commodities FLOAT(4) CHECK (Commodities >= 0),
-    Apparel FLOAT(4) CHECK (Apparel >= 0),
-    New_Vehicles FLOAT(4) CHECK (New_Vehicles >= 0),
-    Medical_Care FLOAT(4) CHECK (Medical_Care >= 0),
-    Services_Less_Energy_Services FLOAT(4) CHECK (Services_Less_Energy_Services >= 0),
-    Shelter FLOAT(4) CHECK (Shelter >= 0),
-    Medical_Care_Services FLOAT(4) CHECK (Medical_Care_Services >= 0),
-    Education_and_Communications FLOAT(4) CHECK (Education_and_Communications >= 0),
-    PRIMARY KEY(Date)
+/* Yearly Median Household Income */
+DROP TABLE Median_Household_Income_By_State;
+CREATE TABLE Median_Household_Income_By_State (
+    State VARCHAR(20) NOT NULL UNIQUE,
+    MHI_2019 INT CHECK (MHI_2019 >= 0),
+    MHI_2020 INT CHECK (MHI_2020 >= 0),
+    MHI_2021 INT CHECK (MHI_2021 >= 0),
+    PRIMARY KEY (State),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
+);
+
+/* Annual Poverty Estimate (Number of People) */
+DROP TABLE Poverty_Estimate_By_State;
+CREATE TABLE Poverty_Estimate_By_State (
+    State VARCHAR(20) NOT NULL UNIQUE,
+    Poverty_Estimate_2019 INT CHECK (Poverty_Estimate_2019 >= 0),
+    Poverty_Estimate_2020 INT CHECK (Poverty_Estimate_2020 >= 0),
+    Poverty_Estimate_2021 INT CHECK (Poverty_Estimate_2021 >= 0),
+    PRIMARY KEY (State),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
+);
+
+DROP TABLE Poverty_Rate_By_State;
+CREATE TABLE Poverty_Rate_By_State (
+    State VARCHAR(20) NOT NULL,
+    Year DATE NOT NULL, 
+    Poverty_Percent FLOAT(4) CHECK (Poverty_Percent >= 0),
+    PRIMARY KEY (State, Year),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
 -- jhu_315_final_project.US_Population_Racial definition
@@ -738,34 +744,43 @@ CREATE TABLE State_To_Region(
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
+/* State Connected to Its Top Industries */
 DROP TABLE State_Has_Top_Industries;
 CREATE TABLE State_Has_Top_Industries(
     State VARCHAR(20),
-    Industry VARCHAR(60),
+    Industry VARCHAR(40),
     Employment INT CHECK (Employment >= 0),
     PRIMARY KEY(State, Industry),
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
-/* FIX ME*/
-DROP TABLE State_Has_Personal_Income_Tax;
-CREATE TABLE State_Has_Personal_Income_Tax(
-    State_Name VARCHAR(20) NOT NULL UNIQUE,
-    Income_Tax VARCHAR(5),
-    PRIMARY KEY (State_Name),
+DROP TABLE Rural_Urban_Population_By_State;
+CREATE TABLE Rural_Urban_Population_By_State (
+    State VARCHAR(20) NOT NULL UNIQUE,
+    Total INT CHECK (Total >= 0),
+    Urban_Suburban INT CHECK (Urban_Suburban >= 0),
+    Rural INT CHECK (Rural >= 0),
+    PRIMARY KEY (State),
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
 
+DROP TABLE Life_Expectancy_By_State;
+CREATE TABLE Life_Expectancy_By_State (
+    State VARCHAR(20) NOT NULL,
+    Year INT CHECK (Year >= 0),
+    Life_Expectancy FLOAT(4) CHECK (Life_Expectancy >= 0),
+    PRIMARY KEY (State, Year),
+    FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
+);
+    
 /* Wealthy States are those defined as having a Median Household Income > 70000 in 2021 */
 DROP TABLE State_Is_Wealthy;
 CREATE TABLE State_Is_Wealthy(
     State VARCHAR(20) NOT NULL UNIQUE,
     Wealth_Designator VARCHAR(20),
-    Median_Household_Income INT CHECK (Median_Household_Income >= 0)
     PRIMARY KEY (State),
     FOREIGN KEY(State) REFERENCES State_To_Code(State_Name)
 );
-
 
 /*DISPLAY NAME - for the purposes of Grafana dropdowns*/
 -- jhu_315_final_project.GDP_Peaks definition
