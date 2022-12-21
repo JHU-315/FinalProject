@@ -11,7 +11,6 @@ _NOTE: Dashboard functionality will not be available after December 2022 due to 
 ### File Structure
 `Cleaned_Data` folder contains all the cleaned data used to populate the AWS db instance.
 
-`Data` folder contains the raw `.csv` files
 
 `Grafana Dashboards` folder contains all the `.json` files for the Grafana dashboards.
 
