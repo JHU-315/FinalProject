@@ -2,7 +2,9 @@
 ### File Structure
 `\Grafana_SQL_Queries` folder contains all the SQL queries used in the Grafana dashboard. They are organized by dashboard.
 
-`\Queries` folder contains all the SQL queries used to produce views on the AWS db instance. 
+`\Queries` folder contains all the SQL queries used to produce views on the AWS db instance in DDL format. 
+- `generalizedQueries.sql` contain SQL queries/views that are used across various dashboards. 
+- `Queries.sql` contain SQL queries/views that are particular to certain dashboards. To prevent overwhelming cluttering of the dashboard code, these views are created as to optimize the query in Grafana. 
 
 `\Schema.sql` contains the schema for the AWS db instance.
 
