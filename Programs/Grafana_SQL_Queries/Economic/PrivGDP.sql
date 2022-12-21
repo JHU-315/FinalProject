@@ -46,7 +46,8 @@ FROM
 
     FROM GDP_By_Industry g, MaxGovGDP as p, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron as o
     WHERE g.Quarter in (p.Quarter, wt.Quarter, a.Quarter, d.Quarter, o.Quarter)) gov;
-    
+
+/* combine all peaks in one table for display */
 CREATE TABLE GDP_Peaks AS
 SELECT 'priv' as id, p.* FROM GDP_Priv_Peaks p
 UNION
@@ -105,21 +106,36 @@ SELECT m.MonthDate,
 FROM GDP_By_Industry g, MonthDate_To_Quarter m 
 WHERE g.Quarter = m.Quarter;
 
+/* comparison of GDP private components to gdp pct changes */
+SELECT Quarter, Pct_Change
+FROM GDP_Factors_Pct_Change
+WHERE GDP_Factor = (CASE '$GDP_Component' 
+    WHEN 'Imports' THEN 'Imports_goods_services'
+    WHEN 'Exports' THEN 'Exports_goods_services'
+    WHEN 'Private Investment' THEN 'Gross_private_domestic_investment'
+    WHEN 'Personal Consumption Of Goods' THEN 'Personal_Consumption_Goods'
+    WHEN 'Personal Consumption Of Services' THEN 'Personal_Consumption_Services'
+    END);
+    
+SELECT 
+SUM(CASE WHEN Quarter = '2020Q1' THEN Pct_Change ELSE 0 END) AS '2020_Q1',
+SUM(CASE WHEN Quarter = '2020Q2' THEN Pct_Change ELSE 0 END) AS '2020_Q2',
+SUM(CASE WHEN Quarter = '2020Q3' THEN Pct_Change ELSE 0 END) AS '2020_Q3',
+SUM(CASE WHEN Quarter = '2020Q4' THEN Pct_Change ELSE 0 END) AS '2020_Q4'
+FROM GDP_Factors_Pct_Change
+WHERE GDP_Factor = 'GDP'
 
+/* combine all peak dates in one table for ease of use */
 CREATE TABLE Variant_Peak_Dates AS
-SELECT MonthDate, Quarter FROM MaxCaseWT
+SELECT 'WT' as id, MonthDate, Quarter FROM MaxCaseWT
 UNION 
-SELECT MonthDate, Quarter FROM MaxCaseAlpha
+SELECT 'A' as id, MonthDate, Quarter FROM MaxCaseAlpha
 UNION
-SELECT MonthDate, Quarter FROM MaxCaseDelta
+SELECT 'D' as id, MonthDate, Quarter FROM MaxCaseDelta
 UNION 
-SELECT MonthDate, Quarter FROM MaxCaseOmicron;
+SELECT 'O' as id, MonthDate, Quarter FROM MaxCaseOmicron;
 
-ALTER TABLE Variant_Peak_Dates ADD COLUMN id VARCHAR(2) FIRST;
-UPDATE Variant_Peak_Dates SET id = 'WT' WHERE Quarter = '2020Q3';
-UPDATE Variant_Peak_Dates SET id = 'A' WHERE Quarter = '2020Q4';
-UPDATE Variant_Peak_Dates SET id = 'D' WHERE Quarter = '2021Q3';
-UPDATE Variant_Peak_Dates SET id = 'O' WHERE Quarter = '2022Q1';
+/* visualize private industry subgroup GDP breakdown by variant */
 
 SELECT g.Agriculture, g.Mining, g.Manufacturing, g.Retail_trade, g.Utilities, g.Financial_Activities, g.`Education_and_health services`, g.Construction, g.Wholesale_trade, g.Transportation_and_warehousing, g.Information, g.Professional_and_business_services, g.Leisure_and_Hospitality, g.Other_services
 FROM GDP_By_Industry g, MaxPrivateGDP m 
@@ -134,13 +150,3 @@ WHERE v.id = (CASE '$Variant'
     WHEN 'Omicron' THEN 'O'
     END) and g.Quarter = v.Quarter;
 
-
-SELECT Quarter, Pct_Change
-FROM GDP_Factors_Pct_Change
-WHERE GDP_Factor = (CASE '$GDP_Component' 
-    WHEN 'Imports' THEN 'Imports_goods_services'
-    WHEN 'Exports' THEN 'Exports_goods_services'
-    WHEN 'Private Investment' THEN 'Gross_private_domestic_investment'
-    WHEN 'Personal Consumption Of Goods' THEN 'Personal_Consumption_Goods'
-    WHEN 'Personal Consumption Of Services' THEN 'Personal_Consumption_Services'
-    END);

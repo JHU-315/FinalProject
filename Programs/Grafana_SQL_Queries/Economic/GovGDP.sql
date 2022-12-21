@@ -61,38 +61,7 @@ FROM GDP_By_Industry g, MonthDate_To_Quarter m
 WHERE g.Quarter = m.Quarter;
 
 
-SELECT m.MonthDate,
-
-(CASE WHEN '$Government_Subgroup' = 'Federal' THEN Federal END) AS Federal,
-
-(CASE WHEN '$Government_Subgroup' = 'State and Local' THEN State_and_local END) AS State_and_local
-
-FROM GDP_By_Industry g, MonthDate_To_Quarter m 
-WHERE g.Quarter = m.Quarter;
-
-
-CREATE TABLE Variant_Peak_Dates AS
-SELECT 'WT' as id, MonthDate, Quarter FROM MaxCaseWT
-UNION 
-SELECT 'A' as id, MonthDate, Quarter FROM MaxCaseAlpha
-UNION
-SELECT 'D' as id, MonthDate, Quarter FROM MaxCaseDelta
-UNION 
-SELECT 'O' as id, MonthDate, Quarter FROM MaxCaseOmicron;
-
-SELECT g.Federal, g.State_and_local
-FROM GDP_By_Industry g, MaxGovGDP m 
-WHERE g.Quarter = m.Quarter;
-    
-SELECT g.Federal, g.State_and_local
-FROM GDP_By_Industry g, Variant_Peak_Dates v
-WHERE v.id = (CASE '$Variant' 
-    WHEN 'Wild Type' THEN 'WT'
-    WHEN 'Alpha' THEN 'A'
-    WHEN 'Delta' THEN 'D'
-    WHEN 'Omicron' THEN 'O'
-    END) and g.Quarter = v.Quarter;
-
+/* comparison of government subgroup spending to gdp pct changes */
 SELECT Quarter, Pct_Change
 FROM GDP_Factors_Pct_Change
 WHERE GDP_Factor = (CASE '$Government_Subgroup' 
@@ -107,4 +76,30 @@ SUM(CASE WHEN Quarter = '2020Q3' THEN Pct_Change ELSE 0 END) AS '2020_Q3',
 SUM(CASE WHEN Quarter = '2020Q4' THEN Pct_Change ELSE 0 END) AS '2020_Q4'
 FROM GDP_Factors_Pct_Change
 WHERE GDP_Factor = 'GDP'
+
+/* combine all peak dates in one table for ease of use */
+CREATE TABLE Variant_Peak_Dates AS
+SELECT 'WT' as id, MonthDate, Quarter FROM MaxCaseWT
+UNION 
+SELECT 'A' as id, MonthDate, Quarter FROM MaxCaseAlpha
+UNION
+SELECT 'D' as id, MonthDate, Quarter FROM MaxCaseDelta
+UNION 
+SELECT 'O' as id, MonthDate, Quarter FROM MaxCaseOmicron;
+
+/* visualize gov subgroup GDP breakdown by variant */
+
+SELECT g.Federal, g.State_and_local
+FROM GDP_By_Industry g, MaxGovGDP m 
+WHERE g.Quarter = m.Quarter;
+    
+SELECT g.Federal, g.State_and_local
+FROM GDP_By_Industry g, Variant_Peak_Dates v
+WHERE v.id = (CASE '$Variant' 
+    WHEN 'Wild Type' THEN 'WT'
+    WHEN 'Alpha' THEN 'A'
+    WHEN 'Delta' THEN 'D'
+    WHEN 'Omicron' THEN 'O'
+    END) and g.Quarter = v.Quarter;
+    
 
