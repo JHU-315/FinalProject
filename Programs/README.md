@@ -7,5 +7,7 @@
 `\Schema.sql` contains the schema for the AWS db instance.
 
 `\Python_Scripts` folder contains all the python scripts used to populate the AWS db instance and extract SQL queries from Grafana `.json` files.
+- `generator.py` creates the `.sql` script to populate the AWS db instance.
+- `grafanaExtraction.py` extracts the sql code from dashboards.
 
-`Report.pdf` contains the report to our project and how to utilize our dashboard system.
+`Jonathan_Young_Natallie_Vallejo.pdf` contains the report to our project and how to utilize our dashboard system.
