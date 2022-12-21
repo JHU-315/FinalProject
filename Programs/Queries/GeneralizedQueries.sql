@@ -1,12 +1,3 @@
-/*Minimum white unemployment rate*/
-
-CREATE or REPLACE VIEW MinWhiteUnempRate AS 
-SELECT u2.Date
-FROM Unemployment_Rate u2, 
-    (SELECT MIN(White) min
-     FROM Unemployment_Rate
-     WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
-WHERE u1.min = u2.Total;
 
 /*Max cases date across - variant independent*/
 CREATE or REPLACE VIEW MaxCaseDate AS 
@@ -15,18 +6,6 @@ FROM COVID_Cases_By_Race c2,
     (SELECT MAX(Cases_Total) mx
      FROM COVID_Cases_By_Race) c1
 WHERE c1.mx = c2.Cases_Total;
-
-/*
-Find the date corresponding to the min total unemployment rate through the 6 months before the pandemic started.
-*/
-
-CREATE or REPLACE VIEW MinUnempRate AS 
-SELECT u2.Date
-FROM Unemployment_Rate u2, 
-    (SELECT MIN(Total) min
-     FROM Unemployment_Rate
-     WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
-WHERE u1.min = u2.Total;
 
 /*
 Create a view corresponding to all cases on a given date (weekly data) throughout all states.
@@ -53,18 +32,6 @@ CREATE OR REPLACE VIEW COVID_Hospitalizations_National AS
 SELECT Date, SUM(Hosp_Total) as Hosp_Total FROM COVID_Hospitalizations_By_Race GROUP BY State
 
 /*WILD TYPE-------------------------------------------------------*/
-
-/*
-Create a view corresponding to the COVID Wild Type peak, i.e. the corresponding week where the total number cases was highest within the time period where the Wild Type variant was most prevalent.
-*/
-
-CREATE or REPLACE VIEW MaxCaseWTWeekly AS 
-SELECT c1.mx, c2.Date, md.MonthDate
-FROM COVID_Cases_Weekly c2, Date_To_MonthDate md,
-    (SELECT MAX(Cases_Total) mx
-     FROM COVID_Cases_Weekly
-     WHERE Date >= '2020-01-01' and Date < '2020-11-01') c1
-WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
 
 /*Cases for Racial Group*/
 CREATE OR REPLACE VIEW MaxCasesWT AS 
@@ -95,19 +62,6 @@ SELECT * FROM COVID_Cases_By_Race WHERE Date >= '2020-01-01' and Date < '2020-11
 
 
 /*ALPHA VARIANT-------------------------------------------------------*/
-
-/*
-Create a view corresponding to the COVID Alpha peak, i.e. the corresponding week where the total number cases was highest within the time period where the Alpha variant was most prevalent.
-*/
-
-CREATE or REPLACE VIEW MaxCaseAlphaWeekly AS 
-SELECT c1.mx, c2.Date, md.MonthDate
-FROM COVID_Cases_Weekly c2, Date_To_MonthDate md,
-    (SELECT MAX(Cases_Total) mx
-     FROM COVID_Cases_Weekly
-     WHERE Date >= '2020-11-01' and Date < '2021-06-01') c1
-WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
-
 
 /*Cases for Racial Group*/
 CREATE OR REPLACE VIEW MaxCasesAlpha AS 
@@ -143,21 +97,8 @@ SELECT * FROM COVID_Hospitalizations_By_Race WHERE Date >= '2020-11-01' and Date
 /*Cases Over Time*/
 CREATE OR REPLACE VIEW CasesAlpha AS
 SELECT * FROM COVID_Cases_By_Race WHERE Date >= '2020-11-01' and Date < '2021-06-01';
+
 /*DELTA VARIANT-------------------------------------------------------*/
-
-/*
-Create a view corresponding to the COVID Delta peak, i.e. the corresponding week where the total number cases was highest within the time period where the Delta variant was most prevalent.
-*/
-
-CREATE or REPLACE VIEW MaxCaseDeltaWeekly AS 
-SELECT c1.mx, c2.Date, md.MonthDate
-FROM COVID_Cases_Weekly c2, Date_To_MonthDate md,
-    (SELECT MAX(Cases_Total) mx
-     FROM COVID_Cases_Weekly
-     WHERE Date >= '2021-06-01' and Date < '2021-11-01') c1
-WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
-
-
 
 /*Deaths*/
 CREATE OR REPLACE VIEW MaxDeathsDelta AS 
@@ -191,19 +132,6 @@ CREATE OR REPLACE VIEW CasesDelta AS
 SELECT * FROM COVID_Cases_By_Race WHERE Date >= '2021-06-01' and Date < '2021-11-01';
 
 /*OMICRON VARIANT-------------------------------------------------------*/
-
-/*
-Create a view corresponding to the COVID Omicron peak, i.e. the corresponding week where the total number cases was highest within the time period where the Omicron variant was most prevalent.
-*/
-
-CREATE or REPLACE VIEW MaxCaseOmicronWeekly AS 
-SELECT c1.mx, c2.Date, md.MonthDate
-FROM COVID_Cases_Weekly c2, Date_To_MonthDate md, 
-    (SELECT MAX(Cases_Total) mx
-     FROM COVID_Cases_Weekly
-     WHERE Date >= '2021-11-01') c1
-WHERE c1.mx = c2.Cases_Total and c2.Date = md.Date;
-
 
 /*Cases for Racial Group - summed due to getting national total from states*/
 CREATE OR REPLACE VIEW MaxCasesOmicron AS 
