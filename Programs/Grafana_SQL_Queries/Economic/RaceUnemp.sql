@@ -204,6 +204,16 @@ WHEN  '$Racial_Group' = 'Total' THEN (Total)
 END) as Total_Emp_Levels
 FROM Education_By_Race NATURAL JOIN Education_By_Gender
 
+/* multiple job holders year to year changes */
+SELECT 
+Racial_Group,
+(CASE 
+WHEN  '2019' = '2019' THEN (Total_2019)  
+WHEN  '2019' = '2020' THEN (Total_2020) 
+
+END) as Mult_Job
+FROM Multiple_Job_Holders_by_Race
+
 /* How did the pandemic affect remote workers by racial group?*/
 SELECT r.MonthDate, 
 (CASE 

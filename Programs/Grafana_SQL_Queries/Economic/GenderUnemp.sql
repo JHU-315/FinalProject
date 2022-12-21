@@ -22,15 +22,13 @@ FROM Unemployment_Rate u2,
      WHERE Date >= '2019-06-01' and Date <= '2019-12-01') u1
 WHERE u1.min = u2.Women_20_plus and (Date >= '2019-06-01' and Date <= '2019-12-01');
 
-/*
-Compare unemployment rates of men and women 20 years and over. Has COVID disproportionately affected a gender group in terms of employment?*/
 
 /*
 Analyze the trend in unemployment rate for men and women over 20 years of age at the peak periods of different COVID variants in comparison to the pre-COVID rate, defined as December 2019. Has COVID disproportionately affected a gender group in terms of unemployment?
 */
 
 /*
-Analyze the trend in unemployment rate for men over 20 years of age at the peak periods of different COVID variants in comparison to the pre-COVID rate, defined as December 2019.
+Analyze the trend in unemployment rate for men over 20 years of age at the peak periods of different COVID variants.
 */
 
 CREATE or REPLACE VIEW Men_UR_Peaks AS
@@ -68,6 +66,7 @@ FROM
     FROM Unemployment_Rate u, MinWomenUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o
     WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
 
+/* combine all peaks in one table for display */
 CREATE TABLE Gender_Peaks AS
 SELECT 'M' as id, m.* FROM Men_UR_Peaks m
 UNION
@@ -80,6 +79,8 @@ WHERE id = CASE '$Sex'
     WHEN 'Male' THEN 'M' END;
     
     
+/* create month view on COVID Cases By Gender */
+
 CREATE or REPLACE VIEW COVID_Cases_By_Gender_Monthly AS
 SELECT md.MonthDate, SUM(Total_Count) Cases_Total, SUM(Male_Count) Cases_Male, SUM(Female_Count) Cases_Female
 FROM COVID_Cases_By_Gender c, Date_To_MonthDate md
@@ -87,7 +88,6 @@ WHERE c.Date = md.Date
 GROUP BY md.MonthDate;
 
 /* Compare trends in unemployment rate by gender to trends in COVID cases by gender over all relevant dates*/
-
 
 SELECT u.Date, 
 (CASE 
@@ -109,6 +109,7 @@ FROM Unemployment_Rate u;
 SELECT g.MonthDate, g.Cases_Male, g.Cases_Female 
 FROM COVID_Cases_By_Gender_Monthly g;
 
+/* looking at occupation of unemployed */
 SELECT 
 Occupation,
 (CASE 
@@ -123,6 +124,7 @@ END) as Total_Rates
 FROM Unemployed_Occupation_By_Gender
 WHERE Occupation != 'Total'
 
+/* education breakdown of employed */
 SELECT 
 Education,
 (CASE 
@@ -133,6 +135,7 @@ WHEN  '$Sex' = 'All Sexes' THEN (Total)
 END) as Total_Emp_Levels
 FROM Education_By_Gender
 
+/* multiple job holders year to year changes */
 SELECT 
 Age_Group,
 (CASE 
@@ -146,6 +149,7 @@ WHEN  '$Sex' = 'All Sexes' AND '$Year' = '2020' THEN (Total_2020)
 END) as Mult_Jobs
 FROM Multiple_Job_Holders_by_Age_Gender
 
+/* How did the pandemic affect remote workers by gender?*/
 SELECT r.MonthDate, 
 (CASE 
 WHEN  '$Sex' = 'Female' THEN r.Women_16to24_years
@@ -171,6 +175,7 @@ END) as Cases_Gender
 FROM Remote_Work_By_Gender_Race r LEFT OUTER JOIN COVID_Cases_By_Gender_Monthly g ON r.MonthDate = g.MonthDate;
 
 
+/* marital status of the unemployed */
 SELECT 
 Marital_Status,
 (CASE 
@@ -185,7 +190,7 @@ END) as Gender_Marital
 FROM Unemployed_Marital_Status_By_Race_Gender
 WHERE Marital_Status in ('Total_Married', 'Total_Never_Married', 'Total_Widowed_Divorced_Separated')
 
-
+/* 2021 full-time, part-time breakdown */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -197,7 +202,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2021_Full_time', '2021_Part_time') 
 
-
+/* full time less than 35 hours */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -209,6 +214,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Full_time_less35_hours', '2020_Full_time_less35_hours', '2021_Full_time_less35_hours') 
 
+/* full time more than 35 hours */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -220,6 +226,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Full_time_more35_hours', '2020_Full_time_more35_hours', '2021_Full_time_more35_hours')
 
+/* involuntary part-time for economic reasons */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -231,6 +238,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Part_time_economic_reasons', '2020_Part_time_economic_reasons', '2021_Part_time_economic_reasons')
 
+/* voluntary part-time for non-economic reasons */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -242,7 +250,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Part_time_noneconomic_reasons', '2020_Part_time_noneconomic_reasons', '2021_Part_time_noneconomic_reasons')
 
-
+/* Create columns for calculating year to year changes */
 CREATE or REPLACE VIEW GenderRemoteWorkYearCol AS 
 SELECT SUM(CASE WHEN MonthDate = "2020-05-01" THEN Men_16to24_years ELSE 0 END) as Men_16to24_years_2020,
 SUM(CASE WHEN MonthDate = "2020-05-01" THEN Men_25to54_years ELSE 0 END) as Men_25to54_years_2020,
@@ -274,7 +282,7 @@ SUM(CASE WHEN MonthDate = "2022-05-01" THEN Total_55Plus ELSE 0 END) as Total_55
 
 FROM Remote_Work_By_Gender_Race
 
-       
+/* year to year percent changes in remote work by gender and age group */
 SELECT 
 (CASE 
 WHEN  '$Sex' = 'Female' THEN ((Women_16to24_years_2021/Women_16to24_years_2020 - 1) * 100)
