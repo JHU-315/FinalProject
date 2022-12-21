@@ -13,4 +13,6 @@ _NOTE: Dashboard functionality will not be available after December 2022 due to 
 
 `Data` folder contains the raw `.csv` files
 
+`Grafana Dashboards` folder contains all the `.json` files for the Grafana dashboards.
+
 `Programs` folder contains the main portion of the project. 
