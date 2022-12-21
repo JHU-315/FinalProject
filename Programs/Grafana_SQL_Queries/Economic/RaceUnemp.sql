@@ -49,9 +49,7 @@ WHERE u1.min = u2.Asian and (Date >= '2019-06-01' and Date <= '2019-12-01');
 
 
 /*
-Compare trends in unemployment rates of Asian, White, Black or African American, and Hispanic people at the peak periods of different COVID variants.
-
-show increase or decline trends in unemployment by subtracting (minimum unemployment rate for a given racial group before pandemic - rate at a given variant peak ) */
+Compare trends in unemployment rates of Asian, White, Black or African American, and Hispanic people at the peak periods of different COVID variants */
        
 /*
 Analyze the trend in unemployment rate for Whites at the peak periods of different COVID variants.
@@ -131,6 +129,7 @@ FROM
     WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
     
 
+/* combine all peaks in one table for display */
 CREATE TABLE Race_Peaks AS
 SELECT 'W' as id, w.* FROM White_UR_Peaks w
 UNION
@@ -149,7 +148,7 @@ WHERE id = CASE '$Racial_Group'
     WHEN 'Asian' THEN 'A'
     END;
     
-
+/* create month view on COVID Cases By Race */
 CREATE or REPLACE VIEW COVID_Cases_By_Race_Monthly_View AS
 SELECT md.MonthDate, SUM(Cases_Total) Cases_Total, SUM(Cases_White) Cases_White,  SUM(Cases_Black) Cases_Black, SUM(Cases_LatinX) Cases_LatinX, SUM(Cases_Asian) Cases_Asian
 FROM COVID_Cases_By_Race c, Date_To_MonthDate md
@@ -163,15 +162,6 @@ FROM COVID_Cases_By_Race_Monthly_View;
 INSERT INTO COVID_Cases_By_Race_Monthly VALUES ("2019-12-01",0,0,0,0,0);
 
 /* Compare trends in unemployment rate by race to trends in COVID cases by race over all relevant dates*/
-
-SELECT 
-Occupation,
-(CASE 
-WHEN  '$Year' = '2019' THEN (Total_2019) 
-WHEN  '$Year' = '2020' THEN (Total_2020) 
-END) as Total_Rates
-FROM Employed_Occupation_By_Race
-WHERE Racial_Group = '$Racial_Group'
 
 SELECT u.Date,
 (CASE 
@@ -191,6 +181,17 @@ END) as Cases_Race
 
 FROM Unemployment_Rate u LEFT OUTER JOIN COVID_Cases_By_Race_Monthly c ON u.Date = c.MonthDate;
 
+/* looking at occupation of employed */
+SELECT 
+Occupation,
+(CASE 
+WHEN  '$Year' = '2019' THEN (Total_2019) 
+WHEN  '$Year' = '2020' THEN (Total_2020) 
+END) as Total_Rates
+FROM Employed_Occupation_By_Race
+WHERE Racial_Group = '$Racial_Group'
+
+/* education breakdown of employed */
 SELECT 
 Education,
 (CASE 
@@ -203,7 +204,7 @@ WHEN  '$Racial_Group' = 'Total' THEN (Total)
 END) as Total_Emp_Levels
 FROM Education_By_Race NATURAL JOIN Education_By_Gender
 
-
+/* How did the pandemic affect remote workers by racial group?*/
 SELECT r.MonthDate, 
 (CASE 
 WHEN  '$Racial_Group' = 'White' THEN (r.White)  
@@ -221,6 +222,7 @@ WHEN  '$Racial_Group' = 'Total' THEN (c.Cases_Total)
 END) as Cases_Race
 FROM Remote_Work_By_Gender_Race r LEFT OUTER JOIN COVID_Cases_By_Race_Monthly c ON r.MonthDate = c.MonthDate;
 
+/* marital status of the unemployed */
 SELECT 
 Marital_Status,
 (CASE 
@@ -230,7 +232,7 @@ END) as Race_Marital
 FROM Unemployed_Marital_Status_By_Race_Gender
 WHERE Marital_Status LIKE '$Racial_Group%'
 
-
+/* 2021 full-time, part-time breakdown */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -243,6 +245,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2021_Full_time', '2021_Part_time') 
 
+/* full time less than 35 hours */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -255,6 +258,8 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Full_time_less35_hours', '2020_Full_time_less35_hours', '2021_Full_time_less35_hours') 
 
+
+/* full time more than 35 hours */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -267,6 +272,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Full_time_more35_hours', '2020_Full_time_more35_hours', '2021_Full_time_more35_hours')
 
+/* involuntary part-time for economic reasons */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -279,6 +285,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Part_time_economic_reasons', '2020_Part_time_economic_reasons', '2021_Part_time_economic_reasons')
 
+/* voluntary part-time for non-economic reasons */
 SELECT 
 Worktime_Status,
 (CASE 
@@ -291,6 +298,7 @@ END) as Employed_WorkTime
 FROM Worktime_Status_By_Gender_Race
 WHERE Worktime_Status in ('2019_Part_time_noneconomic_reasons', '2020_Part_time_noneconomic_reasons', '2021_Part_time_noneconomic_reasons')
 
+/* Create columns for calculating year to year changes */
 CREATE or REPLACE VIEW RaceRemoteWorkYearCol AS 
 SELECT SUM(CASE WHEN MonthDate = "2020-05-01" THEN White ELSE 0 END) as White_2020,
 SUM(CASE WHEN MonthDate = "2020-05-01" THEN Black ELSE 0 END) as Black_2020,
@@ -310,6 +318,7 @@ SUM(CASE WHEN MonthDate = "2022-05-01" THEN (Total_16to24_years + Total_25to54_y
 
 FROM Remote_Work_By_Gender_Race
 
+/* year to year percent changes in remote work for each racial group */
 SELECT 
 (CASE 
 WHEN  '$Racial_Group' = 'White' THEN ((White_2021/White_2020 - 1)  * 100) 
