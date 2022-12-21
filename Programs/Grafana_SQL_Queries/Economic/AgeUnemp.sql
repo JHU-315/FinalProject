@@ -106,6 +106,11 @@ WHERE v.id = (CASE '$Variant'
     WHEN 'Omicron' THEN 'O'
     END) and e.Date = v.MonthDate;
 
+/* visualzing employment level by age */
+SELECT e.Date, e.Yrs_16_19, e.Yrs_20_24, e.Yrs_25_34, e.Yrs_35_44, e.Yrs_45_54, e.Yrs_55_up
+FROM EmpLevelAgeCol e;
+
+/* Create columns for calculating peak to trough changes */
 
 CREATE or REPLACE VIEW EmpLevelYearCol AS 
 SELECT SUM(CASE WHEN Date = "2019-11-01" THEN Yrs_16_19 ELSE 0 END) as Yrs_16_19_High,
@@ -122,6 +127,7 @@ SUM(CASE WHEN Date = "2020-04-01" THEN Yrs_45_54 ELSE 0 END) as Yrs_45_54_Low,
 SUM(CASE WHEN Date = "2020-04-01" THEN Yrs_55_up ELSE 0 END) as Yrs_55_up_Low
 FROM EmpLevelAgeCol;
 
+/* year to year percent changes in employment level by age group */
 SELECT
 (Yrs_16_19_Low/Yrs_16_19_High - 1) * 100 as Yrs_16_19,
 (Yrs_20_24_Low/Yrs_20_24_High - 1) * 100 as Yrs_20_24,
