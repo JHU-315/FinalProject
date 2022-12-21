@@ -1,3 +1,5 @@
+
+/* summarize unemployment rate by region */
 CREATE or REPLACE VIEW Unemployment_Rate_By_Region AS
 SELECT u.Date, r.Region, ROUND(AVG(Unemp_Rate), 2) Unemp_Rate
 FROM Unemployment_Rate_By_State u, State_To_Region r
@@ -14,11 +16,13 @@ SUM(CASE WHEN u.Region = "Midwest" THEN u.Unemp_Rate ELSE 0 END) Midwest
 FROM Unemployment_Rate_By_Region u
 GROUP BY u.Date;
 
+/* use State_To_Code to get State Name in view */
 CREATE or REPLACE VIEW COVID_Cases_By_State_With_Name AS
 SELECT c.*, o.State_Name
 FROM COVID_Cases_By_State c, State_To_Code o
 WHERE c.State_Code = o.code;
 
+/* summarize COVID cases by region */
 CREATE or REPLACE VIEW COVID_Cases_By_Region_Monthly AS
 SELECT md.MonthDate, c.Region, SUM(c.Cases_Total) Cases_Total 
 FROM Date_To_MonthDate md,
@@ -151,6 +155,7 @@ FROM
     FROM UnempRateRegionCol u, MinMidwestUnempRate as m, MaxCaseWT as wt, MaxCaseAlpha as a, MaxCaseDelta as d, MaxCaseOmicron o
     WHERE u.Date in (m.Date, wt.MonthDate, a.MonthDate, d.MonthDate, o.MonthDate)) urate;
 
+/* combine all peaks in one table for display */
 CREATE TABLE Region_Peaks AS
 SELECT 'W' as id, w.* FROM West_UR_Peaks w
 UNION
@@ -191,49 +196,11 @@ SELECT u.Date, u.Unemp_Rate, r.Cases_Total
 FROM Unemployment_Rate_By_Region u LEFT OUTER JOIN COVID_Cases_By_Region_Monthly r ON u.Region = r.Region and u.Date = r.MonthDate
 WHERE u.Region = '$Region' and r.Region = '$Region';
 
+/* closer look at unemployment and COVID cases separately */
+
 SELECT Date, West, South, Northeast, Midwest
 FROM UnempRateRegionCol
 
 SELECT MonthDate, Cases_West, Cases_South, Cases_Northeast, Cases_Midwest
 FROM COVIDCasesMonthlyRegionCol
-
-SELECT c.State, ROUND((RPC_2020/RPC_2019 - 1) * 100, 2) as Personal_Consumption_2019_2020,
-       ROUND((RPC_2021/RPC_2020 - 1) * 100, 2) as Personal_Consumption_2020_2021,
-       ROUND((RGDP_2020/RGDP_2019 - 1) * 100, 2) as GDP_2019_2020,
-       ROUND((RGDP_2021/RGDP_2020 - 1) * 100, 2) as GDP_2020_2021,
-       ROUND((Employment_2020/Employment_2019 - 1) * 100, 2) as Employment_2019_2020,
-       ROUND((Employment_2021/Employment_2020 - 1) * 100, 2) as Employment_2020_2021
-
-FROM Real_Personal_Consumption_By_State c, Total_Employment_By_State e, Real_GDP_By_State as g
-WHERE c.State = e.State and c.State = g.State and e.State = g.State and c.State = '$States'
-
-
-SELECT RPC_2019, RPC_2020, RPC_2021, RGDP_2019, RGDP_2020, RGDP_2021
-FROM Real_Personal_Consumption_By_State c, Real_GDP_By_State as g
-WHERE c.State = g.State and c.State = '$States'
-
-SELECT i.State, ROUND((RPI_2020/RPI_2019 - 1) * 100, 2) as Personal_Income_2019_2020,
-       ROUND((RPI_2021/RPI_2020 - 1) * 100, 2) as Personal_Income_2020_2021,
-       ROUND((MHI_2020/MHI_2019 - 1) * 100, 2) as Median_Household_Income_2019_2020,
-       ROUND((MHI_2021/MHI_2020 - 1) * 100, 2) as Median_Household_Income_2020_2021,
-       ROUND((Poverty_Estimate_2020/Poverty_Estimate_2019 - 1) * 100, 2) as Poverty_Estimate_2019_2020,
-       ROUND((Poverty_Estimate_2021/Poverty_Estimate_2020 - 1) * 100, 2) as Poverty_Estimate_2020_2021
-           
-FROM Real_Personal_Income_By_State i, Poverty_Estimate_By_State p, Median_Household_Income_By_State as h
-WHERE i.State = p.State and i.State = h.State and h.State = p.State and i.State = '$States'  
-
-SELECT Wealth_Designator as Designator, MHI_2021 as Median_Household_Income 
-FROM State_Is_Wealthy w, Median_Household_Income_By_State m WHERE m.State = w.State and m.State = '$States';
-
-SELECT m.MonthDate, i.State, i.`Personal Income`
-FROM Personal_Income_By_State i, Month_To_Quarter q, MonthString_To_MonthDate m 
-WHERE q.Month = m.MonthString and i.Quarter = q.Quarter and i.State = '$States'
-
-SELECT p.Year, p.Poverty_Percent
-FROM Poverty_Rate_By_State p
-WHERE State = '$States'
-
-SELECT State, latitude, longitude, Life_Expectancy
-FROM Life_Expectancy_By_State l, State_Locations s
-WHERE l.State = s.State_Name and l.State = '$States' and l.Year = '$Year'
 
