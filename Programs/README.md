@@ -16,4 +16,4 @@
 
 `Jonathan_Young_Natalie_Vallejo.pdf` contains the report to our project and how to utilize our dashboard system.
 
-`Data` folder contains the raw `.csv` files that are parsed for our use. 
+`Cleaned_Data` folder contains the raw `.csv` files that are parsed for our use. The folder contains a folder for csv files called `CSV Files` which house our data
