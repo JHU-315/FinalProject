@@ -21,6 +21,8 @@ Password: grafanajhu315
 - `generator.py` creates the `.sql` script to populate the AWS db instance.
 - `grafanaExtraction.py` extracts the sql code from dashboards on Grafana.
 
+`Cleaned_Data` folder contains the raw `.csv` files that are parsed for our use. The folder contains a sub-folder for csv files called `CSV Files` which houses our data.
+
 `Jonathan_Young_Natalie_Vallejo.pdf` contains the report to our project and instructions for how to utilize our dashboard system.
 
-`Cleaned_Data` folder contains the raw `.csv` files that are parsed for our use. The folder contains a folder for csv files called `CSV Files` which house our data
+`Jonathan_Young_Natalie_Vallejo.zip` contains the all of the project folders in one zipped nested directory.
