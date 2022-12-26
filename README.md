@@ -11,7 +11,13 @@ _NOTE: Dashboard functionality will not be available after December 2022 due to 
 ### File Structure
 `Cleaned_Data` folder contains all the cleaned data used to populate the AWS db instance.
 
-
 `Grafana Dashboards` folder contains all the `.json` files for the Grafana dashboards.
 
 `Programs` folder contains the main portion of the project. 
+
+
+### Since this project is no longer active, to utilize for your own purposes please follow the following steps:
+1. Create a new db instance that runs on MySQL 5.7.
+2. Run the SQL scripts in the `Snapshot/` folder
+3. Run the views in the `Programs/Queries` folder
+4. Set up the Grafana connection your database instance

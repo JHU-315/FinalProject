@@ -1,0 +1,67 @@
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+--
+-- Host: jhu315.c8pmcuhtcbcz.us-east-1.rds.amazonaws.com    Database: jhu_315_final_project
+-- ------------------------------------------------------
+-- Server version	8.0.28
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+SET @@SESSION.SQL_LOG_BIN= 0;
+
+--
+-- GTID state at the beginning of the backup 
+--
+
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
+
+--
+-- Table structure for table `Rural_Urban_Population_By_State`
+--
+
+DROP TABLE IF EXISTS `Rural_Urban_Population_By_State`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Rural_Urban_Population_By_State` (
+  `State` varchar(20) NOT NULL,
+  `Total` int DEFAULT NULL,
+  `Urban_Suburban` int DEFAULT NULL,
+  `Rural` int DEFAULT NULL,
+  PRIMARY KEY (`State`),
+  UNIQUE KEY `State` (`State`),
+  CONSTRAINT `Rural_Urban_Population_By_State_ibfk_1` FOREIGN KEY (`State`) REFERENCES `State_To_Code` (`State_Name`),
+  CONSTRAINT `Rural_Urban_Population_By_State_chk_1` CHECK ((`Total` >= 0)),
+  CONSTRAINT `Rural_Urban_Population_By_State_chk_2` CHECK ((`Urban_Suburban` >= 0)),
+  CONSTRAINT `Rural_Urban_Population_By_State_chk_3` CHECK ((`Rural` >= 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Rural_Urban_Population_By_State`
+--
+
+LOCK TABLES `Rural_Urban_Population_By_State` WRITE;
+/*!40000 ALTER TABLE `Rural_Urban_Population_By_State` DISABLE KEYS */;
+INSERT INTO `Rural_Urban_Population_By_State` VALUES ('Alabama',4779736,2821804,1957932),('Alaska',710231,468893,241338),('Arizona',6392017,5740659,651358),('Arkansas',2915918,1637589,1278329),('California',37253956,35373606,1880350),('Colorado',5029196,4332761,696435),('Connecticut',3574097,3144942,429155),('Delaware',897934,747949,149985),('District of Columbia',601723,601723,0),('Florida',18801310,17139844,1661466),('Georgia',9687653,7272151,2415502),('Hawaii',1360301,1250489,109812),('Idaho',1567582,1106370,461212),('Illinois',12830632,11353553,1477079),('Indiana',6483802,4697100,1786702),('Iowa',3046355,1950256,1096099),('Kansas',2853118,2116961,736157),('Kentucky',4339367,2533343,1806024),('Louisiana',4533372,3317805,1215567),('Maine',1328361,513542,814819),('Maryland',5773552,5034331,739221),('Massachusetts',6547629,6021989,525640),('Michigan',9883640,7369957,2513683),('Minnesota',5303925,3886311,1417614),('Mississippi',2967297,1464224,1503073),('Missouri',5988927,4218371,1770556),('Montana',989415,553014,436401),('Nebraska',1826341,1335686,490655),('Nevada',2700551,2543797,156754),('New Hampshire',1316470,793872,522598),('New Jersey',8791894,8324126,467768),('New Mexico',2059179,1594361,464818),('New York',19378102,17028105,2349997),('North Carolina',9535483,6301756,3233727),('North Dakota',672591,402872,269719),('Ohio',11536504,8989694,2546810),('Oklahoma',3751351,2485029,1266322),('Oregon',3831074,3104382,726692),('Pennsylvania',12702379,9991287,2711092),('Rhode Island',1052567,955043,97524),('South Carolina',4625364,3067809,1557555),('South Dakota',814180,461247,352933),('Tennessee',6346105,4213245,2132860),('Texas',25145561,21298039,3847522),('Utah',2763885,2503595,260290),('Vermont',625741,243385,382356),('Virginia',8001024,6037094,1963930),('Washington',6724540,5651869,1072671),('West Virginia',1852994,902810,950184),('Wisconsin',5686986,3989638,1697348),('Wyoming',563626,364993,198633);
+/*!40000 ALTER TABLE `Rural_Urban_Population_By_State` ENABLE KEYS */;
+UNLOCK TABLES;
+SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-12-26 14:29:44
